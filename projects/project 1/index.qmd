@@ -1,0 +1,17 @@
+---
+title: "Predicting Late Delivery Risk for a Sport Retail Business"
+author: Nitya Kowsalya Vootla
+image: "files/latedelivery.jpg"
+---
+
+# Header
+
+This project analyzes and predicts late delivery trends in a sports retail business, identifying key factors like shipping mode, order location, and payment method using logistic regression. It provides actionable insights via interactive dashboards to improve delivery performance.
+
+Github Link [here](https://github.com/rsm-kvootla/DataCo).
+
+
+## Sub-Header
+This project, titled "Identifying Risk of Late Deliveries in a Sports Retail Business," focuses on analyzing and mitigating late deliveries in a sports retail business operating across the Americas. The business fulfills over 21,000 orders annually, generating $42 million in sales, with products sourced from the USA and Puerto Rico and sold across 22 countries.
+
+Skills used: Python, Streamlit, Data visualization, Scikit-learn, Feature Engineering, RandomForest, Logistic Regression
