@@ -1,0 +1,25 @@
+---
+title: "Nitya Kowsalya Vootla"
+image: "files/profile_pic.jpg"
+about:
+  template: jolla
+  links:
+    - icon: envelope
+      href: mailto:kvootla@ucsd.edu
+    - icon: linkedin
+      href: https://www.linkedin.com/in/nityavootla/
+---
+<div style="text-align: left;">
+
+Call me the KPI Knight 🦸🏿‍♀️I achieve business goals through strategic insights, scalable solutions, and cross-functional execution. I build platforms, analytical tools, and products hat help businesses optimize processes, mitigate risks, enhance customer experience, and drive sustainable growth. 
+
+🦸🏿‍♀️At TikTok, I launched a risk intelligence platform to ensure a safer consumer shopping experience and make uncovering risks a 50% more efficient process across 12 global teams.\
+🦸🏿‍♀️At Glints, a high-growth Southeast Asian startup, I spearheaded the implementation of CRM software, increasing lead conversion by 40%, and launched a B2B client service ticketing system that improved customer issue resolution by 52%.\
+🦸🏿‍♀️At Halliburton, I built more efficient project management tools that optimized supply chain analytics and tracking processes, achieving $200K in cost savings within my first six months in a full-time role.\
+🦸🏿‍♀️ At UCSD, I work extensively on building and tuning LLM powered Assistants, as well as advanced statistical modeling and machine learning methods to optimize fraud analytics and customer analytics. 
+
+Armed with a Master’s in Business Analytics from UC San Diego, I specialize in translating complex data into actionable strategies to build tools and products. Whether it’s driving customer satisfaction, refining operational efficiency, or scaling analytics capabilities, I bring resilience and a builder’s precision to every project. Beyond my work, I enjoy volunteering as a student consultant for non-profits, running, and creating vegan dishes for my friends.
+
+Let’s connect if you're looking for a results-driven, data-savvy creative to augment your platforms and products. 
+
+</div>
