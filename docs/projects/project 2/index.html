@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Your Name">
+<meta name="dcterms.date" content="2025-04-22">
 
-<title>Untitled – Nitya’s Website and Portfolio</title>
+<title>A Replication of Karlan and List (2007) – Nitya’s Website and Portfolio</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,10 +22,44 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -66,6 +102,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 <link rel="stylesheet" href="../../styles.css">
@@ -111,22 +150,68 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
+  <ul class="collapse">
+  <li><a href="#description-of-experiment" id="toc-description-of-experiment" class="nav-link" data-scroll-target="#description-of-experiment">Description of Experiment</a></li>
+  </ul></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a>
+  <ul class="collapse">
+  <li><a href="#description" id="toc-description" class="nav-link" data-scroll-target="#description">Description</a></li>
+  </ul></li>
+  <li><a href="#data-description-stats" id="toc-data-description-stats" class="nav-link" data-scroll-target="#data-description-stats">Data Description Stats</a>
+  <ul class="collapse">
+  <li><a href="#distribution-and-frequency-plots-of-donation-amount-from-donors-who-gave-based-on-past-donation-and-financial-status-data-and-variables-being-modified" id="toc-distribution-and-frequency-plots-of-donation-amount-from-donors-who-gave-based-on-past-donation-and-financial-status-data-and-variables-being-modified" class="nav-link" data-scroll-target="#distribution-and-frequency-plots-of-donation-amount-from-donors-who-gave-based-on-past-donation-and-financial-status-data-and-variables-being-modified">Distribution and Frequency Plots of Donation Amount from donors who gave based on past donation and financial status data and variables being modified</a></li>
+  <li><a href="#distribution-and-frequency-plots-of-donation-amount-from-donors-who-gave-based-on-donor-characteristics-geopolitical-context-and-location-zipcode-demographics" id="toc-distribution-and-frequency-plots-of-donation-amount-from-donors-who-gave-based-on-donor-characteristics-geopolitical-context-and-location-zipcode-demographics" class="nav-link" data-scroll-target="#distribution-and-frequency-plots-of-donation-amount-from-donors-who-gave-based-on-donor-characteristics-geopolitical-context-and-location-zipcode-demographics">Distribution and Frequency Plots of Donation Amount from donors who gave based on donor characteristics, geopolitical context, and location (zipcode) demographics</a></li>
+  <li><a href="#balance-test" id="toc-balance-test" class="nav-link" data-scroll-target="#balance-test">Balance Test</a></li>
+  </ul></li>
+  <li><a href="#check-the-control-and-treatment-groups-are-balanced-on-the-following-variables-through-the-use-of-t-tests-and-linear-regression" id="toc-check-the-control-and-treatment-groups-are-balanced-on-the-following-variables-through-the-use-of-t-tests-and-linear-regression" class="nav-link" data-scroll-target="#check-the-control-and-treatment-groups-are-balanced-on-the-following-variables-through-the-use-of-t-tests-and-linear-regression">Check the control and treatment groups are balanced on the following variables through the use of t-tests and linear regression</a>
+  <ul class="collapse">
+  <li><a href="#experimental-results" id="toc-experimental-results" class="nav-link" data-scroll-target="#experimental-results">Experimental Results</a>
+  <ul class="collapse">
+  <li><a href="#charitable-contribution-made" id="toc-charitable-contribution-made" class="nav-link" data-scroll-target="#charitable-contribution-made">Charitable Contribution Made</a></li>
+  <li><a href="#differences-between-match-rates" id="toc-differences-between-match-rates" class="nav-link" data-scroll-target="#differences-between-match-rates">Differences between Match Rates</a></li>
+  <li><a href="#size-of-charitable-contribution" id="toc-size-of-charitable-contribution" class="nav-link" data-scroll-target="#size-of-charitable-contribution">Size of Charitable Contribution</a></li>
+  </ul></li>
+  <li><a href="#simulation-experiment" id="toc-simulation-experiment" class="nav-link" data-scroll-target="#simulation-experiment">Simulation Experiment</a>
+  <ul class="collapse">
+  <li><a href="#law-of-large-numbers" id="toc-law-of-large-numbers" class="nav-link" data-scroll-target="#law-of-large-numbers">Law of Large Numbers</a></li>
+  <li><a href="#central-limit-theorem" id="toc-central-limit-theorem" class="nav-link" data-scroll-target="#central-limit-theorem">Central Limit Theorem</a></li>
+  <li><a href="#detailed-code-jupternotebook" id="toc-detailed-code-jupternotebook" class="nav-link" data-scroll-target="#detailed-code-jupternotebook">Detailed Code Jupternotebook</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Untitled</h1>
+<h1 class="title">A Replication of Karlan and List (2007)</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Your Name </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 22, 2025</p>
+    </div>
+  </div>
   
     
   </div>
@@ -136,8 +221,1356 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Dean Karlan at Yale and John List at the University of Chicago conducted a field experiment to test the effectiveness of different fundraising letters. They sent out 50,000 fundraising letters to potential donors, randomly assigning each letter to one of three treatments: a standard letter, a matching grant letter, or a challenge grant letter. They published the results of this experiment in the <em>American Economic Review</em> in 2007. The article and supporting data are available from the <a href="https://www.aeaweb.org/articles?id=10.1257/aer.97.5.1774">AEA website</a> and from Innovations for Poverty Action as part of <a href="https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/27853&amp;version=4.2">Harvard’s Dataverse</a>.</p>
+<section id="description-of-experiment" class="level3">
+<h3 class="anchored" data-anchor-id="description-of-experiment">Description of Experiment</h3>
+<p>In their 2007 study, Karlan and List implemented a large-scale natural field experiment to investigate how the match rate of matching grants influence charitable giving behavior. They employ a direct mail solicitation to explore whether and the extent to which, “price” i.e.&nbsp;cost to the donor of providing one dollar’s worth of public good to a nonprofit, is crucial in charitable fundraising.</p>
+<p>The experiment involved 50,083 previous donors who had contributed, at least once since 1991, to a chosen liberal nonprofit organization in the United States. All individuals received one of the variations of a four page fundraising letter and reply card via direct mail, a standard channel used large charities in the US to ensure practical interest and high external validity. Furthermore, because the organization is politically engaged, this allows the team to explore heterogeneous treatment effects, particularly in how donors from “red” and “blue” states responded to the match offers.</p>
+<p>Participants were randomly assigned to either a control group (approximately one-third of the sample) or a treatment group (the remaining two-thirds). The control group received a letter following the organization’s conventional format and a reply card with a large logo of the organization, while the treatment group received a letter that included an announcement on a “concerned fellow member” offering to match their donation, with a reply card that included the details of the match in bold font.</p>
+<p>Within the treatment group, the experiment further varied the characteristics of the matching grant along three dimensions with equal probability:</p>
+<ul>
+<li><p>First, the matching ratio was randomized to be either $1:$1, $2:$1, or $3:$1, meaning that for each dollar donated, the organization would receive an additional $1, $2, or $3, respectively. This allowed the researchers to test whether increasing the perceived “value” of a donation would lead to higher giving.</p></li>
+<li><p>Second, the maximum size of the matching grant pool was varied, with donors being told it was capped at $25,000, $50,000, $100,000, or left unstated. This tested whether the size of the match fund—possibly perceived as a signal of the urgency or importance of the campaign—influenced donor behavior.</p></li>
+<li><p>Third, the suggested donation amount was tailored to each donor’s prior giving history, using either the same amount as their highest previous contribution, or scaling it up by 1.25 or 1.5 times. The chosen example was used in the matching paragraph to illustrate the impact of their gift under the match.</p></li>
+</ul>
+<p>The design of the experiment was intended not only to evaluate the overall impact of matching grants but also to probe how different configurations of the matching appeal might influence giving, by understanding the social behavioral mechanisms behind charitable donations like conformity, social norms, and reciprocity.</p>
+<p>The key hypotheses in this experiment are:</p>
+<ol type="1">
+<li>Presence of a Matching Grant Increases Giving: Donors are more likely to contribute when a matching grant is offered, compared to when no match is offered.</li>
+<li>Higher Match Ratios Lead to Higher Giving: Increasing the match ratio (e.g., from $1:$1 to $2:$1 or $3:$1) will further increase donation rates and total contributions by making the “price” of giving lower.</li>
+<li>Larger Matching Grant Pools Increase Giving: Announcing a larger maximum size of the matching fund (e.g., $100,000 vs.&nbsp;$25,000) will lead to greater donations due to perceived urgency, credibility, or impact.</li>
+<li>Higher Suggested Donation Amounts Influence Giving: Presenting donors with higher suggested donation amounts will lead to larger contributions, possibly by anchoring their perception of a “typical” or expected gift.</li>
+<li>Donor Responsiveness to Matching Grants Varies by Political Context: Donors living in different political environments (e.g., red vs.&nbsp;blue states) will respond differently to the match offer, potentially due to identity, perceived relevance, or local norms.</li>
+</ol>
+<p>This project seeks to replicate their results.</p>
+</section>
+</section>
+<section id="data" class="level2">
+<h2 class="anchored" data-anchor-id="data">Data</h2>
+<section id="description" class="level3">
+<h3 class="anchored" data-anchor-id="description">Description</h3>
+<p>The dataset comprises over 50,000 individual-level observations from a natural field experiment testing how matching grants affect charitable giving. Each observation represents a prior donor to a politically liberal nonprofit organization in the U.S., who received a direct mail solicitation in 2005. The data include detailed treatment indicators, such as whether the individual received a matching grant (treatment), the match ratio (1:1, 2:1, or 3:1), the maximum match pool size (e.g., $25k, $50k), and suggested donation amounts based on their past giving. A tabulated description of the data variables id provided below, followed by a more detailed description:</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Variable Definitions
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 75%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>treatment</code></td>
+<td>Treatment</td>
+</tr>
+<tr class="even">
+<td><code>control</code></td>
+<td>Control</td>
+</tr>
+<tr class="odd">
+<td><code>ratio</code></td>
+<td>Match ratio</td>
+</tr>
+<tr class="even">
+<td><code>ratio2</code></td>
+<td>2:1 match ratio</td>
+</tr>
+<tr class="odd">
+<td><code>ratio3</code></td>
+<td>3:1 match ratio</td>
+</tr>
+<tr class="even">
+<td><code>size</code></td>
+<td>Match threshold</td>
+</tr>
+<tr class="odd">
+<td><code>size25</code></td>
+<td>$25,000 match threshold</td>
+</tr>
+<tr class="even">
+<td><code>size50</code></td>
+<td>$50,000 match threshold</td>
+</tr>
+<tr class="odd">
+<td><code>size100</code></td>
+<td>$100,000 match threshold</td>
+</tr>
+<tr class="even">
+<td><code>sizeno</code></td>
+<td>Unstated match threshold</td>
+</tr>
+<tr class="odd">
+<td><code>ask</code></td>
+<td>Suggested donation amount</td>
+</tr>
+<tr class="even">
+<td><code>askd1</code></td>
+<td>Suggested donation was highest previous contribution</td>
+</tr>
+<tr class="odd">
+<td><code>askd2</code></td>
+<td>Suggested donation was 1.25 x highest previous contribution</td>
+</tr>
+<tr class="even">
+<td><code>askd3</code></td>
+<td>Suggested donation was 1.50 x highest previous contribution</td>
+</tr>
+<tr class="odd">
+<td><code>ask1</code></td>
+<td>Highest previous contribution (for suggestion)</td>
+</tr>
+<tr class="even">
+<td><code>ask2</code></td>
+<td>1.25 x highest previous contribution (for suggestion)</td>
+</tr>
+<tr class="odd">
+<td><code>ask3</code></td>
+<td>1.50 x highest previous contribution (for suggestion)</td>
+</tr>
+<tr class="even">
+<td><code>amount</code></td>
+<td>Dollars given</td>
+</tr>
+<tr class="odd">
+<td><code>gave</code></td>
+<td>Gave anything</td>
+</tr>
+<tr class="even">
+<td><code>amountchange</code></td>
+<td>Change in amount given</td>
+</tr>
+<tr class="odd">
+<td><code>hpa</code></td>
+<td>Highest previous contribution</td>
+</tr>
+<tr class="even">
+<td><code>ltmedmra</code></td>
+<td>Small prior donor: last gift was less than median $35</td>
+</tr>
+<tr class="odd">
+<td><code>freq</code></td>
+<td>Number of prior donations</td>
+</tr>
+<tr class="even">
+<td><code>years</code></td>
+<td>Number of years since initial donation</td>
+</tr>
+<tr class="odd">
+<td><code>year5</code></td>
+<td>At least 5 years since initial donation</td>
+</tr>
+<tr class="even">
+<td><code>mrm2</code></td>
+<td>Number of months since last donation</td>
+</tr>
+<tr class="odd">
+<td><code>dormant</code></td>
+<td>Already donated in 2005</td>
+</tr>
+<tr class="even">
+<td><code>female</code></td>
+<td>Female</td>
+</tr>
+<tr class="odd">
+<td><code>couple</code></td>
+<td>Couple</td>
+</tr>
+<tr class="even">
+<td><code>state50one</code></td>
+<td>State tag: 1 for one observation of each of 50 states; 0 otherwise</td>
+</tr>
+<tr class="odd">
+<td><code>nonlit</code></td>
+<td>Nonlitigation</td>
+</tr>
+<tr class="even">
+<td><code>cases</code></td>
+<td>Court cases from state in 2004-5 in which organization was involved</td>
+</tr>
+<tr class="odd">
+<td><code>statecnt</code></td>
+<td>Percent of sample from state</td>
+</tr>
+<tr class="even">
+<td><code>stateresponse</code></td>
+<td>Proportion of sample from the state who gave</td>
+</tr>
+<tr class="odd">
+<td><code>stateresponset</code></td>
+<td>Proportion of treated sample from the state who gave</td>
+</tr>
+<tr class="even">
+<td><code>stateresponsec</code></td>
+<td>Proportion of control sample from the state who gave</td>
+</tr>
+<tr class="odd">
+<td><code>stateresponsetminc</code></td>
+<td>stateresponset - stateresponsec</td>
+</tr>
+<tr class="even">
+<td><code>perbush</code></td>
+<td>State vote share for Bush</td>
+</tr>
+<tr class="odd">
+<td><code>close25</code></td>
+<td>State vote share for Bush between 47.5% and 52.5%</td>
+</tr>
+<tr class="even">
+<td><code>red0</code></td>
+<td>Red state</td>
+</tr>
+<tr class="odd">
+<td><code>blue0</code></td>
+<td>Blue state</td>
+</tr>
+<tr class="even">
+<td><code>redcty</code></td>
+<td>Red county</td>
+</tr>
+<tr class="odd">
+<td><code>bluecty</code></td>
+<td>Blue county</td>
+</tr>
+<tr class="even">
+<td><code>pwhite</code></td>
+<td>Proportion white within zip code</td>
+</tr>
+<tr class="odd">
+<td><code>pblack</code></td>
+<td>Proportion black within zip code</td>
+</tr>
+<tr class="even">
+<td><code>page18_39</code></td>
+<td>Proportion age 18-39 within zip code</td>
+</tr>
+<tr class="odd">
+<td><code>ave_hh_sz</code></td>
+<td>Average household size within zip code</td>
+</tr>
+<tr class="even">
+<td><code>median_hhincome</code></td>
+<td>Median household income within zip code</td>
+</tr>
+<tr class="odd">
+<td><code>powner</code></td>
+<td>Proportion house owner within zip code</td>
+</tr>
+<tr class="even">
+<td><code>psch_atlstba</code></td>
+<td>Proportion who finished college within zip code</td>
+</tr>
+<tr class="odd">
+<td><code>pop_propurban</code></td>
+<td>Proportion of population urban within zip code</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="data-description-stats" class="level2">
+<h2 class="anchored" data-anchor-id="data-description-stats">Data Description Stats</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 2%">
+<col style="width: 2%">
+<col style="width: 2%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 2%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 2%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 5%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 4%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 4%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">treatment</th>
+<th style="text-align: right;">control</th>
+<th style="text-align: right;">ask1</th>
+<th style="text-align: right;">ask2</th>
+<th style="text-align: right;">ask3</th>
+<th style="text-align: right;">amount</th>
+<th style="text-align: right;">gave</th>
+<th style="text-align: right;">amountchange</th>
+<th style="text-align: right;">hpa</th>
+<th style="text-align: right;">freq</th>
+<th style="text-align: right;">years</th>
+<th style="text-align: right;">mrm2</th>
+<th style="text-align: right;">nonlit</th>
+<th style="text-align: right;">cases</th>
+<th style="text-align: right;">statecnt</th>
+<th style="text-align: right;">stateresponse</th>
+<th style="text-align: right;">stateresponset</th>
+<th style="text-align: right;">stateresponsec</th>
+<th style="text-align: right;">stateresponsetminc</th>
+<th style="text-align: right;">perbush</th>
+<th style="text-align: right;">pwhite</th>
+<th style="text-align: right;">pblack</th>
+<th style="text-align: right;">page18_39</th>
+<th style="text-align: right;">ave_hh_sz</th>
+<th style="text-align: right;">median_hhincome</th>
+<th style="text-align: right;">powner</th>
+<th style="text-align: right;">psch_atlstba</th>
+<th style="text-align: right;">pop_propurban</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">50083</td>
+<td style="text-align: right;">50083</td>
+<td style="text-align: right;">50083</td>
+<td style="text-align: right;">50083</td>
+<td style="text-align: right;">50083</td>
+<td style="text-align: right;">50083</td>
+<td style="text-align: right;">50083</td>
+<td style="text-align: right;">50083</td>
+<td style="text-align: right;">50083</td>
+<td style="text-align: right;">50083</td>
+<td style="text-align: right;">50082</td>
+<td style="text-align: right;">50082</td>
+<td style="text-align: right;">49631</td>
+<td style="text-align: right;">49631</td>
+<td style="text-align: right;">50083</td>
+<td style="text-align: right;">50083</td>
+<td style="text-align: right;">50083</td>
+<td style="text-align: right;">50080</td>
+<td style="text-align: right;">50080</td>
+<td style="text-align: right;">50048</td>
+<td style="text-align: right;">48217</td>
+<td style="text-align: right;">48047</td>
+<td style="text-align: right;">48217</td>
+<td style="text-align: right;">48221</td>
+<td style="text-align: right;">48209</td>
+<td style="text-align: right;">48214</td>
+<td style="text-align: right;">48215</td>
+<td style="text-align: right;">48217</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.666813</td>
+<td style="text-align: right;">0.333187</td>
+<td style="text-align: right;">71.5018</td>
+<td style="text-align: right;">91.7927</td>
+<td style="text-align: right;">111.046</td>
+<td style="text-align: right;">0.915694</td>
+<td style="text-align: right;">0.0206457</td>
+<td style="text-align: right;">-52.672</td>
+<td style="text-align: right;">59.385</td>
+<td style="text-align: right;">8.03935</td>
+<td style="text-align: right;">6.09754</td>
+<td style="text-align: right;">13.0073</td>
+<td style="text-align: right;">2.47392</td>
+<td style="text-align: right;">1.49977</td>
+<td style="text-align: right;">5.99882</td>
+<td style="text-align: right;">0.0206269</td>
+<td style="text-align: right;">0.0219885</td>
+<td style="text-align: right;">0.0177167</td>
+<td style="text-align: right;">0.00427312</td>
+<td style="text-align: right;">0.48794</td>
+<td style="text-align: right;">0.819599</td>
+<td style="text-align: right;">0.0867098</td>
+<td style="text-align: right;">0.321694</td>
+<td style="text-align: right;">2.42901</td>
+<td style="text-align: right;">54815.7</td>
+<td style="text-align: right;">0.669418</td>
+<td style="text-align: right;">0.391661</td>
+<td style="text-align: right;">0.871968</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.471357</td>
+<td style="text-align: right;">0.471357</td>
+<td style="text-align: right;">101.729</td>
+<td style="text-align: right;">127.253</td>
+<td style="text-align: right;">151.674</td>
+<td style="text-align: right;">8.70739</td>
+<td style="text-align: right;">0.142197</td>
+<td style="text-align: right;">1267.1</td>
+<td style="text-align: right;">71.1799</td>
+<td style="text-align: right;">11.3945</td>
+<td style="text-align: right;">5.50349</td>
+<td style="text-align: right;">12.0814</td>
+<td style="text-align: right;">1.96153</td>
+<td style="text-align: right;">1.15514</td>
+<td style="text-align: right;">5.74599</td>
+<td style="text-align: right;">0.0051708</td>
+<td style="text-align: right;">0.00625721</td>
+<td style="text-align: right;">0.00751621</td>
+<td style="text-align: right;">0.00911209</td>
+<td style="text-align: right;">0.0787327</td>
+<td style="text-align: right;">0.16856</td>
+<td style="text-align: right;">0.135868</td>
+<td style="text-align: right;">0.103039</td>
+<td style="text-align: right;">0.378105</td>
+<td style="text-align: right;">22027.3</td>
+<td style="text-align: right;">0.193405</td>
+<td style="text-align: right;">0.186599</td>
+<td style="text-align: right;">0.258633</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">35</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-200412</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.00199481</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-0.047619</td>
+<td style="text-align: right;">0.0909091</td>
+<td style="text-align: right;">0.00941798</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">5000</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">35</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">55</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-50</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1.83323</td>
+<td style="text-align: right;">0.0181635</td>
+<td style="text-align: right;">0.0184932</td>
+<td style="text-align: right;">0.0128617</td>
+<td style="text-align: right;">-0.00138826</td>
+<td style="text-align: right;">0.444444</td>
+<td style="text-align: right;">0.755845</td>
+<td style="text-align: right;">0.0147292</td>
+<td style="text-align: right;">0.258311</td>
+<td style="text-align: right;">2.21</td>
+<td style="text-align: right;">39181</td>
+<td style="text-align: right;">0.560222</td>
+<td style="text-align: right;">0.235647</td>
+<td style="text-align: right;">0.884929</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">70</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-30</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3.5388</td>
+<td style="text-align: right;">0.0197095</td>
+<td style="text-align: right;">0.0216972</td>
+<td style="text-align: right;">0.0198814</td>
+<td style="text-align: right;">0.00177869</td>
+<td style="text-align: right;">0.484848</td>
+<td style="text-align: right;">0.872797</td>
+<td style="text-align: right;">0.0365541</td>
+<td style="text-align: right;">0.305534</td>
+<td style="text-align: right;">2.44</td>
+<td style="text-align: right;">50673</td>
+<td style="text-align: right;">0.712296</td>
+<td style="text-align: right;">0.373744</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">65</td>
+<td style="text-align: right;">85</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-25</td>
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">9.60702</td>
+<td style="text-align: right;">0.0230482</td>
+<td style="text-align: right;">0.0247027</td>
+<td style="text-align: right;">0.0208062</td>
+<td style="text-align: right;">0.0105448</td>
+<td style="text-align: right;">0.525253</td>
+<td style="text-align: right;">0.938827</td>
+<td style="text-align: right;">0.090882</td>
+<td style="text-align: right;">0.369132</td>
+<td style="text-align: right;">2.66</td>
+<td style="text-align: right;">66005</td>
+<td style="text-align: right;">0.816798</td>
+<td style="text-align: right;">0.530036</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1500</td>
+<td style="text-align: right;">1875</td>
+<td style="text-align: right;">2250</td>
+<td style="text-align: right;">400</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">275</td>
+<td style="text-align: right;">1000</td>
+<td style="text-align: right;">218</td>
+<td style="text-align: right;">95</td>
+<td style="text-align: right;">168</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">17.3688</td>
+<td style="text-align: right;">0.0769231</td>
+<td style="text-align: right;">0.111111</td>
+<td style="text-align: right;">0.0526316</td>
+<td style="text-align: right;">0.111111</td>
+<td style="text-align: right;">0.731959</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.989622</td>
+<td style="text-align: right;">0.997544</td>
+<td style="text-align: right;">5.27</td>
+<td style="text-align: right;">200001</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+</tbody>
+</table>
+<p>The donation rate across the sample was around 2.1%, and the average change in donation amount was a decrease of $52.67, reflecting the typical non-responsiveness of most individuals.</p>
+<p>Donor histories show that the average highest prior contribution was about $59.39, and the typical donor had given eight times over six years, with about 13 months since their last gift. Roughly 49% were small prior donors (last gift under $35), and 51% had been donors for five or more years, suggesting a base of moderately engaged supporters. The donor base was predominantly male—only 28% of donors were female—and about 9% were identified as couples, which could potentially reflect joint giving decisions or household-level donation behavior.</p>
+<p>In terms of geographic and political context, 40% of donors were from red states, 60% from blue states, and about half lived in red counties. The average vote share for George W. Bush in the donors’ states was just under 49%, with around 18.5% living in politically competitive states (close25). The treatment increased the average response rate by about 0.43 percentage points, with the treated group’s response rate at 2.2%, compared to 1.8% in the control. Additionally, the nonprofit was moderately active in most states, averaging about 2.47 nonlitigation events (public education campaigns, policy advocacy or lobbying, community organizing public events or speaking engagements etc.) and 1.5 legal cases per state, offering a measure of the organization’s local visibility.</p>
+<p>Finally, the dataset includes zip-code-level demographics that add further context to donor behavior. On average, zip codes were 82% white, with about 32% of the population aged 18–39. The median household income was approximately $54,816, and about 67% of residents were homeowners. Nearly 39% had at least a bachelor’s degree and 87% lived in urban areas. Majority of the donors were male (72.2%). These contextual data allow for analysis of how local socioeconomic factors interact with donor responses to the match offer, enriching the study’s implications for both behavioral economics and nonprofit strategy.</p>
+<section id="distribution-and-frequency-plots-of-donation-amount-from-donors-who-gave-based-on-past-donation-and-financial-status-data-and-variables-being-modified" class="level3">
+<h3 class="anchored" data-anchor-id="distribution-and-frequency-plots-of-donation-amount-from-donors-who-gave-based-on-past-donation-and-financial-status-data-and-variables-being-modified">Distribution and Frequency Plots of Donation Amount from donors who gave based on past donation and financial status data and variables being modified</h3>
+<p><img src="img1.png" class="img-fluid"></p>
+<p>The distributions of key variables reveal that most donors in the experiment were low-frequency, small-dollar contributors, with past donations typically under $100 and fewer than 10 total gifts. While a few donors were highly engaged or generous, they were the exception. The years since first donation were spread relatively evenly, suggesting a mix of both new and long-term supporters. Most recent donations occurred within the last few months, indicating a strong recency effect. Donors primarily lived in zip codes with median household incomes between $30,000 and $70,000, though some resided in wealthier areas.</p>
+<p>On the experimental side, the match ratio, match threshold, and suggested donation amount were all well balanced across groups, with no major disparities—indicating successful randomization. These distributions support the validity of comparisons across treatment groups and suggest that variables like recency of donation and donor longevity may be strong predictors of giving behavior.</p>
+</section>
+<section id="distribution-and-frequency-plots-of-donation-amount-from-donors-who-gave-based-on-donor-characteristics-geopolitical-context-and-location-zipcode-demographics" class="level3">
+<h3 class="anchored" data-anchor-id="distribution-and-frequency-plots-of-donation-amount-from-donors-who-gave-based-on-donor-characteristics-geopolitical-context-and-location-zipcode-demographics">Distribution and Frequency Plots of Donation Amount from donors who gave based on donor characteristics, geopolitical context, and location (zipcode) demographics</h3>
+<p><img src="img2.png" class="img-fluid"></p>
+<p>The visualizations show how donation amounts vary across donor characteristics, political context, and zip-code demographics. Donors who were previously small contributors (ltmedmra = 1) or had donated for over 5 years (year5 = 1) gave slightly more on average. Male donors gave more than female donors, and donors from blue states (red0 = 0) gave higher amounts than those from red states. Donation amounts increased with moderate values of Bush vote share (perbush) but not at extremes. Donations also varied non-linearly with the number of non-litigation activities in a state (nonlit). From a demographic perspective, donation amounts peaked among donors from zip codes with moderate income levels, higher homeownership (powner), and moderately educated areas (psch_atlstba), suggesting that both neighborhood affluence and stability may influence giving behavior.</p>
+</section>
+<section id="balance-test" class="level3">
+<h3 class="anchored" data-anchor-id="balance-test">Balance Test</h3>
+<p>As an ad hoc test of the randomization mechanism, I provide a series of tests that compare aspects of the treatment and control groups to assess whether they are statistically significantly different from one another.</p>
+</section>
+</section>
+<section id="check-the-control-and-treatment-groups-are-balanced-on-the-following-variables-through-the-use-of-t-tests-and-linear-regression" class="level1">
+<h1>Check the control and treatment groups are balanced on the following variables through the use of t-tests and linear regression</h1>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 12%">
+<col style="width: 17%">
+<col style="width: 14%">
+<col style="width: 15%">
+<col style="width: 17%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: right;">Manual T-Stat</th>
+<th style="text-align: right;">Critical Value</th>
+<th style="text-align: left;">Manual Test Conclusion</th>
+<th style="text-align: right;">Regression T-Stat</th>
+<th style="text-align: right;">Regression P-Value</th>
+<th style="text-align: left;">Regression Conclusion</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">freq</td>
+<td style="text-align: right;">-0.1108</td>
+<td style="text-align: right;">1.96</td>
+<td style="text-align: left;">Not Significant</td>
+<td style="text-align: right;">-0.1108</td>
+<td style="text-align: right;">0.9117</td>
+<td style="text-align: left;">Not Significant</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">year5</td>
+<td style="text-align: right;">-1.5627</td>
+<td style="text-align: right;">1.96</td>
+<td style="text-align: left;">Not Significant</td>
+<td style="text-align: right;">-1.5627</td>
+<td style="text-align: right;">0.1181</td>
+<td style="text-align: left;">Not Significant</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">female</td>
+<td style="text-align: right;">-1.7535</td>
+<td style="text-align: right;">1.96</td>
+<td style="text-align: left;">Not Significant</td>
+<td style="text-align: right;">-1.7535</td>
+<td style="text-align: right;">0.0795</td>
+<td style="text-align: left;">Not Significant</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">mrm2</td>
+<td style="text-align: right;">0.1195</td>
+<td style="text-align: right;">1.96</td>
+<td style="text-align: left;">Not Significant</td>
+<td style="text-align: right;">0.1195</td>
+<td style="text-align: right;">0.9049</td>
+<td style="text-align: left;">Not Significant</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">red0</td>
+<td style="text-align: right;">1.8773</td>
+<td style="text-align: right;">1.96</td>
+<td style="text-align: left;">Not Significant</td>
+<td style="text-align: right;">1.8773</td>
+<td style="text-align: right;">0.0605</td>
+<td style="text-align: left;">Not Significant</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">perbush</td>
+<td style="text-align: right;">2.7463</td>
+<td style="text-align: right;">1.96</td>
+<td style="text-align: left;">Significant</td>
+<td style="text-align: right;">2.7463</td>
+<td style="text-align: right;">0.006</td>
+<td style="text-align: left;">Significant</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">nonlit</td>
+<td style="text-align: right;">1.7052</td>
+<td style="text-align: right;">1.96</td>
+<td style="text-align: left;">Not Significant</td>
+<td style="text-align: right;">1.7052</td>
+<td style="text-align: right;">0.0882</td>
+<td style="text-align: left;">Not Significant</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">median_hhincome</td>
+<td style="text-align: right;">-0.7433</td>
+<td style="text-align: right;">1.96</td>
+<td style="text-align: left;">Not Significant</td>
+<td style="text-align: right;">-0.7433</td>
+<td style="text-align: right;">0.4573</td>
+<td style="text-align: left;">Not Significant</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">powner</td>
+<td style="text-align: right;">0.1895</td>
+<td style="text-align: right;">1.96</td>
+<td style="text-align: left;">Not Significant</td>
+<td style="text-align: right;">0.1894</td>
+<td style="text-align: right;">0.8498</td>
+<td style="text-align: left;">Not Significant</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">psch_atlstba</td>
+<td style="text-align: right;">-1.8427</td>
+<td style="text-align: right;">1.96</td>
+<td style="text-align: left;">Not Significant</td>
+<td style="text-align: right;">-1.8427</td>
+<td style="text-align: right;">0.0654</td>
+<td style="text-align: left;">Not Significant</td>
+</tr>
+</tbody>
+</table>
+<p>To assess the integrity of the randomization mechanism, a series of balance tests comparing several pre-treatment variables across the treatment and control groups was conducted. Using both manual t-tests and linear regressions, I evaluated characteristics such as donation history [‘freq’, ‘year5’, ‘female’,‘mrm2’], demographics[‘red0’, ‘perbush’, ‘nonlit’], and geographic context[‘median_hhincome’, ‘powner’, ‘psch_atlstba’]. While Table 1 in the paper presents descriptive statistics to suggest baseline balance, my analysis formally tests for statistical differences between groups.</p>
+<p>The results show that, at the 95% confidence level, most variables show no significant differences, consistent with Table 1, except perbush, which measures the state vote share for George W. Bush in the 2004 presidential election—were not statistically significantly different between the groups. The one significant difference in perbush (t = 2.75, p = 0.006) suggests that individuals in the treatment group were more likely to come from states that leaned Republican in 2004. This imbalance is particularly notable given that the paper finds the treatment effect (i.e., the impact of matching gifts) to be much stronger in “red” states than in “blue” ones.</p>
+<p>While the randomization appears to have succeeded for most covariates, the imbalance in perbush raises the possibility that some of the observed treatment effect could be confounded by political context. This supports the paper’s observation that treatment effectiveness may vary by political geography, and highlights the importance of considering perbush as a potential moderator in further analysis, as stated ” We find that the matching gift result is driven by agents in states that voted for George W. Bush in the 2004 presidential election: the match increases the revenue per solicitation by 55 percent in “red” states whereas there was little effect observed in “blue” states”.</p>
+<p>The following code performs the necessary analysis:</p>
+<div id="e269a523" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>file_path <span class="op">=</span> <span class="st">'karlan_list_2007.dta'</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>df1 <span class="op">=</span> pd.read_stata(file_path)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>df1[<span class="st">'gender'</span>] <span class="op">=</span> df1[<span class="st">'female'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="st">'F'</span> <span class="cf">if</span> x <span class="op">==</span> <span class="dv">1</span> <span class="cf">else</span> <span class="st">'M'</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df1.copy()</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>categorical_vars <span class="op">=</span> [</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">'ratio'</span>, <span class="st">'ratio2'</span>, <span class="st">'ratio3'</span>,</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">'size'</span>, <span class="st">'size25'</span>, <span class="st">'size50'</span>, <span class="st">'size100'</span>, <span class="st">'sizeno'</span>,</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">'askd1'</span>, <span class="st">'askd2'</span>, <span class="st">'askd3'</span>,</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">'ltmedmra'</span>, <span class="st">'year5'</span>, <span class="st">'dormant'</span>,</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">'female'</span>, <span class="st">'couple'</span>, <span class="st">'state50one'</span>, </span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">'close25'</span>, <span class="st">'red0'</span>, <span class="st">'blue0'</span>, <span class="st">'redcty'</span>, <span class="st">'bluecty'</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert to categorical</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>df[categorical_vars] <span class="op">=</span> df[categorical_vars].astype(<span class="st">'category'</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> t</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>donor_characteristics <span class="op">=</span> [<span class="st">'freq'</span>, <span class="st">'year5'</span>, <span class="st">'female'</span>,<span class="st">'mrm2'</span>]  </span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>geo_political_context <span class="op">=</span> [<span class="st">'red0'</span>, <span class="st">'perbush'</span>, <span class="st">'nonlit'</span>]</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>zip_code_demographics <span class="op">=</span> [<span class="st">'median_hhincome'</span>, <span class="st">'powner'</span>, <span class="st">'psch_atlstba'</span>]</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>all_vars <span class="op">=</span> donor_characteristics <span class="op">+</span> geo_political_context <span class="op">+</span> zip_code_demographics</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Set significance level</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.05</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Store results</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> []</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> v <span class="kw">in</span> all_vars:</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Drop missing data</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>    treatment <span class="op">=</span> df[df[<span class="st">'treatment'</span>] <span class="op">==</span> <span class="dv">1</span>][v].dropna()</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>    control <span class="op">=</span> df[df[<span class="st">'control'</span>] <span class="op">==</span> <span class="dv">1</span>][v].dropna()</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Convert categorical variables to numeric if necessary</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> treatment.dtype.name <span class="op">==</span> <span class="st">'category'</span>:</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>        treatment <span class="op">=</span> treatment.astype(<span class="bu">int</span>)</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> control.dtype.name <span class="op">==</span> <span class="st">'category'</span>:</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>        control <span class="op">=</span> control.astype(<span class="bu">int</span>)</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Manual t-test</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>    mean_diff <span class="op">=</span> treatment.mean() <span class="op">-</span> control.mean()</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>    var_treatment <span class="op">=</span> treatment.var(ddof<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>    var_control <span class="op">=</span> control.var(ddof<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>    n_treatment <span class="op">=</span> <span class="bu">len</span>(treatment)</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>    n_control <span class="op">=</span> <span class="bu">len</span>(control)</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>    pooled_se <span class="op">=</span> ((var_treatment <span class="op">/</span> n_treatment) <span class="op">+</span> (var_control <span class="op">/</span> n_control))<span class="op">**</span><span class="fl">0.5</span></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>    manual_t_stat <span class="op">=</span> mean_diff <span class="op">/</span> pooled_se</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>    df_degrees <span class="op">=</span> n_treatment <span class="op">+</span> n_control <span class="op">-</span> <span class="dv">2</span></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>    critical_value <span class="op">=</span> t.ppf(<span class="dv">1</span> <span class="op">-</span> alpha<span class="op">/</span><span class="dv">2</span>, df_degrees)</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>    manual_conclusion <span class="op">=</span> <span class="st">"Significant"</span> <span class="cf">if</span> <span class="bu">abs</span>(manual_t_stat) <span class="op">&gt;</span> critical_value <span class="cf">else</span> <span class="st">"Not Significant"</span></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Regression</span></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>    X <span class="op">=</span> df[<span class="st">'treatment'</span>]</span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> df[v]</span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>    X <span class="op">=</span> sm.add_constant(X)</span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> sm.OLS(y, X, missing<span class="op">=</span><span class="st">'drop'</span>).fit(cov_type<span class="op">=</span><span class="st">'HC1'</span>)</span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>    reg_t_stat <span class="op">=</span> <span class="bu">round</span>(model.tvalues[<span class="st">'treatment'</span>], <span class="dv">4</span>)</span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>    reg_p_value <span class="op">=</span> <span class="bu">round</span>(model.pvalues[<span class="st">'treatment'</span>], <span class="dv">4</span>)</span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>    reg_conclusion <span class="op">=</span> <span class="st">"Significant"</span> <span class="cf">if</span> reg_p_value <span class="op">&lt;</span> alpha <span class="cf">else</span> <span class="st">"Not Significant"</span></span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Store the results</span></span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>    results.append({</span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Variable"</span>: v,</span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Manual T-Stat"</span>: <span class="bu">round</span>(manual_t_stat, <span class="dv">4</span>),</span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Critical Value"</span>: <span class="bu">round</span>(critical_value, <span class="dv">4</span>),</span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Manual Test Conclusion"</span>: manual_conclusion,</span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Regression T-Stat"</span>: reg_t_stat,</span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Regression P-Value"</span>: reg_p_value,</span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Regression Conclusion"</span>: reg_conclusion</span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a>results_df <span class="op">=</span> pd.DataFrame(results)</span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a>results_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<div>
 
 
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Variable</th>
+<th data-quarto-table-cell-role="th">Manual T-Stat</th>
+<th data-quarto-table-cell-role="th">Critical Value</th>
+<th data-quarto-table-cell-role="th">Manual Test Conclusion</th>
+<th data-quarto-table-cell-role="th">Regression T-Stat</th>
+<th data-quarto-table-cell-role="th">Regression P-Value</th>
+<th data-quarto-table-cell-role="th">Regression Conclusion</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>freq</td>
+<td>-0.1108</td>
+<td>1.96</td>
+<td>Not Significant</td>
+<td>-0.1108</td>
+<td>0.9117</td>
+<td>Not Significant</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>year5</td>
+<td>-1.5627</td>
+<td>1.96</td>
+<td>Not Significant</td>
+<td>-1.5627</td>
+<td>0.1181</td>
+<td>Not Significant</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>female</td>
+<td>-1.7535</td>
+<td>1.96</td>
+<td>Not Significant</td>
+<td>-1.7535</td>
+<td>0.0795</td>
+<td>Not Significant</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>mrm2</td>
+<td>0.1195</td>
+<td>1.96</td>
+<td>Not Significant</td>
+<td>0.1195</td>
+<td>0.9049</td>
+<td>Not Significant</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>red0</td>
+<td>1.8773</td>
+<td>1.96</td>
+<td>Not Significant</td>
+<td>1.8773</td>
+<td>0.0605</td>
+<td>Not Significant</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>perbush</td>
+<td>2.7463</td>
+<td>1.96</td>
+<td>Significant</td>
+<td>2.7463</td>
+<td>0.0060</td>
+<td>Significant</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>nonlit</td>
+<td>1.7052</td>
+<td>1.96</td>
+<td>Not Significant</td>
+<td>1.7052</td>
+<td>0.0882</td>
+<td>Not Significant</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>median_hhincome</td>
+<td>-0.7433</td>
+<td>1.96</td>
+<td>Not Significant</td>
+<td>-0.7433</td>
+<td>0.4573</td>
+<td>Not Significant</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">8</td>
+<td>powner</td>
+<td>0.1895</td>
+<td>1.96</td>
+<td>Not Significant</td>
+<td>0.1894</td>
+<td>0.8498</td>
+<td>Not Significant</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">9</td>
+<td>psch_atlstba</td>
+<td>-1.8427</td>
+<td>1.96</td>
+<td>Not Significant</td>
+<td>-1.8427</td>
+<td>0.0654</td>
+<td>Not Significant</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<section id="experimental-results" class="level2">
+<h2 class="anchored" data-anchor-id="experimental-results">Experimental Results</h2>
+<section id="charitable-contribution-made" class="level3">
+<h3 class="anchored" data-anchor-id="charitable-contribution-made">Charitable Contribution Made</h3>
+<p>First, I analyze whether matched donations lead to an increased response rate of making a donation.</p>
+<p><img src="img3.png" class="img-fluid"></p>
+<p>The proportion of donors who made a donation in the treatment group was 2.2%, compared to 1.8% in the control group, wchih seems roughly equivalent. However, this also suggests that the matching grant increased the likelihood of making a donation by about 0.4 percentage points, or roughly 22% relative to the control group. It is also to be noted that participants were randomly assigned to either a control group (approximately one-third of the sample) or a treatment group (the remaining two-thirds), suggesting that the treatment group may have more statistical power to detect differences in the response rate.</p>
+<section id="impact-of-matching-gifts-on-donation-likelihood-evidence-from-a-bivariate-regression" class="level4">
+<h4 class="anchored" data-anchor-id="impact-of-matching-gifts-on-donation-likelihood-evidence-from-a-bivariate-regression">Impact of Matching Gifts on Donation Likelihood: Evidence from a Bivariate Regression</h4>
+<p>Next in my analysis, I ran a bivariate linear regression to test whether being in the treatment group—receiving a letter that included a matching donation offer—increased the likelihood of making a charitable donation. Using the binary outcome variable gave, I found that being in the treatment group increased the probability of donating by approximately 0.42 percentage points (coefficient 0.0042), keeping all else constant, while the intercept (0.0179) tells us the predicted probability of donating for someone in the control group. This result was statistically significant (p = 0.0019), indicating a real and measurable effect that is unlikely due to chance. The results are documented here:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 13%">
+<col style="width: 16%">
+<col style="width: 13%">
+<col style="width: 11%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: right;">Coefficient</th>
+<th style="text-align: right;">Standard Error</th>
+<th style="text-align: right;">t-Statistic</th>
+<th style="text-align: right;">p-Value</th>
+<th style="text-align: right;">CI Lower (95%)</th>
+<th style="text-align: right;">CI Upper (95%)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">const</td>
+<td style="text-align: right;">0.0178582</td>
+<td style="text-align: right;">0.00110068</td>
+<td style="text-align: right;">16.2246</td>
+<td style="text-align: right;">4.77903e-59</td>
+<td style="text-align: right;">0.0157009</td>
+<td style="text-align: right;">0.0200156</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">treatment</td>
+<td style="text-align: right;">0.00418035</td>
+<td style="text-align: right;">0.00134791</td>
+<td style="text-align: right;">3.10136</td>
+<td style="text-align: right;">0.0019274</td>
+<td style="text-align: right;">0.00153844</td>
+<td style="text-align: right;">0.00682227</td>
+</tr>
+</tbody>
+</table>
+<p>My findings closely match the descriptive statistics reported in Table 2A, Panel A of the paper, which shows a response rate of 2.2% for the treatment group versus 1.8% for the control group—also a 0.4 percentage point difference. While small in absolute terms, this represents a 22% relative increase in giving behavior, suggesting that individuals are more likely to donate when they believe their contribution will have greater impact. This supports the broader conclusion of the study: that subtle nudges, like matching gifts, can meaningfully influence human behavior by increasing the perceived value of giving. The result reinforces the idea that charitable behavior is not just about fixed generosity levels, it’s also about how the opportunity to give is presented.</p>
+</section>
+<section id="treatment-or-control-group-assignment-effect-on-donor-behavior-probit-evidence-from-a-charitable-giving-experiment" class="level4">
+<h4 class="anchored" data-anchor-id="treatment-or-control-group-assignment-effect-on-donor-behavior-probit-evidence-from-a-charitable-giving-experiment">Treatment or Control Group Assignment Effect on Donor Behavior: Probit Evidence from a Charitable Giving Experiment</h4>
+<p>Following this, I ran a Probit regression to examine whether being assigned to the treatment group (receiving a fundraising letter that included a matching donation offer) or control group affected the likelihood of making a charitable donation. The model found a positive and statistically significant treatment effect, with a coefficient of 0.0868 and a p-value of 0.0019, indicating the result is statistically significant, and unlikely due to chance.While the coefficient itself isn’t directly interpretable in percentage points (as it is in linear regression), the positive sign means that individuals in the treatment group were more likely to donate than those in the control group. The results are as follows:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 13%">
+<col style="width: 16%">
+<col style="width: 13%">
+<col style="width: 11%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: right;">Coefficient</th>
+<th style="text-align: right;">Standard Error</th>
+<th style="text-align: right;">t-Statistic</th>
+<th style="text-align: right;">p-Value</th>
+<th style="text-align: right;">CI Lower (95%)</th>
+<th style="text-align: right;">CI Upper (95%)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">const</td>
+<td style="text-align: right;">0.0178582</td>
+<td style="text-align: right;">0.00110068</td>
+<td style="text-align: right;">16.2246</td>
+<td style="text-align: right;">4.77903e-59</td>
+<td style="text-align: right;">0.0157009</td>
+<td style="text-align: right;">0.0200156</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">treatment</td>
+<td style="text-align: right;">0.00418035</td>
+<td style="text-align: right;">0.00134791</td>
+<td style="text-align: right;">3.10136</td>
+<td style="text-align: right;">0.0019274</td>
+<td style="text-align: right;">0.00153844</td>
+<td style="text-align: right;">0.00682227</td>
+</tr>
+</tbody>
+</table>
+<p>This aligns with earlier findings from the linear regression and confirms the descriptive results shown in Table 2A, where donation rates were higher in the treatment group.</p>
+<p>Therefore, this result reinforces that people who received a letter offering a matching donation were more likely to give than those who did not. While the actual increase in probability isn’t directly visible from the Probit coefficient, the positive and significant effect confirms that the matching offer changed behavior. This suggests that people are responsive to how giving is framed, in this case, making their contribution feel more impactful through a match. Even when the baseline donation rate is low, a small psychological nudge like a match can increase engagement and drive meaningful behavior change.</p>
+<p><em>NOTE: Linear regression results appear replicate Table 3 column 1 in the paper. Probit results do not, despite Table 3 indicating its results come from probit regressions.Probit regression results don’t match Table likely, because that table reports marginal effects (the estimated change in probability of donating when moving from control to treatment) than the raw coefficients from a Probit model. However, my Probit regression includes only the basic treatment indicator and outputs the raw coefficient, not the marginal effect. In a linear probability model (ordinary least squares on a binary outcome), the coefficient directly estimates the marginal effect, which is why the linear regression results match table 3 column 1.</em></p>
+</section>
+</section>
+<section id="differences-between-match-rates" class="level3">
+<h3 class="anchored" data-anchor-id="differences-between-match-rates">Differences between Match Rates</h3>
+<p>Next, I assess the effectiveness of different sizes of matched donations on the response rate.</p>
+<section id="using-a-series-of-t-tests-to-test-whether-the-size-of-the-match-ratio-has-an-effect-on-whether-people-donate-or-not" class="level4">
+<h4 class="anchored" data-anchor-id="using-a-series-of-t-tests-to-test-whether-the-size-of-the-match-ratio-has-an-effect-on-whether-people-donate-or-not">Using a series of t-tests to test whether the size of the match ratio has an effect on whether people donate or not</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 12%">
+<col style="width: 10%">
+<col style="width: 15%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Comparison</th>
+<th style="text-align: right;">Group 1 Mean Donation Rate</th>
+<th style="text-align: right;">Group 2 Mean Donation Rate</th>
+<th style="text-align: right;">Mean Diff (pp)</th>
+<th style="text-align: right;">T-Statistic</th>
+<th style="text-align: right;">Critical Value (±)</th>
+<th style="text-align: left;">Conclusion</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">2:1 vs 1:1</td>
+<td style="text-align: right;">2.26</td>
+<td style="text-align: right;">2.07</td>
+<td style="text-align: right;">0.19</td>
+<td style="text-align: right;">0.965</td>
+<td style="text-align: right;">1.9601</td>
+<td style="text-align: left;">Not Significant</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">3:1 vs 1:1</td>
+<td style="text-align: right;">2.27</td>
+<td style="text-align: right;">2.07</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">1.015</td>
+<td style="text-align: right;">1.9601</td>
+<td style="text-align: left;">Not Significant</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">3:1 vs 2:1</td>
+<td style="text-align: right;">2.27</td>
+<td style="text-align: right;">2.26</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">0.0501</td>
+<td style="text-align: right;">1.9601</td>
+<td style="text-align: left;">Not Significant</td>
+</tr>
+</tbody>
+</table>
+<p>To test whether the size of the match ratio affected donation behavior, I conducted a series of t-tests comparing donation rates across 1:1, 2:1, and 3:1 match groups. The results show that while donation rates were slightly higher for the 2:1 (2.26%) and 3:1 (2.27%) match groups compared to the 1:1 group (2.07%), these differences were not statistically significant at the 95% confidence level. Similarly, there was no meaningful difference between the 3:1 and 2:1 groups. All t-statistics were well below the critical threshold of 1.96, and all p-values exceeded 0.05.</p>
+<p>These findings suggest that simply increasing the generosity of the match offer, from 1:1 to 2:1 or 3:1, did not significantly increase the likelihood that someone would donate. In other words, while matching gifts appear to influence behavior overall, there is no strong evidence that larger match ratios (beyond 1:1) further increase donation rates. This directly aligns with authors’ statement in page 8 that larger match ratios (2:1, 3:1) did not have a meaningful influence on donation behavior, at least not in a statistically significant way. This confirms the idea that donors respond to the presence of a match offer, but are not particularly sensitive to how generous the match is.</p>
+</section>
+<section id="using-a-series-of-linear-regressions-to-test-whether-the-size-of-the-match-ratio-has-an-effect-on-whether-people-donate-or-not" class="level4">
+<h4 class="anchored" data-anchor-id="using-a-series-of-linear-regressions-to-test-whether-the-size-of-the-match-ratio-has-an-effect-on-whether-people-donate-or-not">Using a series of linear regressions to test whether the size of the match ratio has an effect on whether people donate or not</h4>
+<p>I ran a linear regression to evaluate whether the size of the match ratio (1:1, 2:1, or 3:1) had an effect on the likelihood of making a donation (gave, a binary variable). The model included dummy variables ratio1, ratio2, and ratio3 as independent variables, representing each of the three match groups. “ratio1” was created by flagging the cases where raio2 and ratio3 are 0, in the treatment group. The regression included a constant term, so the effect of each ratio variable is measured relative to an implicit baseline (control group).</p>
+<p>It is observed from the results of the linear regression that All three coefficients (ratio1, ratio2, and ratio3) are extremely large negative numbers (~-1.23e+10), and all are identical, which is a red flag. The standard errors are also enormous (~1.54e+11), resulting in very small t-statistics (≈ -0.08) and very high p-values (~0.936). Moreover, none of the coefficients are statistically significant, and the model R² is effectively 0, meaning the model explains none of the variation in donation behavior.</p>
+<p>The results show clear signs of a severe multicollinearity or design matrix error, likely caused by including all three dummy variables (ratio1, ratio2, ratio3) without dropping a reference group. Since the three dummies are mutually exclusive and exhaustive (they sum to 1), including all of them with a constant creates a perfect linear dependency, which leads to a singular matrix and unreliable coefficient estimates. To fix this, I omit one of the ratio dummies (e.g., drop ratio1) so that the remaining coefficients (ratio2 and ratio3) are interpreted relative to the 1:1 match group.</p>
+<p>The results now show the following:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 13%">
+<col style="width: 16%">
+<col style="width: 13%">
+<col style="width: 12%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: right;">Coefficient</th>
+<th style="text-align: right;">Standard Error</th>
+<th style="text-align: right;">t-Statistic</th>
+<th style="text-align: right;">p-Value</th>
+<th style="text-align: right;">CI Lower (95%)</th>
+<th style="text-align: right;">CI Upper (95%)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">const</td>
+<td style="text-align: right;">0.0190151</td>
+<td style="text-align: right;">0.000852479</td>
+<td style="text-align: right;">22.3056</td>
+<td style="text-align: right;">1.11719e-109</td>
+<td style="text-align: right;">0.0173442</td>
+<td style="text-align: right;">0.020686</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ratio2</td>
+<td style="text-align: right;">0.00361828</td>
+<td style="text-align: right;">0.00159454</td>
+<td style="text-align: right;">2.26917</td>
+<td style="text-align: right;">0.023262</td>
+<td style="text-align: right;">0.000492971</td>
+<td style="text-align: right;">0.00674359</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ratio3</td>
+<td style="text-align: right;">0.0037183</td>
+<td style="text-align: right;">0.00159479</td>
+<td style="text-align: right;">2.33153</td>
+<td style="text-align: right;">0.0197294</td>
+<td style="text-align: right;">0.000592493</td>
+<td style="text-align: right;">0.00684411</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>The intercept (0.0190) indicates that the average donation rate in the 1:1 match group was approximately 1.9%.<br>
+</li>
+<li>The coefficient for ratio2 is 0.0036, which means that the 2:1 match group donated at a rate that was 0.36 percentage points higher than the 1:1 group. This effect is statistically significant at the 5% level (p = 0.023).<br>
+</li>
+<li>The coefficient for ratio3 is 0.0037, meaning the 3:1 match group donated 0.37 percentage points more than the 1:1 group. This is also statistically significant (p = 0.020).<br>
+</li>
+<li>It is also to be noted that the model R^ is effectively 0, indicating that the model explains almost none of the variation in donation behavior.<br>
+</li>
+</ul>
+<p>Thus, the regression provides evidence that larger match ratios do modestly increase the likelihood of donating, compared to a standard 1:1 match. While the increases (less than half a percentage point) are small in absolute terms, they are statistically significant, suggesting that donors do respond to more generous match offers, even if the effect size is limited. This complements earlier t-test findings and supports the idea that match generosity does matter, but only slightly.</p>
+</section>
+<section id="response-rate-difference-between-11-21-and-31-match-ratios" class="level4">
+<h4 class="anchored" data-anchor-id="response-rate-difference-between-11-21-and-31-match-ratios">Response rate difference between 1:1, 2:1, and 3:1 match ratios</h4>
+<p>I now calculate the response rate difference between the 1:1 and 2:1 match ratios and the 2:1 and 3:1 ratios, both directly from the data and from the differences in the fitted coefficients in the previous regression. The response rates are as follows:</p>
+<p>2:1 vs 1:1 response rate difference: 0.0019 3:1 vs 2:1 response rate difference: 0.0001 Response rate difference from coefficients (2:1 - 1:1): 0.0036 Response rate difference from coefficients (3:1 - 2:1): 0.0001</p>
+<p>These results suggest that increasing the match ratio from 1:1 to 2:1 has a modest but meaningful effect on donor behavior (The 2:1 match group donated at a rate 0.19 percentage points higher as per the data, and 0.36 percentage points higher as per the difference from the coefficients, than the 1:1 group). However, increasing the match further from 2:1 to 3:1 offers almost no additional benefit (0.0001). Donors seem responsive to the presence and basic enhancement of a match, but not to increasingly generous match sizes beyond a certain point.</p>
+<p><em>NOTE: The small difference between your raw mean comparison and regression coefficient comes from how OLS regression estimates parameters (by minimizing squared errors)</em></p>
+</section>
+</section>
+<section id="size-of-charitable-contribution" class="level3">
+<h3 class="anchored" data-anchor-id="size-of-charitable-contribution">Size of Charitable Contribution</h3>
+<p>In this subsection, I analyze the effect of the size of matched donation on the size of the charitable contribution.</p>
+<section id="t-test-of-donation-amount-on-the-treatment-status" class="level4">
+<h4 class="anchored" data-anchor-id="t-test-of-donation-amount-on-the-treatment-status">T-test of donation amount on the treatment status</h4>
+<p>First, I conduct a t-test to compare the average donation amount between individuals in the treatment group (who received a matching gift offer) and those in the control group (no match).</p>
+<p>The analysis included all individuals, regardless of whether they donated or not. The Mean donation (treatment group) is $0.97 and the Mean donation (control group) is $0.81. The observed t-stat was 1.9182, at a p-value of 0.0551, which is statistically insignificant.While the treatment group gave slightly more on average, the p-value is just above the conventional 0.05 threshold, meaning the result is not statistically significant at the 95% confidence level.</p>
+<p>Overall, this analysis suggests that people who received a matching gift offer tended to donate more on average, but the evidence is not strong enough to confirm that this difference is due to the treatment rather than random chance. The p-value (0.055) is close to the significance cutoff, which means there might be a weak effect, but it’s not statistically conclusive.</p>
+</section>
+<section id="t-test-of-donation-amount-on-the-treatment-status-using-only-data-from-people-who-actually-donated" class="level4">
+<h4 class="anchored" data-anchor-id="t-test-of-donation-amount-on-the-treatment-status-using-only-data-from-people-who-actually-donated">T-test of donation amount on the treatment status using only data from people who actually donated</h4>
+<p>I also conducted an analysis including only individual from both group who donated (gave == 1). The mean donation among the treatment group was $43.87, while the control group gave slightly more on average, at $45.54. The observed t-statistic was -0.581 with a p-value of 0.561, which is well above the conventional 0.05 threshold. Similar to the analysis above, this means the difference is not statistically significant at the 95% confidence level, and we cannot conclude that the treatment had an effect on donation amount among donors.</p>
+<p>Confirming the t-stat and p-values using a bivariate regression of amount on treatment, conditional on donation, I took a deeper look at the regression coefficients. The regression coefficient for treatment is -1.67, meaning that, on average, donors in the treatment group gave $1.67 less than those in the control group, keeping all else constant. However, this difference is not statistically significant (p = 0.561), and the confidence interval ranges from about –$7.31 to +$3.97, meaning the true effect could easily be zero or even slightly positive. The results are as follows:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 13%">
+<col style="width: 16%">
+<col style="width: 13%">
+<col style="width: 11%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: right;">Coefficient</th>
+<th style="text-align: right;">Standard Error</th>
+<th style="text-align: right;">t-Statistic</th>
+<th style="text-align: right;">p-Value</th>
+<th style="text-align: right;">CI Lower (95%)</th>
+<th style="text-align: right;">CI Upper (95%)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">const</td>
+<td style="text-align: right;">45.5403</td>
+<td style="text-align: right;">2.42338</td>
+<td style="text-align: right;">18.7921</td>
+<td style="text-align: right;">5.47358e-68</td>
+<td style="text-align: right;">40.785</td>
+<td style="text-align: right;">50.2956</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">treatment</td>
+<td style="text-align: right;">-1.66839</td>
+<td style="text-align: right;">2.87238</td>
+<td style="text-align: right;">-0.580839</td>
+<td style="text-align: right;">0.561476</td>
+<td style="text-align: right;">-7.30477</td>
+<td style="text-align: right;">3.96799</td>
+</tr>
+</tbody>
+</table>
+<p>Overall, the analysis results do not support the idea that matching gifts increase donation size once someone is already giving. It is also to be noted that, by restricting the analysis to only people who gave, there is potential conditioning on a post-treatment outcome, and that can introduce selection bias. Therefore, the coefficient no longer reflects a clean causal effect, it’s just a descriptive comparison among people who chose to give. However, in the full sample, since treatment group was randomly assigned, there’s no systematic difference between the treatment and control groups, also verified by the mostly balanced dataset in the analysis in the first section, so the treatment effect can be interpreted as a causal effect.</p>
+</section>
+<section id="histogram-plots-of-donation-amounts-for-treatment-and-control-groups-only-among-people-who-donated" class="level4">
+<h4 class="anchored" data-anchor-id="histogram-plots-of-donation-amounts-for-treatment-and-control-groups-only-among-people-who-donated">Histogram plots of donation amounts for treatment and control groups, only among people who donated</h4>
+<p><img src="img4.png" class="img-fluid"></p>
+<p>The histograms display the distribution of donation amounts among individuals who donated, separated by treatment and control groups. Both groups exhibit a strong right skew, with most donations falling below $100 and a small number of large donations extending the tail of the distribution. The treatment group shows a higher concentration of smaller donations, while the control group has a slightly more even spread, including more mid-sized donations. The mean donation amount is slightly higher in the control group ($45.54) compared to the treatment group ($43.87), but this difference is small and not statistically significant, as seen in the analysis above.</p>
+</section>
+</section>
+</section>
+<section id="simulation-experiment" class="level2">
+<h2 class="anchored" data-anchor-id="simulation-experiment">Simulation Experiment</h2>
+<p>As a reminder of how the t-statistic “works,” in this section I use simulation to demonstrate the Law of Large Numbers and the Central Limit Theorem.</p>
+<ol type="1">
+<li>Suppose the true distribution of respondents who do not get a charitable donation match is Bernoulli with probability p=0.018 that a donation is made (control).<br>
+</li>
+<li>Further suppose that the true distribution of respondents who do get a charitable donation match of any size is Bernoulli with probability p=0.022 that a donation is made (treatment).<br>
+</li>
+</ol>
+<section id="law-of-large-numbers" class="level3">
+<h3 class="anchored" data-anchor-id="law-of-large-numbers">Law of Large Numbers</h3>
+<p>Simulating 10,000 draws from the control distribution and 10,000 draws from the treatment distribution, using a Bernoulli distribution. I then calculate a vector of 10,000 pairwise differences between each treatment and control outcome, and then plot the cumulative average of that vector of differences.</p>
+<p><img src="img5.png" class="img-fluid"></p>
+<p>At the beginning (small sample sizes), the average is highly variable and “noisy”, sometimes jumping well above or below the true value (0.004).</p>
+<p>As more simulations are added, the cumulative average should settle down and converges toward the true treatment effect of 0.004, shown by the red dashed line. However, in my plot, the cumulative average converges slightly above the true treatment effect. This is likely due to the random nature of the simulation, as a result of which our sample has slightly more donors than expected in the treatment group/ slightly fewer donors than expected in the control group. Or it could be that in this first run, the simulated sample overestimated the effect of treatment slightly and converged at around 0.007.</p>
+<p><img src="img6.png" class="img-fluid"></p>
+<p>Upon running the simulation a second time, and other subsequent runs, a plot similar to the one above is observed, where, as per the Law of Large Numbers the sample average eventually converges to the true average in expectation, at 0.004. This chart shows that even though individual samples may vary due to chance, the average across many independent observations eventually reflects the true underlying effect. This is the statistical foundation behind large-scale experiments and why we rely on big samples for inference.</p>
+<p>The following Python code simulates 10,000 Bernoulli trials from a control and treatment group, calculates their cumulative average difference, and plots the result.</p>
+<div id="5d6e0599" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># True probabilities</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>p_control <span class="op">=</span> <span class="fl">0.018</span>  <span class="co"># do not get any charitable match</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>p_treatment <span class="op">=</span> <span class="fl">0.022</span>  <span class="co"># get a charitable match of any size</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">10000</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate 10,000 Bernoulli draws from each group</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>control <span class="op">=</span> np.random.binomial(<span class="dv">1</span>, p_control, n)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>treatment <span class="op">=</span> np.random.binomial(<span class="dv">1</span>, p_treatment, n)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute differences between each draw (pairwise)</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>differences <span class="op">=</span> treatment <span class="op">-</span> control  <span class="co"># each element is 0, +1, or -1</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Cumulative average of the differences</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>cumulative_avg_diff <span class="op">=</span> np.cumsum(differences) <span class="op">/</span> np.arange(<span class="dv">1</span>, n <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>plt.plot(cumulative_avg_diff, label<span class="op">=</span><span class="st">"Cumulative Average of Differences"</span>, color<span class="op">=</span><span class="st">'blue'</span>)</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>plt.axhline(<span class="fl">0.004</span>, color<span class="op">=</span><span class="st">'red'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, label<span class="op">=</span><span class="st">"True Treatment Effect (0.004)"</span>)</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Number of Simulations"</span>)</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Cumulative Average Difference"</span>)</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Simulation Demonstrating Law of Large Numbers"</span>)</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-3-output-1.png" width="821" height="523" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="central-limit-theorem" class="level3">
+<h3 class="anchored" data-anchor-id="central-limit-theorem">Central Limit Theorem</h3>
+<p>In order to explore the Central Limit Theorem, I generated four histograms of the average differences between treatment and control groups at sample sizes of 50, 200, 500, and 1000. Each histogram represents the distribution of the average differences in treatment and control groups (using two Bernoulli distributions: control group with a 1.8% donation rate, treatment group with a 2.2% donation rate) from 1000 simulations at each sample size.</p>
+<p><img src="img7.png" class="img-fluid"></p>
+<p>This sequence of histograms demonstrates the Central Limit Theorem by showing how the distribution of average treatment effects becomes more normal and concentrated as the sample size increases. Each histogram represents 1,000 simulated differences in donation rates between treatment and control groups, using sample sizes of 50, 200, 500, and 1,000. At smaller sample sizes, the distribution of average effects is wide and irregular, reflecting high variability. As the sample size grows, the distributions become more bell-shaped, centered near the true treatment effect of 0.004, and show reduced spread. This illustrates that as sample size increases, the sampling distribution of the average treatment effect becomes approximately normal and more precise—just as the Central Limit Theorem predicts.</p>
+<p>The following Python code Simulates 1,000 experiments for each of 4 different sample sizes (n = 50, 200, 500, 1000), collects the 1,000 differences and plots a histogram for each sample size.</p>
+<div id="6299db41" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Set seed for reproducibility</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">42</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Parameters</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>p_control <span class="op">=</span> <span class="fl">0.018</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>p_treatment <span class="op">=</span> <span class="fl">0.022</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>sample_sizes <span class="op">=</span> [<span class="dv">50</span>, <span class="dv">200</span>, <span class="dv">500</span>, <span class="dv">1000</span>]</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>num_simulations <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Create subplots</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">4</span>, figsize<span class="op">=</span>(<span class="dv">20</span>, <span class="dv">5</span>), sharey<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, n <span class="kw">in</span> <span class="bu">enumerate</span>(sample_sizes):</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    mean_diffs <span class="op">=</span> []</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(num_simulations):</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>        control_sample <span class="op">=</span> np.random.binomial(<span class="dv">1</span>, p_control, n)</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>        treatment_sample <span class="op">=</span> np.random.binomial(<span class="dv">1</span>, p_treatment, n)</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>        diff <span class="op">=</span> treatment_sample.mean() <span class="op">-</span> control_sample.mean()</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>        mean_diffs.append(diff)</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Plot histogram</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    axs[i].hist(mean_diffs, bins<span class="op">=</span><span class="dv">30</span>, color<span class="op">=</span><span class="st">'skyblue'</span>, edgecolor<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    axs[i].axvline(<span class="fl">0.004</span>, color<span class="op">=</span><span class="st">'red'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, label<span class="op">=</span><span class="st">'True Treatment Effect'</span>)</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    axs[i].set_title(<span class="ss">f"Sample Size = </span><span class="sc">{</span>n<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    axs[i].set_xlabel(<span class="st">"Avg. Treatment Effect"</span>)</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    axs[i].legend()</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_ylabel(<span class="st">"Frequency"</span>)</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>plt.suptitle(<span class="st">"Demonstrating the Central Limit Theorem"</span>, fontsize<span class="op">=</span><span class="dv">16</span>)</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>plt.tight_layout(rect<span class="op">=</span>[<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.95</span>])</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-4-output-1.png" width="1907" height="473" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="detailed-code-jupternotebook" class="level3">
+<h3 class="anchored" data-anchor-id="detailed-code-jupternotebook">Detailed Code Jupternotebook</h3>
+<p>You can download and view the full Jupyter notebook that contains the analysis:</p>
+<iframe src="karlanlist.ipynb" width="100%" height="600px" style="border: 1px solid #ccc;">
+</iframe>
+<p><a href="../../projects/project 2/karlanlist.html" class="download">⬇️ Download Notebook</a></p>
+
+
+</section>
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

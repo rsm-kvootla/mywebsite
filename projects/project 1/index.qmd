@@ -1,7 +1,7 @@
 ---
 title: "Predicting Late Delivery Risk for a Sport Retail Business"
 author: Nitya Kowsalya Vootla
-image: "files/latedelivery.jpg"
+image: "latedelivery.jpg"
 ---
 
 # Header
