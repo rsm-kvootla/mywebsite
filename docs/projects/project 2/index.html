@@ -935,7 +935,7 @@ Variable Definitions
 <p>The results show that, at the 95% confidence level, most variables show no significant differences, consistent with Table 1, except perbush, which measures the state vote share for George W. Bush in the 2004 presidential election—were not statistically significantly different between the groups. The one significant difference in perbush (t = 2.75, p = 0.006) suggests that individuals in the treatment group were more likely to come from states that leaned Republican in 2004. This imbalance is particularly notable given that the paper finds the treatment effect (i.e., the impact of matching gifts) to be much stronger in “red” states than in “blue” ones.</p>
 <p>While the randomization appears to have succeeded for most covariates, the imbalance in perbush raises the possibility that some of the observed treatment effect could be confounded by political context. This supports the paper’s observation that treatment effectiveness may vary by political geography, and highlights the importance of considering perbush as a potential moderator in further analysis, as stated ” We find that the matching gift result is driven by agents in states that voted for George W. Bush in the 2004 presidential election: the match increases the revenue per solicitation by 55 percent in “red” states whereas there was little effect observed in “blue” states”.</p>
 <p>The following code performs the necessary analysis:</p>
-<div id="e269a523" class="cell" data-execution_count="1">
+<div id="4ea10a6f" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>file_path <span class="op">=</span> <span class="st">'karlan_list_2007.dta'</span></span>
@@ -1469,7 +1469,7 @@ Variable Definitions
 <p><img src="img6.png" class="img-fluid"></p>
 <p>Upon running the simulation a second time, and other subsequent runs, a plot similar to the one above is observed, where, as per the Law of Large Numbers the sample average eventually converges to the true average in expectation, at 0.004. This chart shows that even though individual samples may vary due to chance, the average across many independent observations eventually reflects the true underlying effect. This is the statistical foundation behind large-scale experiments and why we rely on big samples for inference.</p>
 <p>The following Python code simulates 10,000 Bernoulli trials from a control and treatment group, calculates their cumulative average difference, and plots the result.</p>
-<div id="5d6e0599" class="cell" data-execution_count="2">
+<div id="b6b36d63" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1503,7 +1503,7 @@ Variable Definitions
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-3-output-1.png" width="821" height="523" class="figure-img"></p>
+<p><img src="index_files/figure-html/cell-3-output-1.png" width="812" height="523" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1515,7 +1515,7 @@ Variable Definitions
 <p><img src="img7.png" class="img-fluid"></p>
 <p>This sequence of histograms demonstrates the Central Limit Theorem by showing how the distribution of average treatment effects becomes more normal and concentrated as the sample size increases. Each histogram represents 1,000 simulated differences in donation rates between treatment and control groups, using sample sizes of 50, 200, 500, and 1,000. At smaller sample sizes, the distribution of average effects is wide and irregular, reflecting high variability. As the sample size grows, the distributions become more bell-shaped, centered near the true treatment effect of 0.004, and show reduced spread. This illustrates that as sample size increases, the sampling distribution of the average treatment effect becomes approximately normal and more precise—just as the Central Limit Theorem predicts.</p>
 <p>The following Python code Simulates 1,000 experiments for each of 4 different sample sizes (n = 50, 200, 500, 1000), collects the 1,000 differences and plots a histogram for each sample size.</p>
-<div id="6299db41" class="cell" data-execution_count="3">
+<div id="3ee8132d" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
