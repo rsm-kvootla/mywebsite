@@ -446,6 +446,9 @@ In order to explore the Central Limit Theorem, I generated four histograms of th
 
 This sequence of histograms demonstrates the Central Limit Theorem by showing how the distribution of average treatment effects becomes more normal and concentrated as the sample size increases. Each histogram represents 1,000 simulated differences in donation rates between treatment and control groups, using sample sizes of 50, 200, 500, and 1,000. At smaller sample sizes, the distribution of average effects is wide and irregular, reflecting high variability. As the sample size grows, the distributions become more bell-shaped, centered near the true treatment effect of 0.004, and show reduced spread. This illustrates that as sample size increases, the sampling distribution of the average treatment effect becomes approximately normal and more precise—just as the Central Limit Theorem predicts.
 
+![](img8.png)
+
+
 The following Python code Simulates 1,000 experiments for each of 4 different sample sizes (n = 50, 200, 500, 1000), collects the 1,000 differences and plots a histogram for each sample size.
 
 ```{python}
@@ -493,11 +496,8 @@ plt.show()
 
 You can download and view the full Jupyter notebook that contains the analysis:
 
-<div style="overflow-x: auto;">
-  <iframe src="karlanlist.ipynb" width="100%" height="600px" style="border: 1px solid #ccc;"></iframe>
-</div>
-
 [⬇️ Download Notebook](karlanlist.ipynb){.download}
+
 
 
 
