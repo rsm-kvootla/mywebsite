@@ -4,6 +4,7 @@ listing:
   contents:
       - "projects/project 1/index.qmd"  # <-- the sub-directory with blog content
       - "projects/project 2/index.qmd"
+      - "projects/project 3/index.qmd"
   type: grid          # <-- my preferred layout type
 ---
 
