@@ -43,7 +43,7 @@ df_bp = pd.read_csv("blueprinty.csv")
 df_bp.head()
 ```
 
-:::: {.callout-note collapse="true"}
+
 ### Column Definitions
 
 | Column               | Description                                                         |
@@ -53,7 +53,7 @@ df_bp.head()
 | `age`                | Age of the firm in years since incorporation                        |
 | `iscustomer`         | Binary flag (1 = uses Blueprinty’s software, 0 = does not use)      |
 
-::::
+
 
 ## Data Description Stats
 
@@ -81,7 +81,7 @@ _The data file is anonymized and does not contain any identifying information fo
 
 ### Histograms and Means of patents by Customer Status
 
-:::: {.callout-note collapse="true"}
+
 ```{python}
 #Compare histograms and means of number of patents by customer status
 
@@ -111,7 +111,7 @@ mean_non_customers = non_customers['patents'].mean()
 print(f"Mean number of patents (Customers): {mean_customers:.2f}")
 print(f"Mean number of patents (Non-Customers): {mean_non_customers:.2f}")
 ```
-::::
+
 
 The data shows that customers of Blueprinty's software have a higher average number of patents (4.13) compared to non-customers (3.47). While the difference in means, about 0.66 patents, may seem modest, it is notable given the relatively large sample size: 481 customers and 1,019 non-customers. This suggests that firms using Blueprinty’s software may, on average, be more productive or successful in obtaining patents. Although causality cannot be established from this alone, the difference is consistent with the hypothesis that the software may contribute positively to patenting outcomes. Additionally, the customer group represents only about one-third of the sample, yet still shows a higher mean, which may indicate that Blueprinty's users are either more patent-focused firms or are benefiting from the software in enhancing their patent application success.
 
@@ -123,7 +123,7 @@ Blueprinty customers are not selected at random. It may be important to account 
 
 #### Age and Customer Status
 
-:::: {.callout-note collapse="true"}
+
 ```{python}
 # Group data by region and customer status
 df_bp['customer_status'] = df_bp['iscustomer'].map({0: 'Non-Customer', 1: 'Customer'})
@@ -138,13 +138,13 @@ plt.legend(title="Customer Status")
 plt.tight_layout()
 plt.show()
 ```
-::::
+
 
 The bar chart shows the regional distribution of firms by customer status. It reveals that the Northeast region has the highest number of customer firms, significantly exceeding the number of non-customers in that area. In contrast, in all other regions—including the Midwest, Northwest, South, and Southwest, non-customers outnumber customers by a wide margin. This suggests that Blueprinty's customer base is heavily concentrated in the Northeast, which may be a key market for the company. Regional differences like this could influence overall patterns in patenting success and should be considered when interpreting the relationship between software usage and patent outcomes.
 
 #### Region and Customer Status
 
-:::: {.callout-note collapse="true"}
+
 ```{python}
 # Plot boxplot to compare age by customer status
 import seaborn as sns
@@ -157,13 +157,13 @@ plt.ylabel("Age")
 plt.tight_layout()
 plt.show()
 ```
-::::
 
-:::: {.callout-note collapse="true"}
+
+
 ```{python}
 df_bp.groupby("iscustomer")["age"].mean()
 ```
-::::
+
 
 The boxplot compares the age distribution of customer and non-customer firms. It shows that customer firms tend to be slightly older, with a higher median age and a broader upper range compared to non-customers. While both groups have similar minimum ages, the interquartile range (middle 50% of values) is shifted upward for customers, suggesting they are generally more established. Additionally, the distribution for customer firms includes several firms nearing the maximum age of 49, while non-customers show a slightly narrower spread and fewer outliers. The means also show that customers are slightly older on average (26.9 years approx) than non-customers (26.1 years approx), though the difference is fairly small. This indicates that Blueprinty's software may be more commonly adopted by older, more mature firms, which could influence both their patenting behavior and business needs.
 
@@ -199,7 +199,7 @@ $$
 
 The log-likelihood function for the poisson model can be coded as a function of λ and Y as follows:
 
-:::: {.callout-note collapse="true"}
+
 ```{python}
 import numpy as np
 from scipy.special import gammaln 
@@ -216,11 +216,11 @@ def poisson_log_likelihood(lam, Y):
         return -np.inf  # Log-likelihood is undefined for non-positive lambda
     return np.sum(Y * np.log(lam) - lam - gammaln(Y + 1))
 ```
-::::
+
 
 The plots below shows how the likelihood and log-likelihood of the Poisson model varies across different values of λ, using the observed number of patents as input.
 
-:::: {.callout-note collapse="true"}
+
 ```{python}
 # Define the observed number of patents as input for Y
 Y = df_bp['patents'].values
@@ -261,7 +261,7 @@ plt.show()
 # Display the MLE
 print(f"Maximum Likelihood Estimate (MLE) for Lambda: {mle_lambda:.2f}")
 ```
-::::
+
 
 
 The two plots visualize how the Poisson likelihood and log-likelihood functions vary with different values of the parameter λ, based on the observed patent counts. In the first plot, the likelihood values are shown on the vertical axis, but they appear extremely close to zero across the entire range of λ. This is expected when working with products of many small probabilities, as happens when calculating likelihoods over a large dataset. These tiny values are difficult to interpret or visualize directly, which is why plotting the log-likelihood is generally preferred.
@@ -295,7 +295,7 @@ This result tells us that the MLE of \( \lambda \) is simply the sample mean of 
 
 ### MLE estimation using scipy.optimize()
 
-:::: {.callout-note collapse="true"}
+
 ```{python}
 #Find the MLE by optimizing likelihood function with sp.optimize()
 from scipy.optimize import minimize
@@ -320,7 +320,7 @@ print(f"Optimized Maximum Likelihood Estimate (MLE) for Lambda: {mle_lambda_opti
 mean_patens = df_bp["patents"].mean()
 print(f"Mean of Patents: {mean_patens:.2f}")
 ```
-::::
+
 
 The optimized maximum likelihood estimate (MLE) for λ is 3.68, indicating that the Poisson model estimates the average number of patents per firm in the sample to be approximately 3.68. This value serves as a data-driven benchmark for typical patenting activity among the firms studied. Since the Poisson distribution assumes that the mean and variance are equal, this estimate also reflects the expected variability in patent counts. If firms using Blueprinty’s software are found to have average patent counts significantly above this benchmark, it may suggest a positive association between software usage and patenting success.
 
@@ -330,7 +330,7 @@ Next, we extend our simple Poisson model to a Poisson Regression Model such that
 
 #### Including covariate matrix X in log-likelihood function
 
-:::: {.callout-note collapse="true"}
+
 ```{python}
 # Log-likelihood function with covariates
 def poisson_log_likelihood_with_covariates(beta, X, Y):
@@ -350,13 +350,13 @@ def poisson_log_likelihood_with_covariates(beta, X, Y):
     # Compute the log-likelihood
     return np.sum(Y * np.log(lambda_) - lambda_ - gammaln(Y + 1))
 ```
-::::
+
 
 #### Find MLE vector and Hessian of the Poisson model with covariates.
 
 This section outlines the steps taken to estimate a Poisson regression model using maximum likelihood estimation. We use scipy.optimize.minimize in Python to obtain the MLE estimates for the coefficient vector β, based on a covariate matrix including age, age squared, regional indicators, and customer status. The Hessian matrix from the optimization is then used to compute standard errors for the coefficient estimates.
 
-:::: {.callout-note collapse="true"}
+
 ```{python}
 import numpy as np
 import pandas as pd
@@ -413,13 +413,13 @@ summary = pd.DataFrame({
 summary = summary.round(4)
 summary
 ```
-::::
+
 
 The Poisson regression results show that firms using Blueprinty’s software have significantly higher expected patent counts, with the iscustomer coefficient of 0.208 indicating about a 23% increase. The positive coefficient for age and negative for agesquared suggest a concave relationship between age and patenting—older firms tend to produce more patents, but at a decreasing rate. Most regional effects are small, with slight increases observed in the South and Southwest. The intercept is negative, reflecting a low baseline patent rate for the reference group. Standard errors are relatively small, indicating precise estimates. Overall, the results support a positive association between software use and patent output.
 
 #### Validation using sm.GLM() function
 
-:::: {.callout-note collapse="true"}
+
 ```{python}
 import statsmodels.api as sm
 
@@ -439,7 +439,7 @@ poisson_results = poisson_model.fit()
 # Show the results
 print(poisson_results.summary())
 ```
-:::: 
+ 
 
 _The outputs differ slightly because the custom MLE implementation initially included clipping of the linear predictor to prevent numerical overflow, which subtly altered the likelihood surface. In contrast, statsmodels.GLM() uses a more robust internal optimization method without clipping, leading to more precise coefficient estimates._
 
@@ -459,7 +459,7 @@ Because the beta coefficients are not directly interpretable, the following appr
 1. Creating two scenarios of datasets: X_0 and X_1 where X_0 is the X data but with iscustomer=0 for every customer observation and X_1 is the X data but with iscustomer=1 for every customer observation. \
 2. Comparing the predicted number of patents for each firm utilizing X_0 and the fitted model by (i)getting the vector of predicted number of patents (y_pred_0) for every firm in the dataset, and using X_1 to get Y_pred_1 for every firm, and (ii)subtracting y_pred_1 minus y_pred_0 and take the average of that vector of differences.\
 
-:::: {.callout-note collapse="true"}
+
 ```{python}
 # Copy the original design matrix used in GLM
 X_0 = X_sm.copy()
@@ -494,7 +494,7 @@ AirBnB is a popular platform for booking short-term rentals. In March 2017, stud
 
 The data include the following variables:
 
-:::: {.callout-note collapse="true"}
+
 ### Variable Definitions
 
     - `id` = unique ID number for each unit
@@ -511,14 +511,14 @@ The data include the following variables:
     - `review_scores_value` = a "quality of value" score from reviews (1-10)
     - `instant_bookable` = "t" if instantly bookable, "f" if not
 
-::::
+
 
 ### Exploratory Data Analysis
 
 #### Data Cleaning
 The dataset contains 40,628 rows and 14 columns. The first step is to clean the data by removing any unnecessary columns and handling missing values. The `id` and `unnanmed:0` column are not needed for analysis, so they will be dropped. The `last_scraped` and `host_since` columns are also not needed for the analysis, as they do not provide useful information for modeling the number of reviews.
 
-:::: {.callout-note collapse="true"}
+
 ```{python}
 import pandas as pd
 df_ab = pd.read_csv('airbnb.csv')
@@ -531,13 +531,13 @@ cols = [
 df = df_ab[cols].dropna()
 
 ```
-:::: 
+ 
 
 #### Data Visualization
 
 **Histograms for numerical features**
 
-:::: {.callout-note collapse="true"}
+
 ```{python}
 import numpy as np
 import seaborn as sns
@@ -550,7 +550,7 @@ df[numeric_cols].hist(bins=30, figsize=(14, 10))
 plt.tight_layout()
 plt.show()
 ```
-:::: 
+ 
 
 The histograms of the numerical features reveal the following:
 
@@ -571,7 +571,7 @@ sns.heatmap(df[numeric_cols].corr(), annot=True, cmap='coolwarm', fmt=".2f")
 plt.title("Correlation Heatmap")
 plt.show()
 ```
-:::: 
+ 
 
 The correlation heatmap shows that the number of reviews, used as a proxy for bookings, has very weak correlations with all other numeric variables. It is essentially uncorrelated with price, size (bathrooms and bedrooms), and review scores. This suggests that popularity is not directly tied to these features alone, and other unmeasured factors such as location specifics, host responsiveness, or listing visibility may be influencing review volume.
 
@@ -582,7 +582,7 @@ Overall, while listing features and review scores tend to co-vary internally, th
 
 **Distribution of Number of Reviews**
 
-:::: {.callout-note collapse="true"}
+
 ```{python}
 # Plot distribution of number_of_reviews
 plt.figure(figsize=(8, 5))
@@ -592,14 +592,14 @@ plt.xlabel("Number of Reviews")
 plt.ylabel("Count")
 plt.show()
 ```
-::::
+
 
 The distribution of the number of reviews is highly right-skewed, indicating that while a small number of listings receive a large volume of reviews, the vast majority receive relatively few. Most listings have fewer than 20 reviews, with a sharp drop-off beyond that point. Only a small number of listings exceed 100 reviews, and very few surpass 200. This suggests that a limited set of listings likely dominate guest attention and bookings, possibly due to factors like high visibility, competitive pricing, or outstanding host performance. The skewed nature of the distribution supports the use of a Poisson or count-based model for analyzing the data.
 
 
 **Number of Reviews by Room Type**
 
-:::: {.callout-note collapse="true"}
+
 ```{python}
 # Average number of reviews by room_type
 plt.figure(figsize=(8, 5))
@@ -613,7 +613,7 @@ sns.boxplot(x='room_type', y='number_of_reviews', data=df)
 plt.title('Number of Reviews by Room Type')
 plt.show()
 ```
-::::
+
 
 These two plots together provide insight into how room type relates to the number of reviews on Airbnb, which we treat as a proxy for bookings. The bar plot shows that private rooms and entire homes/apartments have very similar average review counts, just over 21 reviews, while shared rooms lag behind with a noticeably lower average of around 17 reviews. This suggests that private and entire-unit listings are more frequently booked than shared rooms, on average.
 
@@ -621,7 +621,7 @@ The boxplot complements this by showing the distribution and spread of reviews. 
 
 **Number of Reviews by Instant Bookability**
 
-:::: {.callout-note collapse="true"}
+
 ```{python}
 # Average number of reviews by instant_bookable
 plt.figure(figsize=(8, 5))
@@ -635,13 +635,13 @@ sns.boxplot(x='instant_bookable', y='number_of_reviews', data=df)
 plt.title('Number of Reviews by Instant Bookable Status')
 plt.show()
 ```
-:::: 
+ 
 
 These two plots illustrate the relationship between instant bookability and the number of reviews on Airbnb listings. The bar plot shows that listings marked as instantly bookable (“t”) receive, on average, about 8 more reviews than those that are not (“f”) roughly 28 reviews vs. 20. This suggests a clear difference in average popularity or booking frequency between the two groups. The boxplot reinforces this finding: the distribution of reviews for instant-bookable listings is slightly higher across the board, with a higher median and a greater concentration of listings in the upper range of reviews. Both groups exhibit heavy right-skewness and contain high-outlier listings, but the instantly bookable group tends to outperform overall. Together, the plots suggest that instant bookability is associated with more reviews, which supports the idea that offering convenience and flexibility may drive more bookings.
 
 **Number of Reviews by Number of Bedrooms**
 
-:::: {.callout-note collapse="true"}
+
 ```{python}
 # Average number of reviews by room_type and instant_bookable (interaction)
 plt.figure(figsize=(8, 5))
@@ -655,7 +655,7 @@ sns.boxplot(x='bedrooms', y='number_of_reviews', data=df)
 plt.title('Number of Reviews by Bedrooms')
 plt.show()
 ```
-:::: 
+ 
 
 These two plots examine how the number of bedrooms in an Airbnb listing relates to the number of reviews (i.e., bookings). The boxplot shows that listings with 0 to 2 bedrooms are by far the most common and tend to have the highest concentration of reviews. Listings with 1 bedroom, in particular, have the widest spread and many high-outlier values, suggesting they are the most frequently booked. As the number of bedrooms increases, the number of reviews becomes more sparse, with a generally lower median and fewer high-review outliers.
 
@@ -663,7 +663,7 @@ The bar plot reinforces this trend: listings with 1–3 bedrooms have relatively
 
 **Average number of reviews by room_type and instant_bookable**
 
-:::: {.callout-note collapse="true"}
+
 ```{python}
 
 # Average number of reviews by room_type and instant_bookable (interaction)
@@ -674,7 +674,7 @@ plt.ylabel("Average Number of Reviews")
 plt.legend(title='Instant Bookable')
 plt.show()
 ```
-::::: 
+: 
 
 This plot shows the average number of reviews by room type, broken down by instant bookability. It reveals a consistent pattern across all room types: listings that are instantly bookable receive more reviews on average than those that are not. For both private rooms and entire homes/apartments, instant-bookable listings average around 27–29 reviews, compared to only 19–20 reviews for non-instant listings.Even for shared rooms, which have the lowest review counts overall, enabling instant booking still leads to a modest increase in average reviews.
 
@@ -684,7 +684,7 @@ This suggests that instant bookability enhances booking volume regardless of roo
 
 To better understand which listing characteristics are associated with higher booking activity, we fit a Poisson regression model using the number of reviews as a proxy for the number of bookings. This model is appropriate for count data and allows us to examine how various features including price, number of bedrooms and bathrooms, review scores, room type, and instant bookability, contribute to variation in review counts. By converting categorical variables to dummy indicators and standardizing the design matrix, we estimate the effect of each factor while controlling for the others. We then identify which predictors have a statistically significant association with review volume.
 
-::::: {.callout-note collapse="true"}
+:
 ```{python}
 import pandas as pd
 import statsmodels.api as sm
@@ -718,17 +718,17 @@ summary_df = summary_df.rename(columns={
 print(summary_df.round(4))
 
 ```
-::::: 
+: 
 Showing only significant results:
 
-::::: {.callout-note collapse="true"}
+:
 ```{python}
 # Filter and round significant results
 summary_results = summary_df[summary_df["P-Value"] < 0.05][["Coefficient", "Std. Error", "P-Value"]]
 summary_results = summary_results.round(4)
 print(summary_results)
 ```
-::::: 
+: 
 
 The Poisson regression model reveals several statistically significant predictors of the number of reviews, used here as a proxy for booking activity. The intercept represents the baseline log-expected number of reviews for a listing when all other variables are set to zero. This would correspond to a listing with zero price, zero days on the platform, no bathrooms or bedrooms, no review scores, not instantly bookable, and listed as the reference room type (entire home/apartment). Although this profile is not realistic, the intercept provides a baseline from which all other effects are interpreted.
 

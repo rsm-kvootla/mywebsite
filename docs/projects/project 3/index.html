@@ -188,6 +188,7 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
+  <li><a href="#column-definitions" id="toc-column-definitions" class="nav-link" data-scroll-target="#column-definitions">Column Definitions</a></li>
   </ul></li>
   <li><a href="#data-description-stats" id="toc-data-description-stats" class="nav-link" data-scroll-target="#data-description-stats">Data Description Stats</a>
   <ul class="collapse">
@@ -200,6 +201,12 @@ window.Quarto = {
   <li><a href="#estimation-of-poisson-regression-model" id="toc-estimation-of-poisson-regression-model" class="nav-link" data-scroll-target="#estimation-of-poisson-regression-model">Estimation of Poisson Regression Model</a></li>
   <li><a href="#interpretation-of-results" id="toc-interpretation-of-results" class="nav-link" data-scroll-target="#interpretation-of-results">Interpretation of Results</a></li>
   <li><a href="#conclusion-about-the-effect-of-blueprintys-software-on-patent-success" id="toc-conclusion-about-the-effect-of-blueprintys-software-on-patent-success" class="nav-link" data-scroll-target="#conclusion-about-the-effect-of-blueprintys-software-on-patent-success">Conclusion about the effect of Blueprinty’s software on patent success</a></li>
+  </ul></li>
+  <li><a href="#airbnb-case-study" id="toc-airbnb-case-study" class="nav-link" data-scroll-target="#airbnb-case-study">AirBnB Case Study</a>
+  <ul class="collapse">
+  <li><a href="#introduction-1" id="toc-introduction-1" class="nav-link" data-scroll-target="#introduction-1">Introduction</a></li>
+  <li><a href="#variable-definitions" id="toc-variable-definitions" class="nav-link" data-scroll-target="#variable-definitions">Variable Definitions</a></li>
+  <li><a href="#exploratory-data-analysis" id="toc-exploratory-data-analysis" class="nav-link" data-scroll-target="#exploratory-data-analysis">Exploratory Data Analysis</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -260,7 +267,7 @@ window.Quarto = {
 <section id="data" class="level3">
 <h3 class="anchored" data-anchor-id="data">Data</h3>
 <p>The dataset contains 1,500 rows of data on mature firms as described above. A snippet of it is displayed below along with a brief description of each column.</p>
-<div id="e1283d9c" class="cell" data-execution_count="1">
+<div id="f4a4e9bf" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Read the CSV file</span></span>
@@ -324,18 +331,9 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Column Definitions
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
+</section>
+<section id="column-definitions" class="level3">
+<h3 class="anchored" data-anchor-id="column-definitions">Column Definitions</h3>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 24%">
@@ -366,9 +364,6 @@ Column Definitions
 </tr>
 </tbody>
 </table>
-</div>
-</div>
-</div>
 </section>
 </section>
 <section id="data-description-stats" class="level2">
@@ -441,13 +436,7 @@ Column Definitions
 <p><em>The data file is anonymized and does not contain any identifying information for the firms surveyed. It is to be noted that there are 1145 unique entires, and 355 same entries, indicating that there are firms that have the same number of patents, age, and region, or that there may be duplicate entries in the dataset.</em></p>
 <section id="histograms-and-means-of-patents-by-customer-status" class="level3">
 <h3 class="anchored" data-anchor-id="histograms-and-means-of-patents-by-customer-status">Histograms and Means of patents by Customer Status</h3>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="bc4674e3" class="cell" data-execution_count="2">
+<div id="63d3af77" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Compare histograms and means of number of patents by customer status</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -487,9 +476,6 @@ Column Definitions
 Mean number of patents (Non-Customers): 3.47</code></pre>
 </div>
 </div>
-</div>
-</div>
-</div>
 <p>The data shows that customers of Blueprinty’s software have a higher average number of patents (4.13) compared to non-customers (3.47). While the difference in means, about 0.66 patents, may seem modest, it is notable given the relatively large sample size: 481 customers and 1,019 non-customers. This suggests that firms using Blueprinty’s software may, on average, be more productive or successful in obtaining patents. Although causality cannot be established from this alone, the difference is consistent with the hypothesis that the software may contribute positively to patenting outcomes. Additionally, the customer group represents only about one-third of the sample, yet still shows a higher mean, which may indicate that Blueprinty’s users are either more patent-focused firms or are benefiting from the software in enhancing their patent application success.</p>
 <p>The histogram indicates that firms using Blueprinty’s software tend to have higher patent counts, pointing to a possible positive association between software usage and patent success. While both customer and non-customer firms are most common in the lower patent range (0-3), non-customers are more concentrated at the lowest counts, whereas customers are more represented in the higher ranges, particularly beyond 6 patents. This suggests that either the software supports greater patent productivity or that more patent-active firms are inclined to use it. However, this observed relationship may be influenced by other variables, such as firm age or regional differences, which warrant further investigation.</p>
 <p>Blueprinty customers are not selected at random. It may be important to account for systematic differences in the age and regional location of customers vs non-customers.</p>
@@ -498,13 +484,7 @@ Mean number of patents (Non-Customers): 3.47</code></pre>
 <h3 class="anchored" data-anchor-id="comparing-regions-and-ages-by-customer-status">Comparing regions and ages by customer status</h3>
 <section id="age-and-customer-status" class="level4">
 <h4 class="anchored" data-anchor-id="age-and-customer-status">Age and Customer Status</h4>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="ff396ee6" class="cell" data-execution_count="3">
+<div id="fe55e842" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Group data by region and customer status</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>df_bp[<span class="st">'customer_status'</span>] <span class="op">=</span> df_bp[<span class="st">'iscustomer'</span>].<span class="bu">map</span>({<span class="dv">0</span>: <span class="st">'Non-Customer'</span>, <span class="dv">1</span>: <span class="st">'Customer'</span>})</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>region_comparison <span class="op">=</span> df_bp.groupby([<span class="st">'region'</span>, <span class="st">'customer_status'</span>]).size().unstack()</span>
@@ -525,20 +505,11 @@ Mean number of patents (Non-Customers): 3.47</code></pre>
 </div>
 </div>
 </div>
-</div>
-</div>
-</div>
 <p>The bar chart shows the regional distribution of firms by customer status. It reveals that the Northeast region has the highest number of customer firms, significantly exceeding the number of non-customers in that area. In contrast, in all other regions—including the Midwest, Northwest, South, and Southwest, non-customers outnumber customers by a wide margin. This suggests that Blueprinty’s customer base is heavily concentrated in the Northeast, which may be a key market for the company. Regional differences like this could influence overall patterns in patenting success and should be considered when interpreting the relationship between software usage and patent outcomes.</p>
 </section>
 <section id="region-and-customer-status" class="level4">
 <h4 class="anchored" data-anchor-id="region-and-customer-status">Region and Customer Status</h4>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="1ee554da" class="cell" data-execution_count="4">
+<div id="b2a2e246" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot boxplot to compare age by customer status</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -550,7 +521,7 @@ Mean number of patents (Non-Customers): 3.47</code></pre>
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/tmp/ipykernel_151124/4202040372.py:5: FutureWarning:
+<pre><code>/tmp/ipykernel_18066/4202040372.py:5: FutureWarning:
 
 
 
@@ -566,25 +537,13 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
 </div>
 </div>
 </div>
-</div>
-</div>
-</div>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="5021bd82" class="cell" data-execution_count="5">
+<div id="44549f5a" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df_bp.groupby(<span class="st">"iscustomer"</span>)[<span class="st">"age"</span>].mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>iscustomer
 0    26.101570
 1    26.900208
 Name: age, dtype: float64</code></pre>
-</div>
-</div>
-</div>
 </div>
 </div>
 <p>The boxplot compares the age distribution of customer and non-customer firms. It shows that customer firms tend to be slightly older, with a higher median age and a broader upper range compared to non-customers. While both groups have similar minimum ages, the interquartile range (middle 50% of values) is shifted upward for customers, suggesting they are generally more established. Additionally, the distribution for customer firms includes several firms nearing the maximum age of 49, while non-customers show a slightly narrower spread and fewer outliers. The means also show that customers are slightly older on average (26.9 years approx) than non-customers (26.1 years approx), though the difference is fairly small. This indicates that Blueprinty’s software may be more commonly adopted by older, more mature firms, which could influence both their patenting behavior and business needs.</p>
@@ -614,13 +573,7 @@ L(\lambda; Y_1, \ldots, Y_n) = \prod_{i=1}^{n} \frac{e^{-\lambda} \lambda^{Y_i}}
 \log L(\lambda) = -n\lambda + \left( \sum_{i=1}^{n} Y_i \right) \log \lambda - \sum_{i=1}^{n} \log(Y_i!)
 \]</span></p>
 <p>The log-likelihood function for the poisson model can be coded as a function of λ and Y as follows:</p>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="e24dff53" class="cell" data-execution_count="6">
+<div id="cdac46eb" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.special <span class="im">import</span> gammaln </span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -636,17 +589,8 @@ L(\lambda; Y_1, \ldots, Y_n) = \prod_{i=1}^{n} \frac{e^{-\lambda} \lambda^{Y_i}}
 <span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="op">-</span>np.inf  <span class="co"># Log-likelihood is undefined for non-positive lambda</span></span>
 <span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.<span class="bu">sum</span>(Y <span class="op">*</span> np.log(lam) <span class="op">-</span> lam <span class="op">-</span> gammaln(Y <span class="op">+</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-</div>
-</div>
 <p>The plots below shows how the likelihood and log-likelihood of the Poisson model varies across different values of λ, using the observed number of patents as input.</p>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="b3d3dc4d" class="cell" data-execution_count="7">
+<div id="b1436ab0" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the observed number of patents as input for Y</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> df_bp[<span class="st">'patents'</span>].values</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -703,9 +647,6 @@ L(\lambda; Y_1, \ldots, Y_n) = \prod_{i=1}^{n} \frac{e^{-\lambda} \lambda^{Y_i}}
 <pre><code>Maximum Likelihood Estimate (MLE) for Lambda: 3.68</code></pre>
 </div>
 </div>
-</div>
-</div>
-</div>
 <p>The two plots visualize how the Poisson likelihood and log-likelihood functions vary with different values of the parameter λ, based on the observed patent counts. In the first plot, the likelihood values are shown on the vertical axis, but they appear extremely close to zero across the entire range of λ. This is expected when working with products of many small probabilities, as happens when calculating likelihoods over a large dataset. These tiny values are difficult to interpret or visualize directly, which is why plotting the log-likelihood is generally preferred.</p>
 <p>The second plot displays the log-likelihood as a function of λ, providing a much clearer picture. The curve peaks around λ≈3.68, which corresponds to the maximum likelihood estimate (MLE)—the value of λ that best fits the data under the Poisson model. The log-likelihood function is smooth and concave, indicating a clear maximum, and supports the conclusion that λ=3.68 is the most likely value given the observed data.</p>
 <p>This estimate reflects the typical patenting rate across the 1,500 firms in your dataset, assuming a Poisson distribution. This aligns closely with the summary statistic (mean patents ≈ 3.69), potentially reinforcing that the model fits the data well. From a business perspective, this could tells us that most mature engineering firms in your sample produce around 3 to 4 patents over a 5-year period, and that this pattern is statistically stable. This average can serve as a benchmark for evaluating Blueprinty’s impact: if their customer firms consistently exceed this rate, and ttheir models confirm it’s not due to other factors (e.g., firm age, region), then there may be a credible argument that Blueprinty’s software supports higher patent success.</p>
@@ -730,13 +671,7 @@ L(\lambda; Y_1, \ldots, Y_n) = \prod_{i=1}^{n} \frac{e^{-\lambda} \lambda^{Y_i}}
 </section>
 <section id="mle-estimation-using-scipy.optimize" class="level3">
 <h3 class="anchored" data-anchor-id="mle-estimation-using-scipy.optimize">MLE estimation using scipy.optimize()</h3>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="f87c3d9d" class="cell" data-execution_count="8">
+<div id="e62daf05" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Find the MLE by optimizing likelihood function with sp.optimize()</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> minimize</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -764,9 +699,6 @@ L(\lambda; Y_1, \ldots, Y_n) = \prod_{i=1}^{n} \frac{e^{-\lambda} \lambda^{Y_i}}
 Mean of Patents: 3.68</code></pre>
 </div>
 </div>
-</div>
-</div>
-</div>
 <p>The optimized maximum likelihood estimate (MLE) for λ is 3.68, indicating that the Poisson model estimates the average number of patents per firm in the sample to be approximately 3.68. This value serves as a data-driven benchmark for typical patenting activity among the firms studied. Since the Poisson distribution assumes that the mean and variance are equal, this estimate also reflects the expected variability in patent counts. If firms using Blueprinty’s software are found to have average patent counts significantly above this benchmark, it may suggest a positive association between software usage and patenting success.</p>
 </section>
 <section id="estimation-of-poisson-regression-model" class="level3">
@@ -774,13 +706,7 @@ Mean of Patents: 3.68</code></pre>
 <p>Next, we extend our simple Poisson model to a Poisson Regression Model such that <span class="math inline">\(Y_i = \text{Poisson}(\lambda_i)\)</span> where <span class="math inline">\(\lambda_i = \exp(X_i'\beta)\)</span>. The interpretation is that the success rate of patent awards is not constant across all firms (<span class="math inline">\(\lambda\)</span>) but rather is a function of firm characteristics <span class="math inline">\(X_i\)</span>. Specifically, we will use the covariates age, age squared, region, and whether the firm is a customer of Blueprinty.</p>
 <section id="including-covariate-matrix-x-in-log-likelihood-function" class="level4">
 <h4 class="anchored" data-anchor-id="including-covariate-matrix-x-in-log-likelihood-function">Including covariate matrix X in log-likelihood function</h4>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="b3e78773" class="cell" data-execution_count="9">
+<div id="57242a80" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Log-likelihood function with covariates</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> poisson_log_likelihood_with_covariates(beta, X, Y):</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
@@ -799,20 +725,11 @@ Mean of Patents: 3.68</code></pre>
 <span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Compute the log-likelihood</span></span>
 <span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.<span class="bu">sum</span>(Y <span class="op">*</span> np.log(lambda_) <span class="op">-</span> lambda_ <span class="op">-</span> gammaln(Y <span class="op">+</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-</div>
-</div>
 </section>
 <section id="find-mle-vector-and-hessian-of-the-poisson-model-with-covariates." class="level4">
 <h4 class="anchored" data-anchor-id="find-mle-vector-and-hessian-of-the-poisson-model-with-covariates.">Find MLE vector and Hessian of the Poisson model with covariates.</h4>
 <p>This section outlines the steps taken to estimate a Poisson regression model using maximum likelihood estimation. We use scipy.optimize.minimize in Python to obtain the MLE estimates for the coefficient vector β, based on a covariate matrix including age, age squared, regional indicators, and customer status. The Hessian matrix from the optimization is then used to compute standard errors for the coefficient estimates.</p>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="d37b16ac" class="cell" data-execution_count="10">
+<div id="aa65a2f9" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> optimize</span>
@@ -926,20 +843,11 @@ Mean of Patents: 3.68</code></pre>
 </div>
 </div>
 </div>
-</div>
-</div>
-</div>
 <p>The Poisson regression results show that firms using Blueprinty’s software have significantly higher expected patent counts, with the iscustomer coefficient of 0.208 indicating about a 23% increase. The positive coefficient for age and negative for agesquared suggest a concave relationship between age and patenting—older firms tend to produce more patents, but at a decreasing rate. Most regional effects are small, with slight increases observed in the South and Southwest. The intercept is negative, reflecting a low baseline patent rate for the reference group. Standard errors are relatively small, indicating precise estimates. Overall, the results support a positive association between software use and patent output.</p>
 </section>
 <section id="validation-using-sm.glm-function" class="level4">
 <h4 class="anchored" data-anchor-id="validation-using-sm.glm-function">Validation using sm.GLM() function</h4>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="fec80d3e" class="cell" data-execution_count="11">
+<div id="22220e84" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Drop the manually added intercept column (to avoid duplication)</span></span>
@@ -965,8 +873,8 @@ Model:                            GLM   Df Residuals:                     1492
 Model Family:                 Poisson   Df Model:                            7
 Link Function:                    Log   Scale:                          1.0000
 Method:                          IRLS   Log-Likelihood:                -3258.1
-Date:                Thu, 08 May 2025   Deviance:                       2143.3
-Time:                        01:29:23   Pearson chi2:                 2.07e+03
+Date:                Sat, 24 May 2025   Deviance:                       2143.3
+Time:                        23:55:23   Pearson chi2:                 2.07e+03
 No. Iterations:                     5   Pseudo R-squ. (CS):             0.1360
 Covariance Type:            nonrobust                                         
 ==============================================================================
@@ -983,9 +891,6 @@ iscustomer     0.2076      0.031      6.719      0.000       0.147       0.268
 ==============================================================================</code></pre>
 </div>
 </div>
-</div>
-</div>
-</div>
 <p><em>The outputs differ slightly because the custom MLE implementation initially included clipping of the linear predictor to prevent numerical overflow, which subtly altered the likelihood surface. In contrast, statsmodels.GLM() uses a more robust internal optimization method without clipping, leading to more precise coefficient estimates.</em></p>
 </section>
 </section>
@@ -997,17 +902,11 @@ iscustomer     0.2076      0.031      6.719      0.000       0.147       0.268
 <p>Regional effects are small and not statistically significant, suggesting that geographic location does not have a meaningful impact on patent activity after accounting for age and software usage, keeping all else constant. For example, the Northeast coefficient is 0.0292 (p = 0.504), Northwest is -0.0176 (p = 0.744), South is 0.0566 (p = 0.283), and Southwest is 0.0506 (p = 0.284), indicating no meaningful difference in patenting by region. The model log-likelihood is -3258.1, and the Pseudo R-squared (Cragg-Uhler/CS) is 0.1360, suggesting a moderate model fit.</p>
 </section>
 <section id="conclusion-about-the-effect-of-blueprintys-software-on-patent-success" class="level3">
-<h3 class="anchored">Conclusion about the effect of Blueprinty’s software on patent success</h3>
+<h3 class="anchored" data-anchor-id="conclusion-about-the-effect-of-blueprintys-software-on-patent-success">Conclusion about the effect of Blueprinty’s software on patent success</h3>
 <p>Because the beta coefficients are not directly interpretable, the following approach is sued: 1. Creating two scenarios of datasets: X_0 and X_1 where X_0 is the X data but with iscustomer=0 for every customer observation and X_1 is the X data but with iscustomer=1 for every customer observation.<br>
 2. Comparing the predicted number of patents for each firm utilizing X_0 and the fitted model by (i)getting the vector of predicted number of patents (y_pred_0) for every firm in the dataset, and using X_1 to get Y_pred_1 for every firm, and (ii)subtracting y_pred_1 minus y_pred_0 and take the average of that vector of differences.<br>
 </p>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="e22319c9" class="cell" data-execution_count="12">
+<div id="b33f31de" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Copy the original design matrix used in GLM</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>X_0 <span class="op">=</span> X_sm.copy()</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>X_1 <span class="op">=</span> X_sm.copy()</span>
@@ -1029,24 +928,17 @@ iscustomer     0.2076      0.031      6.719      0.000       0.147       0.268
 </div>
 <p>On average, firms using Blueprinty’s software are expected to have 0.793 more patents than they would have had if they were not using the software, over five years, controlling for other factors like age and region.</p>
 <p>This result provides a clear and practical interpretation of the model: the use of Blueprinty’s software is associated with a substantial increase in patenting activity. Given the sample mean of patents is around 3.68, an increase of 0.79 patents represents a 21.5% improvement, which reinforces the idea that Blueprinty’s product may meaningfully enhance patent success for its customers.</p>
+</section>
+</section>
 <section id="airbnb-case-study" class="level2">
 <h2 class="anchored" data-anchor-id="airbnb-case-study">AirBnB Case Study</h2>
 <section id="introduction-1" class="level3">
 <h3 class="anchored" data-anchor-id="introduction-1">Introduction</h3>
 <p>AirBnB is a popular platform for booking short-term rentals. In March 2017, students Annika Awad, Evan Lebo, and Anna Linden scraped of 40,000 Airbnb listings from New York City. The number of reviews on a listing is used as a proxy for booking activity, under the assumption that more bookings typically lead to more reviews. The goal is to understand which listing characteristics—such as room type, price, review scores, and instant bookability—are associated with higher engagement from guests. The analysis begins with exploratory data visualization to assess variable distributions and correlations, followed by a Poisson regression model, which is well-suited for count data like reviews.</p>
 <p>The data include the following variables:</p>
-<div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Variable Definitions
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
+</section>
+<section id="variable-definitions" class="level3">
+<h3 class="anchored" data-anchor-id="variable-definitions">Variable Definitions</h3>
 <pre><code>- `id` = unique ID number for each unit
 - `last_scraped` = date when information scraped
 - `host_since` = date when host first listed the unit on Airbnb
@@ -1060,22 +952,13 @@ Variable Definitions
 - `review_scores_location` = a "quality of location" score from reviews (1-10)
 - `review_scores_value` = a "quality of value" score from reviews (1-10)
 - `instant_bookable` = "t" if instantly bookable, "f" if not</code></pre>
-</div>
-</div>
-</div>
 </section>
 <section id="exploratory-data-analysis" class="level3">
 <h3 class="anchored" data-anchor-id="exploratory-data-analysis">Exploratory Data Analysis</h3>
 <section id="data-cleaning" class="level4">
 <h4 class="anchored" data-anchor-id="data-cleaning">Data Cleaning</h4>
 <p>The dataset contains 40,628 rows and 14 columns. The first step is to clean the data by removing any unnecessary columns and handling missing values. The <code>id</code> and <code>unnanmed:0</code> column are not needed for analysis, so they will be dropped. The <code>last_scraped</code> and <code>host_since</code> columns are also not needed for the analysis, as they do not provide useful information for modeling the number of reviews.</p>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="1ed25a7c" class="cell" data-execution_count="13">
+<div id="c674a242" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>df_ab <span class="op">=</span> pd.read_csv(<span class="st">'airbnb.csv'</span>)</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1086,20 +969,11 @@ Variable Definitions
 <span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>]</span>
 <span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df_ab[cols].dropna()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-</div>
-</div>
 </section>
 <section id="data-visualization" class="level4">
-<h4 class="anchored" data-anchor-id="data-visualization">Data Visualization</h4>
+<h4 class="anchored">Data Visualization</h4>
 <p><strong>Histograms for numerical features</strong></p>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="8bee7ebb" class="cell" data-execution_count="14">
+<div id="7bd647bc" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -1115,9 +989,6 @@ Variable Definitions
 <figure class="figure">
 <p><img src="index_files/figure-html/cell-15-output-1.png" width="1334" height="949" class="figure-img"></p>
 </figure>
-</div>
-</div>
-</div>
 </div>
 </div>
 </div>
@@ -1139,7 +1010,7 @@ Variable Definitions
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<div id="1fc0a77f" class="cell" data-execution_count="15">
+<div id="dbc970f1" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Correlation heatmap</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>sns.heatmap(df[numeric_cols].corr(), annot<span class="op">=</span><span class="va">True</span>, cmap<span class="op">=</span><span class="st">'coolwarm'</span>, fmt<span class="op">=</span><span class="st">".2f"</span>)</span>
@@ -1153,20 +1024,11 @@ Variable Definitions
 </div>
 </div>
 </div>
-</div>
-</div>
-</div>
 <p>The correlation heatmap shows that the number of reviews, used as a proxy for bookings, has very weak correlations with all other numeric variables. It is essentially uncorrelated with price, size (bathrooms and bedrooms), and review scores. This suggests that popularity is not directly tied to these features alone, and other unmeasured factors such as location specifics, host responsiveness, or listing visibility may be influencing review volume.</p>
 <p>In contrast, there are moderate positive correlations among the review score variables. For instance, cleanliness and value (r = 0.62), and cleanliness and location (r = 0.33), are moderately correlated, suggesting that guests who rate one aspect of a stay highly are likely to rate others highly as well. Bedrooms and bathrooms are also fairly correlated (r = 0.41), which is intuitive since larger units tend to have more of both.</p>
 <p>Overall, while listing features and review scores tend to co-vary internally, they do not individually explain much of the variation in how frequently listings are reviewed.</p>
 <p><strong>Distribution of Number of Reviews</strong></p>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="2150564f" class="cell" data-execution_count="16">
+<div id="1b2eb819" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot distribution of number_of_reviews</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>sns.histplot(df[<span class="st">'number_of_reviews'</span>], bins<span class="op">=</span><span class="dv">50</span>, kde<span class="op">=</span><span class="va">False</span>)</span>
@@ -1182,18 +1044,9 @@ Variable Definitions
 </div>
 </div>
 </div>
-</div>
-</div>
-</div>
 <p>The distribution of the number of reviews is highly right-skewed, indicating that while a small number of listings receive a large volume of reviews, the vast majority receive relatively few. Most listings have fewer than 20 reviews, with a sharp drop-off beyond that point. Only a small number of listings exceed 100 reviews, and very few surpass 200. This suggests that a limited set of listings likely dominate guest attention and bookings, possibly due to factors like high visibility, competitive pricing, or outstanding host performance. The skewed nature of the distribution supports the use of a Poisson or count-based model for analyzing the data.</p>
 <p><strong>Number of Reviews by Room Type</strong></p>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="74e80e0d" class="cell" data-execution_count="17">
+<div id="0d12874b" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Average number of reviews by room_type</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>sns.barplot(x<span class="op">=</span><span class="st">'room_type'</span>, y<span class="op">=</span><span class="st">'number_of_reviews'</span>, data<span class="op">=</span>df, estimator<span class="op">=</span>np.mean)</span>
@@ -1220,19 +1073,10 @@ Variable Definitions
 </div>
 </div>
 </div>
-</div>
-</div>
-</div>
 <p>These two plots together provide insight into how room type relates to the number of reviews on Airbnb, which we treat as a proxy for bookings. The bar plot shows that private rooms and entire homes/apartments have very similar average review counts, just over 21 reviews, while shared rooms lag behind with a noticeably lower average of around 17 reviews. This suggests that private and entire-unit listings are more frequently booked than shared rooms, on average.</p>
 <p>The boxplot complements this by showing the distribution and spread of reviews. While all room types have many low-review listings and some high outliers, private rooms appear to have a slightly broader spread of review counts and more extreme outliers, indicating that they are more variable in popularity. Shared rooms, by contrast, have both a lower median and fewer high-review outliers. Together, these visuals suggest that private rooms and entire units are generally more popular among guests, with private rooms possibly attracting a wider range of booking frequencies.</p>
 <p><strong>Number of Reviews by Instant Bookability</strong></p>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="8d724932" class="cell" data-execution_count="18">
+<div id="b381fbcc" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Average number of reviews by instant_bookable</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>sns.barplot(x<span class="op">=</span><span class="st">'instant_bookable'</span>, y<span class="op">=</span><span class="st">'number_of_reviews'</span>, data<span class="op">=</span>df, estimator<span class="op">=</span>np.mean)</span>
@@ -1259,18 +1103,9 @@ Variable Definitions
 </div>
 </div>
 </div>
-</div>
-</div>
-</div>
 <p>These two plots illustrate the relationship between instant bookability and the number of reviews on Airbnb listings. The bar plot shows that listings marked as instantly bookable (“t”) receive, on average, about 8 more reviews than those that are not (“f”) roughly 28 reviews vs.&nbsp;20. This suggests a clear difference in average popularity or booking frequency between the two groups. The boxplot reinforces this finding: the distribution of reviews for instant-bookable listings is slightly higher across the board, with a higher median and a greater concentration of listings in the upper range of reviews. Both groups exhibit heavy right-skewness and contain high-outlier listings, but the instantly bookable group tends to outperform overall. Together, the plots suggest that instant bookability is associated with more reviews, which supports the idea that offering convenience and flexibility may drive more bookings.</p>
 <p><strong>Number of Reviews by Number of Bedrooms</strong></p>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="e40540cb" class="cell" data-execution_count="19">
+<div id="240bc0c1" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Average number of reviews by room_type and instant_bookable (interaction)</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>sns.barplot(x<span class="op">=</span><span class="st">'bedrooms'</span>, y<span class="op">=</span><span class="st">'number_of_reviews'</span>, data<span class="op">=</span>df, estimator<span class="op">=</span>np.mean)</span>
@@ -1297,19 +1132,10 @@ Variable Definitions
 </div>
 </div>
 </div>
-</div>
-</div>
-</div>
 <p>These two plots examine how the number of bedrooms in an Airbnb listing relates to the number of reviews (i.e., bookings). The boxplot shows that listings with 0 to 2 bedrooms are by far the most common and tend to have the highest concentration of reviews. Listings with 1 bedroom, in particular, have the widest spread and many high-outlier values, suggesting they are the most frequently booked. As the number of bedrooms increases, the number of reviews becomes more sparse, with a generally lower median and fewer high-review outliers.</p>
 <p>The bar plot reinforces this trend: listings with 1–3 bedrooms have relatively high average review counts (around 22–25), while listings with 6 or more bedrooms see more variability and tend to have lower average reviews, though with large error bars due to smaller sample sizes. Notably, the average reviews for 8-bedroom listings spike, but the wide error bars suggest this is based on very few listings and should be interpreted cautiously.Together, these plots suggest that smaller listings, particularly 1-bedroom units, are more popular and frequently booked, likely because they cater to solo travelers or couples, who represent a large portion of Airbnb users. Larger listings may cater to niche or group travel markets and receive fewer bookings overall.</p>
 <p><strong>Average number of reviews by room_type and instant_bookable</strong></p>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="c6bbd5f1" class="cell" data-execution_count="20">
+<div id="658f4d85" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Average number of reviews by room_type and instant_bookable (interaction)</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>sns.barplot(x<span class="op">=</span><span class="st">'room_type'</span>, y<span class="op">=</span><span class="st">'number_of_reviews'</span>, hue<span class="op">=</span><span class="st">'instant_bookable'</span>, data<span class="op">=</span>df, estimator<span class="op">=</span>np.mean)</span>
@@ -1325,23 +1151,14 @@ Variable Definitions
 </div>
 </div>
 </div>
-</div>
-</div>
-</div>
+<p>:</p>
 <p>This plot shows the average number of reviews by room type, broken down by instant bookability. It reveals a consistent pattern across all room types: listings that are instantly bookable receive more reviews on average than those that are not. For both private rooms and entire homes/apartments, instant-bookable listings average around 27–29 reviews, compared to only 19–20 reviews for non-instant listings.Even for shared rooms, which have the lowest review counts overall, enabling instant booking still leads to a modest increase in average reviews.</p>
 <p>This suggests that instant bookability enhances booking volume regardless of room type, with the most pronounced benefit observed in private rooms and entire units. It highlights the potential value of enabling instant booking as a strategy to boost listing popularity and visibility.</p>
-</section>
-</section>
 <section id="poisson-regression-model" class="level3">
 <h3 class="anchored" data-anchor-id="poisson-regression-model">Poisson Regression Model</h3>
 <p>To better understand which listing characteristics are associated with higher booking activity, we fit a Poisson regression model using the number of reviews as a proxy for the number of bookings. This model is appropriate for count data and allows us to examine how various features including price, number of bedrooms and bathrooms, review scores, room type, and instant bookability, contribute to variation in review counts. By converting categorical variables to dummy indicators and standardizing the design matrix, we estimate the effect of each factor while controlling for the others. We then identify which predictors have a statistically significant association with review volume.</p>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="ff336f0c" class="cell" data-execution_count="21">
+<p>:</p>
+<div id="b0719aa4" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1400,17 +1217,9 @@ Private room              -0.0052
 Shared room               -0.2294  </code></pre>
 </div>
 </div>
-</div>
-</div>
-</div>
-<p>Showing only significant results:</p>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="15f2566e" class="cell" data-execution_count="22">
+<p>: Showing only significant results:</p>
+<p>:</p>
+<div id="b2887346" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter and round significant results</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>summary_results <span class="op">=</span> summary_df[summary_df[<span class="st">"P-Value"</span>] <span class="op">&lt;</span> <span class="fl">0.05</span>][[<span class="st">"Coefficient"</span>, <span class="st">"Std. Error"</span>, <span class="st">"P-Value"</span>]]</span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>summary_results <span class="op">=</span> summary_results.<span class="bu">round</span>(<span class="dv">4</span>)</span>
@@ -1430,9 +1239,7 @@ Private room                   -0.0105      0.0027   0.0001
 Shared room                    -0.2463      0.0086   0.0000</code></pre>
 </div>
 </div>
-</div>
-</div>
-</div>
+<p>:</p>
 <p>The Poisson regression model reveals several statistically significant predictors of the number of reviews, used here as a proxy for booking activity. The intercept represents the baseline log-expected number of reviews for a listing when all other variables are set to zero. This would correspond to a listing with zero price, zero days on the platform, no bathrooms or bedrooms, no review scores, not instantly bookable, and listed as the reference room type (entire home/apartment). Although this profile is not realistic, the intercept provides a baseline from which all other effects are interpreted.</p>
 <p>The coefficient for instant bookable is 0.3459 (p &lt; 0.001), implying that listings that allow instant booking receive approximately 41% more reviews than those that do not, holding all other variables constant (e^0.3459 ≈ 1.41).Review scores for cleanliness are positively associated with reviews: a one-point increase in cleanliness rating is linked to a 12% increase in expected reviews (e^0.1131 ≈1.12).</p>
 <p>In contrast, higher scores for location and value are surprisingly associated with fewer reviews, though the effect sizes are modest (-7.7% and -8.7%,respectively), holding all other variables constant, and the strong statistical significance suggests consistent patterns.</p>
@@ -1442,10 +1249,10 @@ Shared room                    -0.2463      0.0086   0.0000</code></pre>
 
 
 </section>
+</div>
+</div>
+</div>
 </section>
-</div>
-</div>
-</div>
 </section>
 </section>
 

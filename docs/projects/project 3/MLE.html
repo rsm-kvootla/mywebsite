@@ -479,7 +479,7 @@ Total Non-Customers: 1019</code></pre>
 <span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
 <span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/tmp/ipykernel_69858/4202040372.py:5: FutureWarning: 
+<pre><code>/tmp/ipykernel_125114/4202040372.py:5: FutureWarning: 
 
 Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
 
@@ -622,7 +622,7 @@ Name: age, dtype: float64</code></pre>
 <span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Compute the log-likelihood</span></span>
 <span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.<span class="bu">sum</span>(Y <span class="op">*</span> np.log(lambda_) <span class="op">-</span> lambda_ <span class="op">-</span> gammaln(Y <span class="op">+</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="7faafefd" class="cell" data-execution_count="25">
+<div id="7faafefd" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> optimize</span>
@@ -681,7 +681,7 @@ Name: age, dtype: float64</code></pre>
 <span id="cb26-56"><a href="#cb26-56" aria-hidden="true" tabindex="-1"></a><span class="co"># Display result</span></span>
 <span id="cb26-57"><a href="#cb26-57" aria-hidden="true" tabindex="-1"></a>summary <span class="op">=</span> summary.<span class="bu">round</span>(<span class="dv">4</span>)</span>
 <span id="cb26-58"><a href="#cb26-58" aria-hidden="true" tabindex="-1"></a>summary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="25">
+<div class="cell-output cell-output-display" data-execution_count="16">
 <div>
 
 
@@ -740,7 +740,7 @@ Name: age, dtype: float64</code></pre>
 </div>
 </div>
 </div>
-<div id="1b0f7349" class="cell" data-execution_count="20">
+<div id="1b0f7349" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Drop the manually added intercept column (to avoid duplication)</span></span>
@@ -766,8 +766,8 @@ Model:                            GLM   Df Residuals:                     1492
 Model Family:                 Poisson   Df Model:                            7
 Link Function:                    Log   Scale:                          1.0000
 Method:                          IRLS   Log-Likelihood:                -3258.1
-Date:                Wed, 07 May 2025   Deviance:                       2143.3
-Time:                        23:47:11   Pearson chi2:                 2.07e+03
+Date:                Thu, 08 May 2025   Deviance:                       2143.3
+Time:                        00:57:51   Pearson chi2:                 2.07e+03
 No. Iterations:                     5   Pseudo R-squ. (CS):             0.1360
 Covariance Type:            nonrobust                                         
 ==============================================================================
@@ -784,7 +784,7 @@ iscustomer     0.2076      0.031      6.719      0.000       0.147       0.268
 ==============================================================================</code></pre>
 </div>
 </div>
-<div id="76b63b0e" class="cell" data-execution_count="26">
+<div id="76b63b0e" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Copy the original design matrix used in GLM</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>X_0 <span class="op">=</span> X_sm.copy()</span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>X_1 <span class="op">=</span> X_sm.copy()</span>
@@ -807,19 +807,19 @@ iscustomer     0.2076      0.031      6.719      0.000       0.147       0.268
 </section>
 <section id="airbnb" class="level2">
 <h2 class="anchored" data-anchor-id="airbnb">Airbnb</h2>
-<div id="90bb22f3" class="cell">
+<div id="90bb22f3" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>df_ab <span class="op">=</span> pd.read_csv(<span class="st">'airbnb.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="3ca93a81" class="cell" data-execution_count="33">
+<div id="3ca93a81" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>df_ab.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="33">
+<div class="cell-output cell-output-display" data-execution_count="20">
 <pre><code>(40628, 14)</code></pre>
 </div>
 </div>
-<div id="225f1144" class="cell" data-execution_count="34">
+<div id="225f1144" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>df_ab.columns</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="34">
+<div class="cell-output cell-output-display" data-execution_count="21">
 <pre><code>Index(['Unnamed: 0', 'id', 'days', 'last_scraped', 'host_since', 'room_type',
        'bathrooms', 'bedrooms', 'price', 'number_of_reviews',
        'review_scores_cleanliness', 'review_scores_location',
@@ -827,7 +827,7 @@ iscustomer     0.2076      0.031      6.719      0.000       0.147       0.268
       dtype='object')</code></pre>
 </div>
 </div>
-<div id="6ce0f828" class="cell" data-execution_count="29">
+<div id="6ce0f828" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Drop missing values </span></span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>cols <span class="op">=</span> [</span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"number_of_reviews"</span>, <span class="st">"room_type"</span>, <span class="st">"bathrooms"</span>, <span class="st">"bedrooms"</span>, <span class="st">"price"</span>, <span class="st">"days"</span>,</span>
@@ -835,7 +835,7 @@ iscustomer     0.2076      0.031      6.719      0.000       0.147       0.268
 <span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>]</span>
 <span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df_ab[cols].dropna()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="6c128c6d" class="cell" data-execution_count="35">
+<div id="6c128c6d" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -903,7 +903,7 @@ iscustomer     0.2076      0.031      6.719      0.000       0.147       0.268
 </div>
 </div>
 </div>
-<div id="185dde4c" class="cell" data-execution_count="32">
+<div id="185dde4c" class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -980,50 +980,68 @@ iscustomer     0.2076      0.031      6.719      0.000       0.147       0.268
 </div>
 </div>
 </div>
-<div id="35233bde" class="cell" data-execution_count="36">
+<div id="008f8a52" class="cell">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
 <span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create dummy variables for room type</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create dummy variables for room type and mao instant bookable to binary</span></span>
 <span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>room_dummies <span class="op">=</span> pd.get_dummies(df[<span class="st">"room_type"</span>], drop_first<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert 'instant_bookable' to binary</span></span>
-<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"instant_bookable"</span>] <span class="op">=</span> df[<span class="st">"instant_bookable"</span>].<span class="bu">map</span>({<span class="st">"t"</span>: <span class="dv">1</span>, <span class="st">"f"</span>: <span class="dv">0</span>})</span>
-<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Construct the design matrix</span></span>
-<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> pd.concat([</span>
-<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>    df[[<span class="st">"price"</span>, <span class="st">"days"</span>, <span class="st">"bathrooms"</span>, <span class="st">"bedrooms"</span>,</span>
-<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>        <span class="st">"review_scores_cleanliness"</span>, <span class="st">"review_scores_location"</span>, <span class="st">"review_scores_value"</span>,</span>
-<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>        <span class="st">"instant_bookable"</span>]],</span>
-<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a>    room_dummies</span>
-<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a>], axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"instant_bookable"</span>] <span class="op">=</span> df[<span class="st">"instant_bookable"</span>].<span class="bu">map</span>({<span class="st">"t"</span>: <span class="dv">1</span>, <span class="st">"f"</span>: <span class="dv">0</span>})</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Construct the design matrix</span></span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> pd.concat([df[[<span class="st">"price"</span>, <span class="st">"days"</span>, <span class="st">"bathrooms"</span>, <span class="st">"bedrooms"</span>,<span class="st">"review_scores_cleanliness"</span>, <span class="st">"review_scores_location"</span>, <span class="st">"review_scores_value"</span>,<span class="st">"instant_bookable"</span>]],room_dummies], axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Add intercept and ensure all values are float</span></span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> sm.add_constant(X)</span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> X.astype(<span class="bu">float</span>)</span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the target variable</span></span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> df[<span class="st">"number_of_reviews"</span>]</span>
 <span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Add intercept and ensure all values are float</span></span>
-<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> sm.add_constant(X)</span>
-<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> X.astype(<span class="bu">float</span>)</span>
+<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit Poisson regression model</span></span>
+<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a>poisson_model <span class="op">=</span> sm.GLM(Y, X, family<span class="op">=</span>sm.families.Poisson())</span>
+<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a>poisson_results <span class="op">=</span> poisson_model.fit()</span>
 <span id="cb39-21"><a href="#cb39-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-22"><a href="#cb39-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the target variable</span></span>
-<span id="cb39-23"><a href="#cb39-23" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> df[<span class="st">"number_of_reviews"</span>]</span>
-<span id="cb39-24"><a href="#cb39-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-25"><a href="#cb39-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit Poisson regression model</span></span>
-<span id="cb39-26"><a href="#cb39-26" aria-hidden="true" tabindex="-1"></a>poisson_model <span class="op">=</span> sm.GLM(Y, X, family<span class="op">=</span>sm.families.Poisson())</span>
-<span id="cb39-27"><a href="#cb39-27" aria-hidden="true" tabindex="-1"></a>poisson_results <span class="op">=</span> poisson_model.fit()</span>
-<span id="cb39-28"><a href="#cb39-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-29"><a href="#cb39-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Format output</span></span>
-<span id="cb39-30"><a href="#cb39-30" aria-hidden="true" tabindex="-1"></a>summary_df <span class="op">=</span> poisson_results.summary2().tables[<span class="dv">1</span>]</span>
-<span id="cb39-31"><a href="#cb39-31" aria-hidden="true" tabindex="-1"></a>summary_df <span class="op">=</span> summary_df.rename(columns<span class="op">=</span>{</span>
-<span id="cb39-32"><a href="#cb39-32" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Coef."</span>: <span class="st">"Coefficient"</span>,</span>
-<span id="cb39-33"><a href="#cb39-33" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Std.Err."</span>: <span class="st">"Std. Error"</span>,</span>
-<span id="cb39-34"><a href="#cb39-34" aria-hidden="true" tabindex="-1"></a>    <span class="st">"P&gt;|z|"</span>: <span class="st">"P-Value"</span></span>
-<span id="cb39-35"><a href="#cb39-35" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb39-36"><a href="#cb39-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-37"><a href="#cb39-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter and round significant results</span></span>
-<span id="cb39-38"><a href="#cb39-38" aria-hidden="true" tabindex="-1"></a>significant_results <span class="op">=</span> summary_df[summary_df[<span class="st">"P-Value"</span>] <span class="op">&lt;</span> <span class="fl">0.05</span>][[<span class="st">"Coefficient"</span>, <span class="st">"Std. Error"</span>, <span class="st">"P-Value"</span>]]</span>
-<span id="cb39-39"><a href="#cb39-39" aria-hidden="true" tabindex="-1"></a>significant_results <span class="op">=</span> significant_results.<span class="bu">round</span>(<span class="dv">4</span>)</span>
-<span id="cb39-40"><a href="#cb39-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-41"><a href="#cb39-41" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(significant_results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb39-22"><a href="#cb39-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Format output</span></span>
+<span id="cb39-23"><a href="#cb39-23" aria-hidden="true" tabindex="-1"></a>summary_df <span class="op">=</span> poisson_results.summary2().tables[<span class="dv">1</span>]</span>
+<span id="cb39-24"><a href="#cb39-24" aria-hidden="true" tabindex="-1"></a>summary_df <span class="op">=</span> summary_df.rename(columns<span class="op">=</span>{</span>
+<span id="cb39-25"><a href="#cb39-25" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Coef."</span>: <span class="st">"Coefficient"</span>,</span>
+<span id="cb39-26"><a href="#cb39-26" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Std.Err."</span>: <span class="st">"Std. Error"</span>,</span>
+<span id="cb39-27"><a href="#cb39-27" aria-hidden="true" tabindex="-1"></a>    <span class="st">"P&gt;|z|"</span>: <span class="st">"P-Value"</span></span>
+<span id="cb39-28"><a href="#cb39-28" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb39-29"><a href="#cb39-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-30"><a href="#cb39-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter and round significant results</span></span>
+<span id="cb39-31"><a href="#cb39-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(summary_df.<span class="bu">round</span>(<span class="dv">4</span>))</span>
+<span id="cb39-32"><a href="#cb39-32" aria-hidden="true" tabindex="-1"></a>summary_results <span class="op">=</span> summary_df[summary_df[<span class="st">"P-Value"</span>] <span class="op">&lt;</span> <span class="fl">0.05</span>][[<span class="st">"Coefficient"</span>, <span class="st">"Std. Error"</span>, <span class="st">"P-Value"</span>]]</span>
+<span id="cb39-33"><a href="#cb39-33" aria-hidden="true" tabindex="-1"></a>summary_results <span class="op">=</span> summary_results.<span class="bu">round</span>(<span class="dv">4</span>)</span>
+<span id="cb39-34"><a href="#cb39-34" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(summary_results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>                           Coefficient  Std. Error  P-Value
+<pre><code>                           Coefficient  Std. Error         z  P-Value  [0.025  \
+const                           3.4980      0.0161  217.3963   0.0000  3.4665   
+price                          -0.0000      0.0000   -2.1509   0.0315 -0.0000   
+days                            0.0001      0.0000  129.7553   0.0000  0.0000   
+bathrooms                      -0.1177      0.0037  -31.3942   0.0000 -0.1251   
+bedrooms                        0.0741      0.0020   37.1972   0.0000  0.0702   
+review_scores_cleanliness       0.1131      0.0015   75.6106   0.0000  0.1102   
+review_scores_location         -0.0769      0.0016  -47.7962   0.0000 -0.0801   
+review_scores_value            -0.0911      0.0018  -50.4899   0.0000 -0.0946   
+instant_bookable                0.3459      0.0029  119.6656   0.0000  0.3402   
+Private room                   -0.0105      0.0027   -3.8475   0.0001 -0.0159   
+Shared room                    -0.2463      0.0086  -28.5781   0.0000 -0.2632   
+
+                           0.975]  
+const                      3.5296  
+price                     -0.0000  
+days                       0.0001  
+bathrooms                 -0.1104  
+bedrooms                   0.0780  
+review_scores_cleanliness  0.1161  
+review_scores_location    -0.0737  
+review_scores_value       -0.0875  
+instant_bookable           0.3515  
+Private room              -0.0052  
+Shared room               -0.2294  
+                           Coefficient  Std. Error  P-Value
 const                           3.4980      0.0161   0.0000
 price                          -0.0000      0.0000   0.0315
 days                            0.0001      0.0000   0.0000
