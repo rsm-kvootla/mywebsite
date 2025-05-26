@@ -78,6 +78,9 @@ The following code provides the simulation of the conjoint data.
 
 
 ```{python}
+#| code-summary: "Click to show/hide this code"
+#| echo: true
+
 import numpy as np
 import pandas as pd
 
@@ -145,6 +148,9 @@ The "hard part" of the MNL likelihood function is organizing the data, as we nee
 #### Reshaping and Prepping the Data
 
 ```{python}
+#| code-summary: "Click to show/hide this code"
+#| echo: true
+
 import sklearn
 from sklearn.preprocessing import OneHotEncoder
 
@@ -187,6 +193,9 @@ The code above reshapes the simulated conjoint data for estimation in the MNL mo
 To obtain the estimated coefficients of the Multinomial Logit (MNL) model, a log-likelihood function is defined based on individual-level choice data. For each choice task, the utility of each alternative is calculated as a linear function of its features and a parameter vector. These utilities are then normalized using the log-sum-exp trick to compute choice probabilities. The log-likelihood is formed by summing the log probabilities of the observed choices, and the negative of this value is minimized using the BFGS optimization algorithm. The result is a set of parameter estimates that maximize the likelihood of the observed choices, along with the log-likelihood value at the optimum.
 
 ```{python}
+#| code-summary: "Click to show/hide this code"
+#| echo: true
+
 from scipy.optimize import minimize
 from scipy.special import logsumexp
 
@@ -240,6 +249,9 @@ Finding the MLEs for the 4 parameters ($\beta_\text{netflix}$, $\beta_\text{prim
 Computing the standard error from the inverse of the Hessian matrix and constructing a 95% confidence interval for each parameter.
 
 ```{python}
+#| code-summary: "Click to show/hide this code"
+#| echo: true
+
 from scipy.optimize import minimize
 from scipy.special import logsumexp
 
@@ -298,6 +310,9 @@ Overall, all four parameters are statistically significant (their confidence int
 Creating a metropolis-hasting MCMC sampler of the posterior distribution. Taking 11,000 steps and throwing away the first 1,000, retaining the subsequent 10,000.
 
 ```{python}
+#| code-summary: "Click to show/hide this code"
+#| echo: true
+
 def metropolis_hastings_mnl(n_iter=11000, burn_in=1000, proposal_sd=0.1):
     K = mnl_data['X'].shape[1]
     beta_curr = np.zeros(K)
@@ -356,6 +371,8 @@ Since we have 4 dimensions (4 betas) and our dimensions are continuous, we use a
 Using an MNV(mu, Sigma) where mu=c(0,0,0,0) and sigma with diagonal values c(0.05, 0.05, 0.05, 0.005) and zeros on the off-diagonal.  Since this MVN has no covariances, we can sample each dimension independently (so 4 univariate normals instead of 1 multivariate normal), where the first 3 univariate normals are N(0,0.05) and the last one if N(0,0.005).
 
 ```{python}
+#| code-summary: "Click to show/hide this code"
+#| echo: true
 
 # Log-prior function for N(0, 5^2) for the first 3, and N(0, 1^2) for the price
 def log_prior(beta):
@@ -434,6 +451,9 @@ The trace plots of the algorithm and histogram of the posterior distribution for
 ##### Beta_Netflix
 
 ```{python}
+#| code-summary: "Click to show/hide this code"
+#| echo: true
+
 import matplotlib.pyplot as plt
 import seaborn as sns
 
@@ -462,6 +482,9 @@ The trace plot for beta_netflix shows a stable and well-mixed pattern across the
 
 ##### Beta_Prime
 ```{python}
+#| code-summary: "Click to show/hide this code"
+#| echo: true
+
 plt.figure(figsize=(12, 4))
 
 # Trace plot
@@ -486,6 +509,9 @@ For beta_prime, the trace plot also exhibits a stable sampling path with good mi
 
 ##### Beta_Ads
 ```{python}
+#| code-summary: "Click to show/hide this code"
+#| echo: true
+
 plt.figure(figsize=(12, 4))
 
 # Trace plot
@@ -510,6 +536,9 @@ The trace plot for beta_ads is again stable and well-mixed, though the range of 
 
 ##### Beta_Price
 ```{python}
+#| code-summary: "Click to show/hide this code"
+#| echo: true
+
 plt.figure(figsize=(12, 4))
 
 # Trace plot
@@ -536,6 +565,9 @@ Lastly, the trace plot for beta_price is perhaps the most tightly concentrated, 
 #### Comparing the posterior means, standard deviations, and 95% credible intervals to the results from the Maximum Likelihood approach
 
 ```{python}
+#| code-summary: "Click to show/hide this code"
+#| echo: true
+
 # Define parameter names
 param_names = ['beta_netflix', 'beta_prime', 'beta_ads', 'beta_price']
 
@@ -604,6 +636,8 @@ Assuming wach respondent has multiple choice tasks and extracting each responden
 
 
 ```{python}
+#| code-summary: "Click to show/hide this code"
+#| echo: true
 
 from numpy.linalg import inv, cholesky
 from scipy.stats import invwishart, multivariate_normal
