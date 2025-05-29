@@ -600,8 +600,6 @@ Across all four parameters, the posterior means are almost indistinguishable fro
 
 ## 6. Discussion
 
-_todo: Suppose you did not simulate the data. What do you observe about the parameter estimates? What does $\beta_\text{Netflix} > \beta_\text{Prime}$ mean? Does it make sense that $\beta_\text{price}$ is negative?_
-
 #### Interpreting Parameter Estimates Without Knowing the True Data-Generating Process and Exploring what $\beta_\text{Netflix} > \beta_\text{Prime} means
 
 If we assume that the data was not simulated, meaning we are analyzing real-world consumer choice data rather than data generated with known "true" part-worths, we must interpret the parameter estimates based solely on their face value and what they imply about consumer behavior.
