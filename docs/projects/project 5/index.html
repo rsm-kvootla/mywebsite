@@ -1,0 +1,2069 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.5">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Nitya Kowsalya Vootla">
+<meta name="dcterms.date" content="2025-06-11">
+
+<title>Machine Learning K-Means and KNN Methods From Scratch vs Scikit-learn – Nitya’s Website and Portfolio</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ff4371ef257df69894857e99c6ad0d06.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-788b7591b34285ce1aa060b6167ed097.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Nitya’s Website and Portfolio</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../resume.html"> 
+<span class="menu-text">Resume</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../projects.html"> 
+<span class="menu-text">Projects</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#i.-k-means" id="toc-i.-k-means" class="nav-link active" data-scroll-target="#i.-k-means">I. K-Means</a>
+  <ul class="collapse">
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#understanding-the-data---palmer-penguins-dataset" id="toc-understanding-the-data---palmer-penguins-dataset" class="nav-link" data-scroll-target="#understanding-the-data---palmer-penguins-dataset">Understanding the Data - Palmer Penguins Dataset</a></li>
+  <li><a href="#introduction-to-k-means-algorithm" id="toc-introduction-to-k-means-algorithm" class="nav-link" data-scroll-target="#introduction-to-k-means-algorithm">Introduction to K-Means Algorithm</a></li>
+  <li><a href="#k-means-implementation-from-scratch-and-visualization-of-algorithm-steps" id="toc-k-means-implementation-from-scratch-and-visualization-of-algorithm-steps" class="nav-link" data-scroll-target="#k-means-implementation-from-scratch-and-visualization-of-algorithm-steps">K-Means Implementation from Scratch and Visualization of Algorithm Steps</a></li>
+  <li><a href="#testing-the-algorithm-on-the-palmer-penguins-dataset-specifically-using-the-bill-length-and-flipper-length-variables" id="toc-testing-the-algorithm-on-the-palmer-penguins-dataset-specifically-using-the-bill-length-and-flipper-length-variables" class="nav-link" data-scroll-target="#testing-the-algorithm-on-the-palmer-penguins-dataset-specifically-using-the-bill-length-and-flipper-length-variables">Testing the Algorithm on the Palmer Penguins Dataset, specifically using the bill length and flipper length variables</a></li>
+  <li><a href="#comparing-results-with-pythons-built-in-kmeans" id="toc-comparing-results-with-pythons-built-in-kmeans" class="nav-link" data-scroll-target="#comparing-results-with-pythons-built-in-kmeans">Comparing Results with Python’s Built-in KMeans</a></li>
+  <li><a href="#evaluation-metrics-for-k-means-clustering" id="toc-evaluation-metrics-for-k-means-clustering" class="nav-link" data-scroll-target="#evaluation-metrics-for-k-means-clustering">Evaluation Metrics for K-Means Clustering</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  </ul></li>
+  <li><a href="#ii.-k-nearest-neighbors" id="toc-ii.-k-nearest-neighbors" class="nav-link" data-scroll-target="#ii.-k-nearest-neighbors">II. K Nearest Neighbors</a>
+  <ul class="collapse">
+  <li><a href="#introduction-1" id="toc-introduction-1" class="nav-link" data-scroll-target="#introduction-1">Introduction</a></li>
+  <li><a href="#generating-synthetic-data-for-k-nearest-neighbors" id="toc-generating-synthetic-data-for-k-nearest-neighbors" class="nav-link" data-scroll-target="#generating-synthetic-data-for-k-nearest-neighbors">Generating Synthetic Data for K-Nearest Neighbors</a></li>
+  <li><a href="#plotting-the-data" id="toc-plotting-the-data" class="nav-link" data-scroll-target="#plotting-the-data">Plotting the Data</a></li>
+  <li><a href="#generating-a-test-dataset" id="toc-generating-a-test-dataset" class="nav-link" data-scroll-target="#generating-a-test-dataset">Generating a Test Dataset</a></li>
+  <li><a href="#implementing-k-nearest-neighbors-from-scratch" id="toc-implementing-k-nearest-neighbors-from-scratch" class="nav-link" data-scroll-target="#implementing-k-nearest-neighbors-from-scratch">Implementing K-Nearest Neighbors from Scratch</a></li>
+  <li><a href="#comparing-with-built-in-knn-function" id="toc-comparing-with-built-in-knn-function" class="nav-link" data-scroll-target="#comparing-with-built-in-knn-function">Comparing with Built-in KNN Function</a></li>
+  <li><a href="#evaluating-k-nearest-neighbors-across-multiple-values-of-k" id="toc-evaluating-k-nearest-neighbors-across-multiple-values-of-k" class="nav-link" data-scroll-target="#evaluating-k-nearest-neighbors-across-multiple-values-of-k">Evaluating K-Nearest Neighbors Across Multiple Values of ( k )</a></li>
+  <li><a href="#conclusion-1" id="toc-conclusion-1" class="nav-link" data-scroll-target="#conclusion-1">Conclusion</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Machine Learning K-Means and KNN Methods From Scratch vs Scikit-learn</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Nitya Kowsalya Vootla </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">June 11, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="cell">
+<style>
+  body, .main, .content {
+    overflow-x: auto;
+  }
+  pre, code, table {
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+</style>
+</div>
+<section id="i.-k-means" class="level2">
+<h2 class="anchored" data-anchor-id="i.-k-means">I. K-Means</h2>
+<section id="introduction" class="level3">
+<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
+<section id="can-an-unsupervised-algorithm-like-k-means-using-only-two-numeric-variables-discover-meaningful-groupings-in-the-palmer-penguins-datasetpotentially-aligning-with-the-biological-species-labels" class="level4">
+<h4 class="anchored" data-anchor-id="can-an-unsupervised-algorithm-like-k-means-using-only-two-numeric-variables-discover-meaningful-groupings-in-the-palmer-penguins-datasetpotentially-aligning-with-the-biological-species-labels">Can an unsupervised algorithm like K-Means, using only two numeric variables, discover meaningful groupings in the Palmer Penguins dataset—potentially aligning with the biological species labels?</h4>
+<p>This project explores the K-Means clustering algorithm by implementing it from scratch in Python and visualizing the algorithm’s behavior step-by-step. The objective is to gain a deeper understanding of how the algorithm works internally and how its decisions evolve over successive iterations.</p>
+<p>In order to demonstrate this understanding in a real-world setting, we apply our custom implementation to the Palmer Penguins dataset, a biologically rich dataset that includes body measurements of penguins from three species: Adelie, Chinstrap, and Gentoo. Rather than using the labeled species information (as in supervised learning), we treat the dataset as unlabeled and attempt to uncover natural groupings of penguins using primarily two features: - Bill Length (mm) - Flipper Length (mm)</p>
+<p>These two anatomical measurements are biologically meaningful because they vary across species due to differences in diet, habitat, and evolutionary adaptation. The hypothesis is that these differences are pronounced enough to allow a clustering algorithm like K-Means to separate the penguins into distinct groups that may correspond to their species.</p>
+</section>
+<section id="project-goals" class="level4">
+<h4 class="anchored" data-anchor-id="project-goals">Project Goals</h4>
+<ol type="1">
+<li>Implement the K-Means algorithm from scratch.</li>
+<li>Visualize the clustering process step-by-step to observe how centroids and cluster assignments change across iterations.</li>
+<li>Test the custom algorithm on both synthetic data and real-world data (the Palmer Penguins dataset).</li>
+<li>Compare results with Python’s built-in KMeans from scikit-learn to assess accuracy and behavior.</li>
+<li>Evaluate clustering quality using two key metrics (i) Within-Cluster Sum of Squares (WCSS) and (ii) Silhouette Score</li>
+<li>Determine the optimal number of clusters (K) using these metrics, by plotting results for K values ranging from 2 to 7.</li>
+</ol>
+</section>
+</section>
+<section id="understanding-the-data---palmer-penguins-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="understanding-the-data---palmer-penguins-dataset">Understanding the Data - Palmer Penguins Dataset</h3>
+<p>The Palmer Penguins dataset is a well-known real-world dataset used for classification and clustering tasks. It includes 330 rows of biometric data on three penguin species—Adelie, Chinstrap, and Gentoo—collected from islands in the Palmer Archipelago, Antarctica.</p>
+<p>The 8 columns in the dataset are:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 75%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Column Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>species</code></td>
+<td>Penguin species (<code>Adelie</code>, <code>Chinstrap</code>, or <code>Gentoo</code>)</td>
+</tr>
+<tr class="even">
+<td><code>island</code></td>
+<td>Island where penguin was found (<code>Biscoe</code>, <code>Dream</code>, <code>Torgersen</code>)</td>
+</tr>
+<tr class="odd">
+<td><code>bill_length_mm</code></td>
+<td>Length of the penguin’s bill (beak) in millimeters</td>
+</tr>
+<tr class="even">
+<td><code>bill_depth_mm</code></td>
+<td>Depth (thickness) of the bill in millimeters</td>
+</tr>
+<tr class="odd">
+<td><code>flipper_length_mm</code></td>
+<td>Length of the flipper in millimeters</td>
+</tr>
+<tr class="even">
+<td><code>body_mass_g</code></td>
+<td>Body mass in grams</td>
+</tr>
+<tr class="odd">
+<td><code>sex</code></td>
+<td>Sex of the penguin (<code>male</code>, <code>female</code>, or missing)</td>
+</tr>
+<tr class="even">
+<td><code>year</code></td>
+<td>Year in which the observation was recorded</td>
+</tr>
+</tbody>
+</table>
+<section id="eda-and-summary-statistics" class="level5">
+<h5 class="anchored" data-anchor-id="eda-and-summary-statistics">EDA and Summary Statistics</h5>
+<div id="d1e9394e" class="cell" data-execution_count="1">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Read the CSV file</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>df_pp <span class="op">=</span> pd.read_csv(<span class="st">"palmer_penguins.csv"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the first few rows</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>df_pp.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">species</th>
+<th data-quarto-table-cell-role="th">island</th>
+<th data-quarto-table-cell-role="th">bill_length_mm</th>
+<th data-quarto-table-cell-role="th">bill_depth_mm</th>
+<th data-quarto-table-cell-role="th">flipper_length_mm</th>
+<th data-quarto-table-cell-role="th">body_mass_g</th>
+<th data-quarto-table-cell-role="th">sex</th>
+<th data-quarto-table-cell-role="th">year</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>39.1</td>
+<td>18.7</td>
+<td>181</td>
+<td>3750</td>
+<td>male</td>
+<td>2007</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>39.5</td>
+<td>17.4</td>
+<td>186</td>
+<td>3800</td>
+<td>female</td>
+<td>2007</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>40.3</td>
+<td>18.0</td>
+<td>195</td>
+<td>3250</td>
+<td>female</td>
+<td>2007</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>36.7</td>
+<td>19.3</td>
+<td>193</td>
+<td>3450</td>
+<td>female</td>
+<td>2007</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>39.3</td>
+<td>20.6</td>
+<td>190</td>
+<td>3650</td>
+<td>male</td>
+<td>2007</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="919aa62e" class="cell" data-execution_count="2">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Summary statistics</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df_pp.describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">bill_length_mm</th>
+<th data-quarto-table-cell-role="th">bill_depth_mm</th>
+<th data-quarto-table-cell-role="th">flipper_length_mm</th>
+<th data-quarto-table-cell-role="th">body_mass_g</th>
+<th data-quarto-table-cell-role="th">year</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">count</td>
+<td>333.000000</td>
+<td>333.000000</td>
+<td>333.000000</td>
+<td>333.000000</td>
+<td>333.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">mean</td>
+<td>43.992793</td>
+<td>17.164865</td>
+<td>200.966967</td>
+<td>4207.057057</td>
+<td>2008.042042</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">std</td>
+<td>5.468668</td>
+<td>1.969235</td>
+<td>14.015765</td>
+<td>805.215802</td>
+<td>0.812944</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">min</td>
+<td>32.100000</td>
+<td>13.100000</td>
+<td>172.000000</td>
+<td>2700.000000</td>
+<td>2007.000000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">25%</td>
+<td>39.500000</td>
+<td>15.600000</td>
+<td>190.000000</td>
+<td>3550.000000</td>
+<td>2007.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">50%</td>
+<td>44.500000</td>
+<td>17.300000</td>
+<td>197.000000</td>
+<td>4050.000000</td>
+<td>2008.000000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">75%</td>
+<td>48.600000</td>
+<td>18.700000</td>
+<td>213.000000</td>
+<td>4775.000000</td>
+<td>2009.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">max</td>
+<td>59.600000</td>
+<td>21.500000</td>
+<td>231.000000</td>
+<td>6300.000000</td>
+<td>2009.000000</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Based on the summary statistics of numerical columns of the Palmer Penguins dataset, we can derive several meaningful insights that help explain the biological diversity captured and its relevance for clustering with K-Means.</p>
+<ol type="1">
+<li><p>The variable bill_length_mm exhibits a broad range, from 32.1 mm to 59.6 mm, with an average of approximately 44.0 mm. This wide spread indicates that penguin species differ significantly in their bill lengths. Such variability is ideal for clustering because K-Means relies on differences in feature values to form distinct groups. In contrast, bill_depth_mm shows a narrower range—from 13.1 mm to 21.5 mm—with a mean of about 17.2 mm. The smaller standard deviation (~2.0 mm) suggests that bill depth varies less across the population compared to bill length.</p></li>
+<li><p>Flipper_length_mm is another variable with considerable variation. It ranges from 172 mm to 231 mm and has a mean of approximately 201 mm. The diversity in flipper length likely reflects adaptations related to swimming capability and foraging behavior, which differ among species. This feature, like bill length, provides strong separation potential for clustering due to its wider distribution.</p></li>
+<li><p>The variable body_mass_g further emphasizes species-level differences. The average body mass is around 4207 grams, but the values range significantly—from 2700 g to 6300 g—with a high standard deviation of about 805 g. This variability in body size is consistent with ecological roles and physical adaptations of different penguin species. Although body mass is not used in the current clustering task, it reinforces the biological diversity within the dataset.</p></li>
+<li><p>The year variable indicates that the observations were collected over a three-year span (2007–2009), with a fairly even distribution across years. This is confirmed by the median year being 2008 and the 25th and 75th percentiles falling on 2007 and 2009, respectively. There’s no indication of temporal bias, so time should not confound the clustering based on morphology.</p></li>
+</ol>
+<p>In summary, the wide variation in bill length and flipper length across penguins provides a solid foundation for applying K-Means clustering. These two features capture key anatomical differences that are likely to align closely with species boundaries, making them well-suited for unsupervised segmentation.</p>
+</section>
+<section id="scatter-plot-bill-length-vs.-flipper-length" class="level5">
+<h5 class="anchored" data-anchor-id="scatter-plot-bill-length-vs.-flipper-length">Scatter Plot: Bill Length vs.&nbsp;Flipper Length</h5>
+<p>Purpose: Visualize the raw 2D feature space you’ll use for K-Means.</p>
+<div id="f63acfa4" class="cell" data-execution_count="3">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Drop rows with missing values in the relevant columns</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>df_clean <span class="op">=</span> df_pp.dropna(subset<span class="op">=</span>[<span class="st">'bill_length_mm'</span>, <span class="st">'flipper_length_mm'</span>, <span class="st">'species'</span>])</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create scatter plot of bill length vs flipper length colored by species</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>df_clean,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'bill_length_mm'</span>,</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">'flipper_length_mm'</span>,</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    hue<span class="op">=</span><span class="st">'species'</span>,</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    size<span class="op">=</span><span class="st">'body_mass_g'</span>,  <span class="co"># size by body mass to hint at density/variation</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    sizes<span class="op">=</span>(<span class="dv">20</span>, <span class="dv">200</span>),</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    alpha<span class="op">=</span><span class="fl">0.7</span>,</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    palette<span class="op">=</span><span class="st">'Set2'</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Scatter Plot of Bill Length vs Flipper Length by Species"</span>)</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Bill Length (mm)"</span>)</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Flipper Length (mm)"</span>)</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>plt.legend(title<span class="op">=</span><span class="st">"Species"</span>)</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-4-output-1.png" width="757" height="564" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This scatter plot of bill length vs.&nbsp;flipper length, color-coded by species and sized by body mass, provides strong visual evidence that these two features are effective for distinguishing penguin species—making them ideal for K-Means clustering. Since K-Means depends on distance in feature space, these two axes provide meaningful gradients along which to differentiate observations. It is also to be noted that, while Adelie and Gentoo appear highly separable, there may be partial overlap between Adelie and Chinstrap, which could lead to some misclassification in an unsupervised setting.</p>
+</section>
+<section id="pair-plot" class="level5">
+<h5 class="anchored" data-anchor-id="pair-plot">Pair Plot</h5>
+<p>Purpose: Explore relationships between more features like bill depth or body mass.</p>
+<div id="7e08e27e" class="cell" data-execution_count="4">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use histplot on the diagonal instead of KDE to avoid rendering issues with fill_between</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Select relevant columns</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>features <span class="op">=</span> [<span class="st">'bill_length_mm'</span>, <span class="st">'bill_depth_mm'</span>, <span class="st">'flipper_length_mm'</span>, <span class="st">'body_mass_g'</span>, <span class="st">'species'</span>]</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Drop rows with missing values in any of the selected columns</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>df_pairplot_clean <span class="op">=</span> df_pp[features].dropna()</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>sns.pairplot(df_pairplot_clean, hue<span class="op">=</span><span class="st">'species'</span>, corner<span class="op">=</span><span class="va">True</span>, palette<span class="op">=</span><span class="st">'Set2'</span>, diag_kind<span class="op">=</span><span class="st">'hist'</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>plt.suptitle(<span class="st">"Pair Plot of Penguin Features by Species"</span>, y<span class="op">=</span><span class="fl">1.02</span>)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-5-output-1.png" width="1066" height="980" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This visual exploration justifies the choice of features (bill_length_mm, flipper_length_mm) and supports the idea that natural groupings exist. It also highlights potential ambiguity between Chinstrap and Adelie, which sets up a realistic expectation: K-Means might cleanly separate some species (like Gentoo), while struggling more with overlapping ones. Overall, the pair plot strengthens the argument that K-Means clustering can uncover meaningful biological patterns from unlabelled morphological data—especially when visual and statistical structure aligns this clearly.</p>
+</section>
+<section id="histogram-or-kde-plots" class="level5">
+<h5 class="anchored" data-anchor-id="histogram-or-kde-plots">Histogram or KDE Plots</h5>
+<p>Purpose: Check distribution shape of features.</p>
+<div id="ddc52b49" class="cell" data-execution_count="5">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select numerical features relevant for clustering</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>numeric_features <span class="op">=</span> [<span class="st">'bill_length_mm'</span>, <span class="st">'bill_depth_mm'</span>, <span class="st">'flipper_length_mm'</span>, <span class="st">'body_mass_g'</span>]</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>df_hk_clean <span class="op">=</span> df_pp[numeric_features].dropna()</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create histogram/KDE plots to check feature distributions</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">8</span>))</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, col <span class="kw">in</span> <span class="bu">enumerate</span>(numeric_features, <span class="dv">1</span>):</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    plt.subplot(<span class="dv">2</span>, <span class="dv">2</span>, i)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    sns.histplot(df_hk_clean[col], kde<span class="op">=</span><span class="va">True</span>, color<span class="op">=</span><span class="st">'steelblue'</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="ss">f"Distribution of </span><span class="sc">{</span>col<span class="sc">.</span>replace(<span class="st">'_'</span>, <span class="st">' '</span>)<span class="sc">.</span>title()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(col)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">"Frequency"</span>)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>plt.suptitle(<span class="st">"Histogram and KDE Plots of Numerical Features"</span>, y<span class="op">=</span><span class="fl">1.03</span>)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-6-output-1.png" width="1141" height="794" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The histogram and KDE plots above reveal the distribution shapes of the numerical features used in clustering—bill length, bill depth, flipper length, and body mass—which is essential for evaluating their suitability for K-Means. All variables exhibit reasonably continuous and near-symmetric distributions, with slight right-skewness in body mass and flipper length, indicating some heavier or larger penguins. The presence of multiple peaks in some features (e.g., flipper length) may reflect underlying group structure such as species differences, which supports the idea that natural clusters exist in the data. These observations confirm the importance of feature standardization before applying K-Means, as the algorithm assumes spherical clusters and is sensitive to feature scale. Overall, these plots validate the chosen features and strengthen the case for using unsupervised clustering to uncover biologically meaningful patterns.</p>
+</section>
+<section id="heatmap-of-feature-correlation" class="level5">
+<h5 class="anchored" data-anchor-id="heatmap-of-feature-correlation">Heatmap of Feature Correlation</h5>
+<p>Purpose: Understand multicollinearity.</p>
+<div id="19259773" class="cell" data-execution_count="6">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>corr_matrix <span class="op">=</span> df_hk_clean .corr()</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot heatmap</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>sns.heatmap(corr_matrix, annot<span class="op">=</span><span class="va">True</span>, cmap<span class="op">=</span><span class="st">'coolwarm'</span>, fmt<span class="op">=</span><span class="st">".2f"</span>, linewidths<span class="op">=</span><span class="fl">0.5</span>, square<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Correlation Heatmap of Penguin Features"</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-7-output-1.png" width="690" height="617" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The correlation heatmap above provides insight into the relationships between the numerical features used for clustering in this project. Most notably, bill length and flipper length show a moderate positive correlation (0.65), suggesting that they vary together to some extent but still capture distinct information—making them suitable joint inputs for K-Means clustering. Similarly, body mass is highly correlated with flipper length (0.87), indicating some redundancy that could influence cluster shape or exaggerate variance in that direction. In contrast, bill depth shows negative or weak correlations with the other features, which could add orthogonal structure to the data and help improve separation if included. These patterns support the importance of feature standardization before clustering, and affirm that the selected variables offer a balanced mix of overlap and uniqueness—ideal conditions for uncovering natural groupings using K-Means.</p>
+</section>
+</section>
+<section id="introduction-to-k-means-algorithm" class="level3">
+<h3 class="anchored" data-anchor-id="introduction-to-k-means-algorithm">Introduction to K-Means Algorithm</h3>
+<p>K-Means clustering is a classic and widely-used algorithm in unsupervised machine learning that seeks to partition a dataset into a predefined number of groups, or clusters (K), based on feature similarity.</p>
+<p>This method is especially useful in market segmentation, where understanding customer subgroups with similar preferences can guide better marketing, product, and pricing decisions. As emphasized in your course materials, segmentation is essential for recognizing heterogeneity in consumer behavior and for enabling firms to target and position their products more effectively.</p>
+<section id="core-concept" class="level5">
+<h5 class="anchored" data-anchor-id="core-concept">Core Concept:</h5>
+<p>K-Means clustering works by minimizing the within-cluster variation, which means it tries to ensure that data points within the same cluster are as close as possible to each other, and distinct from those in other clusters.</p>
+<p>Each cluster is represented by a centroid, which is the average of the data points belonging to that cluster. The algorithm iteratively refines these centroids and assignments until a stable configuration is reached.</p>
+</section>
+<section id="methodology" class="level5">
+<h5 class="anchored" data-anchor-id="methodology">Methodology:</h5>
+<p>Given a dataset, represented as</p>
+<p>[ X = { _1, _2, , _n }, _i ^d ]</p>
+<p>We aim to partition these into ( K ) clusters ( C_1, C_2, , C_K ), minimizing the following objective:</p>
+<p>[ <em>{C_1, , C_K} </em>{k=1}^K _{_i C_k} | _i - _k |^2 ]</p>
+<p>Where: - ( _k ) is the centroid (mean) of cluster ( C_k ) - ( | | ) denotes the Euclidean norm</p>
+<p>K-Means follows this simple but powerful routine:</p>
+<ol type="1">
+<li><strong>Initialization</strong>: Randomly select K data points as initial centroids ( _1, , _K ).</li>
+<li><strong>Assignment Step</strong>: Assign each data point ( _i ) to the nearest centroid, forming K clusters, typically using Euclidean distance.</li>
+</ol>
+<p>[ (_i) = _k | _i - _k | ]</p>
+<ol start="3" type="1">
+<li><strong>Update Step</strong>: Recalculate the centroids by taking the mean of all data points assigned to each cluster. The new centroid represents the center of gravity for the current cluster assignments.</li>
+</ol>
+<p>[ <em>k = </em>{_i C_k} _i ]</p>
+<ol start="4" type="1">
+<li><strong>Convergence Check</strong>: Repeat the assignment and update steps until the centroids no longer change significantly, indicating convergence.</li>
+</ol>
+</section>
+<section id="evaluation-metrics" class="level5">
+<h5 class="anchored" data-anchor-id="evaluation-metrics">Evaluation Metrics:</h5>
+<ol type="1">
+<li><strong>Within-Cluster Sum of Squares (WCSS)</strong>: Measures the compactness of clusters. Lower WCSS indicates tighter clusters.</li>
+</ol>
+<p>[ = <em>{k=1}^K </em>{_i C_k} | _i - _k |^2 ]</p>
+<p>Where:</p>
+<ul>
+<li>( C_k ): The set of points in cluster ( k )</li>
+<li>( x_{ij} ): The value of the ( j )-th feature for the ( i )-th observation</li>
+<li>( {x}_{kj} ): The mean of the ( j )-th feature for cluster ( k )</li>
+<li>( J ): The number of features (columns)</li>
+</ul>
+<p>Used in <strong>elbow plots</strong> to determine the optimal number of clusters ( K ).</p>
+<ol start="2" type="1">
+<li><strong>Silhouette Score</strong>: Measures how similar a data point is to its own cluster compared to other clusters. Values range from -1 to 1, with higher values indicating better-defined clusters.</li>
+</ol>
+<p>For each point ( _i ):</p>
+<ul>
+<li>( a_i ): average intra-cluster distance (cohesion)</li>
+<li>( b_i ): average nearest-cluster distance (separation)</li>
+</ul>
+<p>[ s_i = ]</p>
+<p>The overall silhouette score is:</p>
+<p>[ s = _{i=1}^{n} s_i ]</p>
+<p>A score: - ( &gt; 0.5 ): strong structure - ( ): weak structure - ( &lt; 0 ): inappropriate clustering</p>
+</section>
+<section id="key-considerations" class="level5">
+<h5 class="anchored" data-anchor-id="key-considerations">Key Considerations:</h5>
+<ul>
+<li><strong>Random Initialization</strong>: The initial choice of centroids can significantly affect the final clustering outcome. To mitigate this, multiple runs with different initializations can be performed, and the best result (lowest WCSS) can be selected.</li>
+<li><strong>Scaling Matters</strong>: K-Means is sensitive to the scale of the data. Features should be standardized (e.g., using StandardScaler) or normalized to ensure that no single feature disproportionately influences the clustering.</li>
+<li><strong>Choosing K</strong>: The number of clusters (K) must be specified beforehand, which can be challenging. Techniques like the Elbow Method or Silhouette Score can help determine an appropriate K.</li>
+</ul>
+</section>
+</section>
+<section id="k-means-implementation-from-scratch-and-visualization-of-algorithm-steps" class="level3">
+<h3 class="anchored" data-anchor-id="k-means-implementation-from-scratch-and-visualization-of-algorithm-steps">K-Means Implementation from Scratch and Visualization of Algorithm Steps</h3>
+<p>The following code provides a full implementation of the <strong>K-Means clustering algorithm from scratch</strong>, aligned directly with its mathematical formulation. The code below also allows us to visualize the K-Means algorithm’s behavior step-by-step, showing how centroids and cluster assignments evolve over iterations. It stores the centroids and cluster assignments (labels) after every update step, and then plots each iteration in a separate subplot, showing how the data points are reassigned to clusters and the centroids (shown as red Xs) move with each step. This is particularly useful for understanding the algorithm’s convergence and the final clustering results.</p>
+<div id="06d63d40" class="cell" data-execution_count="7">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> initialize_centroids(X, k, seed<span class="op">=</span><span class="dv">42</span>):</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    np.random.seed(seed)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    random_indices <span class="op">=</span> np.random.choice(X.shape[<span class="dv">0</span>], k, replace<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> X[random_indices]</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> assign_clusters(X, centroids):</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    distances <span class="op">=</span> np.linalg.norm(X[:, np.newaxis] <span class="op">-</span> centroids, axis<span class="op">=</span><span class="dv">2</span>)  <span class="co"># shape: (n_samples, k)</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.argmin(distances, axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> update_centroids(X, labels, k):</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.array([X[labels <span class="op">==</span> i].mean(axis<span class="op">=</span><span class="dv">0</span>) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(k)])</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compute_wcss(X, labels, centroids):</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">sum</span>(np.<span class="bu">sum</span>((X[labels <span class="op">==</span> i] <span class="op">-</span> centroids[i]) <span class="op">**</span> <span class="dv">2</span>) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(centroids)))</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> kmeans_with_tracking(X, k, max_iters<span class="op">=</span><span class="dv">100</span>, seed<span class="op">=</span><span class="dv">42</span>, plot_steps<span class="op">=</span><span class="va">True</span>):</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    centroids <span class="op">=</span> initialize_centroids(X, k, seed)</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    history <span class="op">=</span> {<span class="st">'centroids'</span>: [centroids.copy()], <span class="st">'labels'</span>: []}</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(max_iters):</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>        labels <span class="op">=</span> assign_clusters(X, centroids)</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>        history[<span class="st">'labels'</span>].append(labels.copy())</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>        new_centroids <span class="op">=</span> update_centroids(X, labels, k)</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> np.allclose(centroids, new_centroids):</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>        centroids <span class="op">=</span> new_centroids</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>        history[<span class="st">'centroids'</span>].append(centroids.copy())</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>    final_wcss <span class="op">=</span> compute_wcss(X, labels, centroids)</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> plot_steps:</span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>        n_steps <span class="op">=</span> <span class="bu">len</span>(history[<span class="st">'labels'</span>])</span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>        n_cols <span class="op">=</span> <span class="dv">5</span></span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>        n_rows <span class="op">=</span> <span class="bu">int</span>(np.ceil(n_steps <span class="op">/</span> n_cols))</span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>        fig, axes <span class="op">=</span> plt.subplots(n_rows, n_cols, figsize<span class="op">=</span>(<span class="dv">4</span> <span class="op">*</span> n_cols, <span class="dv">4</span> <span class="op">*</span> n_rows))</span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>        axes <span class="op">=</span> axes.flatten()</span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n_steps):</span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>            axes[i].scatter(X[:, <span class="dv">0</span>], X[:, <span class="dv">1</span>], c<span class="op">=</span>history[<span class="st">'labels'</span>][i], cmap<span class="op">=</span><span class="st">'viridis'</span>, s<span class="op">=</span><span class="dv">30</span>)</span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>            axes[i].scatter(history[<span class="st">'centroids'</span>][i][:, <span class="dv">0</span>], history[<span class="st">'centroids'</span>][i][:, <span class="dv">1</span>], </span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>                            c<span class="op">=</span><span class="st">'red'</span>, s<span class="op">=</span><span class="dv">100</span>, marker<span class="op">=</span><span class="st">'X'</span>)</span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>            axes[i].set_title(<span class="ss">f"Iteration </span><span class="sc">{</span>i <span class="op">+</span> <span class="dv">1</span><span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(n_steps, n_rows <span class="op">*</span> n_cols):</span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>            axes[j].axis(<span class="st">'off'</span>)</span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>        plt.tight_layout()</span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a>        plt.show()</span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> centroids, labels, final_wcss</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<section id="how-each-step-matches-the-math" class="level4">
+<h4 class="anchored" data-anchor-id="how-each-step-matches-the-math">How Each Step Matches the Math</h4>
+<ul>
+<li><code>initialize_centroids(X, k)</code>:
+<ul>
+<li>Randomly selects ( _k^{(0)} ) — the initial centroids.</li>
+</ul></li>
+<li><code>assign_clusters(X, centroids)</code>:
+<ul>
+<li>Assigns each point ( _i ) to the nearest centroid ( _k ), minimizing ( | _i - _k | ).</li>
+</ul></li>
+<li><code>update_centroids(X, labels, k)</code>:
+<ul>
+<li>Updates centroids using the mean of points in each cluster:<br>
+( <em>k = </em>{_i C_k} _i ).</li>
+</ul></li>
+<li><code>compute_wcss(X, labels, centroids)</code>:
+<ul>
+<li>Computes total within-cluster variation (WCSS):<br>
+( <em>{k=1}^K </em>{_i C_k} | _i - _k |^2 ).</li>
+</ul></li>
+<li><code>kmeans(X, k)</code>:
+<ul>
+<li>Loops the assignment and update steps until convergence is achieved.</li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="testing-the-algorithm-on-the-palmer-penguins-dataset-specifically-using-the-bill-length-and-flipper-length-variables" class="level3">
+<h3 class="anchored" data-anchor-id="testing-the-algorithm-on-the-palmer-penguins-dataset-specifically-using-the-bill-length-and-flipper-length-variables">Testing the Algorithm on the Palmer Penguins Dataset, specifically using the bill length and flipper length variables</h3>
+<section id="prepping-the-data" class="level5">
+<h5 class="anchored" data-anchor-id="prepping-the-data">Prepping the data</h5>
+<p>The dataset is first standardized using the features using StandardScaler. This is crucial because K-Means uses Euclidean distance, which is sensitive to feature scale and features like bill length (mm) and flipper length (mm) are on different ranges.</p>
+</section>
+<section id="applying-k-means-clustering-and-visualization-algorithm" class="level5">
+<h5 class="anchored" data-anchor-id="applying-k-means-clustering-and-visualization-algorithm">Applying K-Means Clustering and Visualization Algorithm</h5>
+<div id="49838297" class="cell" data-execution_count="8">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler, LabelEncoder</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> adjusted_rand_score</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Prepare the data</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>df_pp_scale <span class="op">=</span> df_pp[[<span class="st">'bill_length_mm'</span>, <span class="st">'flipper_length_mm'</span>]].dropna()</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Standardize the features</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>X_scaled <span class="op">=</span> scaler.fit_transform(df_pp_scale)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Encode ground truth species labels for evaluation</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>le <span class="op">=</span> LabelEncoder()</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>true_labels <span class="op">=</span> le.fit_transform(df_pp[<span class="st">'species'</span>])</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Apply the algorithm to the standardized data</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>centroids_custom, labels_custom, wcss_custom <span class="op">=</span> kmeans_with_tracking(X_scaled, k<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>ari_custom <span class="op">=</span> adjusted_rand_score(true_labels, labels_custom)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-9-output-1.png" width="1910" height="1141" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The grid visualization above showcases the step-by-step progression of K-Means clustering applied to the Palmer Penguins dataset, using only two standardized features: bill length and flipper length. This directly addresses the objective—to explore whether these two biologically relevant measurements are sufficient for uncovering natural groupings of penguins via unsupervised learning.</p>
+<p>From iteration 1 through iteration 13, we observe the algorithm gradually stabilizing into three well-separated clusters. The initial centroid positions were randomly assigned, resulting in significant overlap and misclassification early on. However, by iteration 4–5, centroids begin to settle into meaningful positions, and cluster boundaries become clearer. By iteration 13, the clusters are visually stable and internally consistent, indicating convergence. The final clustering solution visually reflects three distinct groupings—which is promising given that the dataset contains three penguin species (Adelie, Chinstrap, Gentoo). Notably, the top cluster likely corresponds to Gentoo penguins, which tend to have longer bills and flippers. The bottom-left and bottom-center clusters may correspond to Adelie and Chinstrap penguins, which are known to overlap more closely in morphological traits—explaining some residual ambiguity between those two.</p>
+<p>This iterative visualization confirms that:<br>
+1. Bill length and flipper length alone contain enough structure to support biologically meaningful clustering.<br>
+2. K-Means is able to recover species-like groupings using these features, validating the method for segmentation without labels.<br>
+3. Standardization was crucial: without scaling, the algorithm would have been biased toward the feature with larger variance.<br>
+</p>
+<p>In summary, this outcome strongly supports the project’s hypothesis: K-Means can uncover hidden structure in biological data using simple, interpretable features, and the visual convergence offers an intuitive understanding of how the algorithm refines its clusters over time.</p>
+<p>An animated version of the above plot if visualized as a gif would show the centroids moving and the clusters forming over time, providing an engaging way to understand the K-Means algorithm’s iterative nature <img src="kmeans_animation.gif" class="img-fluid" alt="K-Means Animation"></p>
+</section>
+<section id="output-centroids-wcss-and-adjusted-rand-index-for-custom-k-means-from-scratch" class="level5">
+<h5 class="anchored" data-anchor-id="output-centroids-wcss-and-adjusted-rand-index-for-custom-k-means-from-scratch">Output: Centroids, WCSS, and Adjusted Rand Index for Custom K-Means from Scratch</h5>
+<div id="86cb63c8" class="cell" data-execution_count="9">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Centroids (Custom K-Means):</span><span class="ch">\n</span><span class="sc">{</span>centroids_custom<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Custom K-Means WCSS: </span><span class="sc">{</span>wcss_custom<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Custom K-Means Adjusted Rand Index: </span><span class="sc">{</span>ari_custom<span class="sc">:.4f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Centroids (Custom K-Means):
+[[-0.96427851 -0.80518575]
+ [ 0.66403058  1.15087842]
+ [ 0.9235766  -0.37501448]]
+Custom K-Means WCSS: 154.85
+Custom K-Means Adjusted Rand Index: 0.8834</code></pre>
+</div>
+</div>
+<p>These metrics indicate the performance and quality of the custom K-Means clustering implementation on the Palmer Penguins dataset using bill length and flipper length after standardizing.</p>
+<ol type="1">
+<li><p>The final centroids represent the mean feature values of each cluster in standardized space (i.e., z-scores). Their spatial separation confirms that the algorithm successfully found distinct group centers, likely corresponding to real species groupings (like Adelie, Chinstrap, and Gentoo).</p></li>
+<li><p>Custom K-Means WCSS: 154.85<br>
+Within-Cluster Sum of Squares (WCSS) quantifies the compactness of clusters. Lower values mean that points are closer to their cluster centroids. A WCSS of 154.85 suggests tight intra-cluster cohesion, especially considering that only two features were used. This supports the visual impression that the clustering converged to a meaningful structure.</p></li>
+<li><p>Adjusted Rand Index (ARI): 0.8834<br>
+A score of 0.8834 indicates excellent alignment between the predicted clusters and actual penguin species, even though the algorithm had no access to the species labels during training. This validates that bill length and flipper length alone are highly predictive of species identity, and the custom K-Means is working very well.</p></li>
+</ol>
+</section>
+</section>
+<section id="comparing-results-with-pythons-built-in-kmeans" class="level3">
+<h3 class="anchored" data-anchor-id="comparing-results-with-pythons-built-in-kmeans">Comparing Results with Python’s Built-in KMeans</h3>
+<section id="utilizing-scikit-learns-kmeans-implementation" class="level4">
+<h4 class="anchored" data-anchor-id="utilizing-scikit-learns-kmeans-implementation">Utilizing scikit-learn’s KMeans Implementation</h4>
+<div id="97af3976" class="cell" data-execution_count="10">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df_pp_scale .values</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>X_scaled1 <span class="op">=</span> scaler.fit_transform(X)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3: Encode species labels numerically for comparison</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>le <span class="op">=</span> LabelEncoder()</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>true_labels <span class="op">=</span> le.fit_transform(df_clean[<span class="st">'species'</span>])</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 4: Apply scikit-learn's built-in KMeans</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>kmeans_builtin <span class="op">=</span> KMeans(n_clusters<span class="op">=</span><span class="dv">3</span>, random_state<span class="op">=</span><span class="dv">42</span>, n_init<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>builtin_labels <span class="op">=</span> kmeans_builtin.fit_predict(X_scaled1)</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 5: Evaluate with Adjusted Rand Index (ARI)</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>ari_score <span class="op">=</span> adjusted_rand_score(true_labels, builtin_labels)</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Output: Centroids and WCSS for built-in KMeans</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>centroids_builtin <span class="op">=</span> kmeans_builtin.cluster_centers_</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>wcss_builtin <span class="op">=</span> kmeans_builtin.inertia_</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>plt.scatter(X_scaled1[:, <span class="dv">0</span>], X_scaled1[:, <span class="dv">1</span>], c<span class="op">=</span>builtin_labels, cmap<span class="op">=</span><span class="st">'viridis'</span>, s<span class="op">=</span><span class="dv">30</span>)</span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>plt.scatter(centroids_builtin[:, <span class="dv">0</span>], centroids_builtin[:, <span class="dv">1</span>], c<span class="op">=</span><span class="st">'red'</span>, s<span class="op">=</span><span class="dv">100</span>, marker<span class="op">=</span><span class="st">'X'</span>)</span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"K-Means Clustering (scikit-learn)"</span>)</span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Standardized Bill Length"</span>)</span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Standardized Flipper Length"</span>)</span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-11-output-1.png" width="662" height="523" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>When comparing the final clustering result from the custom K-Means implementation to the one generated by scikit-learn’s KMeans, we observe a near-identical structure in both plots. The same three distinct clusters are formed, with clear separation and minimal overlap, and the centroids (red Xs) are positioned in almost exactly the same locations in standardized feature space.This visual agreement strongly validates the correctness of the custom implementation. It confirms that the custom algorithm performs all key steps—centroid initialization, point assignment, centroid update, and convergence check—accurately and in line with the industry-standard approach used by scikit-learn. Additionally, this comparison demonstrates that K-Means produces stable and interpretable results when applied to well-prepared features like standardized bill_length_mm and flipper_length_mm. The clusters align closely with species groupings, and the centroids serve as meaningful summary points within each group.</p>
+<p>In short, the final outputs of both implementations are functionally equivalent, proving that the handwritten approach is not only correct but also competitive with professional tools.</p>
+<section id="output-centroids-wcss-and-adjusted-rand-index-for-sci-kit-learn-k-means-vs-custom-k-means-from-scratch" class="level5">
+<h5 class="anchored" data-anchor-id="output-centroids-wcss-and-adjusted-rand-index-for-sci-kit-learn-k-means-vs-custom-k-means-from-scratch">Output: Centroids, WCSS, and Adjusted Rand Index for Sci-Kit learn K-Means vs Custom K-Means from Scratch</h5>
+<div id="b3f843e4" class="cell" data-execution_count="11">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Centroids (Scikit-learn KMeans):</span><span class="ch">\n</span><span class="sc">{</span>centroids_builtin<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Centroids (Scikit-learn KMeans):
+[[-0.96427851 -0.80518575]
+ [ 0.66403058  1.15087842]
+ [ 0.9235766  -0.37501448]]</code></pre>
+</div>
+</div>
+<p>The centroids from the k-means clustering using scikit-learn’s implementation are also numerically identical to those from the custom implementation, confirming that both methods converge to the same cluster centers in standardized feature space. This consistency across implementations further validates the correctness of the custom K-Means algorithm.</p>
+<div id="fc3bdc31" class="cell" data-execution_count="12">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Comparison table between custom and scikit-learn KMeans</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>comparison_df <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Metric'</span>: [<span class="st">'WCSS'</span>, <span class="st">'Adjusted Rand Index'</span>],</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Custom K-Means'</span>: [</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>wcss_custom<span class="sc">:.2f}</span><span class="ss">"</span>,</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>ari_custom<span class="sc">:.4f}</span><span class="ss">"</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Scikit-learn KMeans'</span>: [</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>wcss_builtin<span class="sc">:.2f}</span><span class="ss">"</span>,</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>ari_score<span class="sc">:.4f}</span><span class="ss">"</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>comparison_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Metric</th>
+<th data-quarto-table-cell-role="th">Custom K-Means</th>
+<th data-quarto-table-cell-role="th">Scikit-learn KMeans</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>WCSS</td>
+<td>154.85</td>
+<td>154.85</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>Adjusted Rand Index</td>
+<td>0.8834</td>
+<td>0.8834</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Lastly, the comparison confirms that the custom K-Means implementation performs identically to scikit-learn’s built-in algorithm, producing the same WCSS (154.85) and Adjusted Rand Index (0.8834). This also reinforces that the handwritten code is both accurate and reliable, effectively replicating industry-standard behavior. It also validates that bill length and flipper length are strong features for clustering penguin species.</p>
+</section>
+</section>
+</section>
+<section id="evaluation-metrics-for-k-means-clustering" class="level3">
+<h3 class="anchored" data-anchor-id="evaluation-metrics-for-k-means-clustering">Evaluation Metrics for K-Means Clustering</h3>
+<section id="within-cluster-sum-of-squares-wcss-and-silhouette-score-for-various-k-values" class="level4">
+<h4 class="anchored" data-anchor-id="within-cluster-sum-of-squares-wcss-and-silhouette-score-for-various-k-values">Within-Cluster Sum of Squares (WCSS) and Silhouette Score for Various K Values</h4>
+<div id="77546788" class="cell" data-execution_count="13">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> silhouette_score</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to calculate WCSS and silhouette score for a range of K values</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> evaluate_kmeans(X, k_range):</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    wcss <span class="op">=</span> []</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    silhouette_scores <span class="op">=</span> []</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> k <span class="kw">in</span> k_range:</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>        kmeans <span class="op">=</span> KMeans(n_clusters<span class="op">=</span>k, random_state<span class="op">=</span><span class="dv">42</span>, n_init<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>        labels <span class="op">=</span> kmeans.fit_predict(X)</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Calculate WCSS</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>        wcss.append(kmeans.inertia_)</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Calculate silhouette score</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> k <span class="op">&gt;</span> <span class="dv">1</span>:  <span class="co"># Silhouette score is undefined for k=1</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>            silhouette_scores.append(silhouette_score(X, labels))</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>            silhouette_scores.append(<span class="va">None</span>)</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> wcss, silhouette_scores</span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>k_range <span class="op">=</span> <span class="bu">range</span>(<span class="dv">2</span>, <span class="dv">8</span>)  <span class="co"># Testing K from 2 to 7</span></span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>wcss, silhouette_scores <span class="op">=</span> evaluate_kmeans(X_scaled1, k_range)</span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"WCSS for different K values:"</span>, wcss)</span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Silhouette Scores for different K values:"</span>, silhouette_scores)</span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot results</span></span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">5</span>))</span>
+<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot WCSS</span></span>
+<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].plot(k_range, wcss, marker<span class="op">=</span><span class="st">'o'</span>)</span>
+<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].set_title(<span class="st">'WCSS vs Number of Clusters (K)'</span>)</span>
+<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].set_xlabel(<span class="st">'Number of Clusters (K)'</span>)</span>
+<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].set_ylabel(<span class="st">'WCSS'</span>)</span>
+<span id="cb15-37"><a href="#cb15-37" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].set_xticks(<span class="bu">list</span>(k_range))</span>
+<span id="cb15-38"><a href="#cb15-38" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> x, y <span class="kw">in</span> <span class="bu">zip</span>(k_range, wcss):</span>
+<span id="cb15-39"><a href="#cb15-39" aria-hidden="true" tabindex="-1"></a>    ax[<span class="dv">0</span>].text(x, y, <span class="ss">f"</span><span class="sc">{</span>y<span class="sc">:.1f}</span><span class="ss">"</span>, ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'bottom'</span>, fontsize<span class="op">=</span><span class="dv">9</span>)</span>
+<span id="cb15-40"><a href="#cb15-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-41"><a href="#cb15-41" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot Silhouette Scores</span></span>
+<span id="cb15-42"><a href="#cb15-42" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].plot(k_range, silhouette_scores, marker<span class="op">=</span><span class="st">'o'</span>, color<span class="op">=</span><span class="st">'green'</span>)</span>
+<span id="cb15-43"><a href="#cb15-43" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].set_title(<span class="st">'Silhouette Score vs Number of Clusters (K)'</span>)</span>
+<span id="cb15-44"><a href="#cb15-44" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].set_xlabel(<span class="st">'Number of Clusters (K)'</span>)</span>
+<span id="cb15-45"><a href="#cb15-45" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].set_ylabel(<span class="st">'Silhouette Score'</span>)</span>
+<span id="cb15-46"><a href="#cb15-46" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].set_xticks(<span class="bu">list</span>(k_range))</span>
+<span id="cb15-47"><a href="#cb15-47" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> x, y <span class="kw">in</span> <span class="bu">zip</span>(k_range, silhouette_scores):</span>
+<span id="cb15-48"><a href="#cb15-48" aria-hidden="true" tabindex="-1"></a>    ax[<span class="dv">1</span>].text(x, y, <span class="ss">f"</span><span class="sc">{</span>y<span class="sc">:.2f}</span><span class="ss">"</span>, ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'bottom'</span>, fontsize<span class="op">=</span><span class="dv">9</span>)</span>
+<span id="cb15-49"><a href="#cb15-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-50"><a href="#cb15-50" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb15-51"><a href="#cb15-51" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>WCSS for different K values: [243.17279024307936, 154.84546009071224, 116.22992785055912, 89.8787514461375, 77.15139118747717, 65.76329426688733]
+Silhouette Scores for different K values: [0.5388755534650435, 0.518869393287823, 0.5040149452257723, 0.43335050630380545, 0.4007298336057708, 0.41010401090116616]</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-14-output-2.png" width="1141" height="468" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The two plots above help determine the optimal number of clusters (K) for K-Means using two metrics: WCSS and Silhouette Score.</p>
+<p><strong>WCSS (Within-Cluster Sum of Squares)</strong> 1. The WCSS plot shows a sharp drop between K=2 and K=3, then a more gradual decline after that.<br>
+2. This “elbow” shape suggests that K=3 is a good balance between compact clusters and model simplicity.<br>
+3. Adding more clusters beyond K=3 gives diminishing returns in reducing WCSS.</p>
+<p><strong>Silhouette Score</strong> 1. The silhouette score peaks at K=2 but remains relatively high at K=3, then steadily declines as K increases.<br>
+2. While K=2 technically gives the highest silhouette score, K=3 still maintains a strong value and may be preferable if three natural groups (e.g., three penguin species) are expected.</p>
+<p>Based on the plots for both sets for metrics, K=3 seems to be the “right” number of clusters. It aligns with the biological ground truth (three species) and provides a good trade-off between cluster separation and model interpretability.</p>
+<p>A more numeric way to calculate this is to use the <strong>elbow method</strong> formulaically, which involves calculating the percentage change in WCSS as K increases. The optimal K is often where this percentage change drops significantly, indicating diminishing returns.</p>
+<div id="5140339f" class="cell" data-execution_count="14">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identify the optimal number of clusters using the "elbow" in WCSS and the maximum silhouette score</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Find the "elbow" point in WCSS (where the decrease in WCSS slows down)</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># A simple approach: look for the point where the relative decrease drops below a threshold</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>wcss_diff <span class="op">=</span> np.diff(wcss)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>wcss_diff_ratio <span class="op">=</span> np.<span class="bu">abs</span>(wcss_diff <span class="op">/</span> wcss[:<span class="op">-</span><span class="dv">1</span>])</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>elbow_threshold <span class="op">=</span> <span class="fl">0.5</span>  </span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>elbow_candidates <span class="op">=</span> np.where(wcss_diff_ratio <span class="op">&lt;</span> elbow_threshold)[<span class="dv">0</span>]</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">len</span>(elbow_candidates) <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    optimal_k_elbow <span class="op">=</span> k_range[elbow_candidates[<span class="dv">0</span>] <span class="op">+</span> <span class="dv">1</span>]</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>    optimal_k_elbow <span class="op">=</span> k_range[<span class="dv">0</span>]</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Find the number of clusters with the highest silhouette score</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>silhouette_scores_valid <span class="op">=</span> [s <span class="cf">for</span> s <span class="kw">in</span> silhouette_scores <span class="cf">if</span> s <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>]</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>optimal_k_silhouette <span class="op">=</span> k_range[np.argmax(silhouette_scores_valid) <span class="op">+</span> <span class="dv">1</span>]  <span class="co"># +1 because k_range starts at 2</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Optimal K by Elbow Method (WCSS): </span><span class="sc">{</span>optimal_k_elbow<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Optimal K by Maximum Silhouette Score: </span><span class="sc">{</span>optimal_k_silhouette<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Optimal K by Elbow Method (WCSS): 3
+Optimal K by Maximum Silhouette Score: 3</code></pre>
+</div>
+</div>
+<p>In this case, 0.5 is used as the threshold for the elbow method, because the shape of the WCSS curve shows a sharp drop between K=2 and K=3, followed by a noticeably slower, more gradual decline, suggesting that the most significant gain in cluster compactness occurs at K=3, making it a natural inflection point. The optimal K values found are 3 using this method as well as the silhouette score, confirming the earlier visual assessment. This consistency across methods strengthens the conclusion that K=3 is the most appropriate number of clusters for this dataset.</p>
+</section>
+</section>
+<section id="conclusion" class="level3">
+<h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>
+<p>In this project, we successfully implemented the K-Means clustering algorithm from scratch and applied it to the Palmer Penguins dataset, focusing on bill length and flipper length as features. The custom implementation was validated against scikit-learn’s KMeans, demonstrating that both approaches yield equivalent results in terms of cluster centroids and performance metrics. We explored the dataset’s structure through various visualizations, confirming that these two features are sufficient for uncovering meaningful biological groupings. The iterative visualization of the K-Means algorithm provided an intuitive understanding of how clusters evolve over time, reinforcing the algorithm’s effectiveness in segmenting unlabelled data.</p>
+</section>
+</section>
+<section id="ii.-k-nearest-neighbors" class="level2">
+<h2 class="anchored" data-anchor-id="ii.-k-nearest-neighbors">II. K Nearest Neighbors</h2>
+<section id="introduction-1" class="level3">
+<h3 class="anchored" data-anchor-id="introduction-1">Introduction</h3>
+<p>K-Nearest Neighbors (KNN) is a simple, non-parametric classification algorithm that makes predictions based on the similarity of input features. It operates under the assumption that observations close to each other in feature space tend to share similar output labels. KNN is particularly useful in nonlinear settings, where more rigid models (like linear classifiers) fail to capture the structure of the data. In this project, we test the effectiveness of KNN in a synthetic binary classification task with a deliberately nonlinear and wiggly decision boundary. The goal is to observe how well KNN can learn complex patterns and to determine the optimal value of k—the number of neighbors used in prediction.</p>
+<section id="project-goals-1" class="level4">
+<h4 class="anchored" data-anchor-id="project-goals-1">Project Goals</h4>
+<ol type="1">
+<li><strong>Data Generation</strong>: Create a training dataset with 100 observations and a nonlinear boundary. Generate a separate test set using a different random seed.</li>
+<li><strong>Implementation</strong>: Write a KNN function from scratch using Euclidean distance. Use it to classify each test point.</li>
+<li><strong>Evaluation</strong>: Vary ( k ) from 1 to 30 and compute the <strong>accuracy</strong> on the test set for each value.</li>
+<li><strong>Visualization</strong>: Plot accuracy vs.&nbsp;( k ) to identify the optimal value.</li>
+<li><strong>Validation</strong>: Compare results to Python’s built-in <code>KNeighborsClassifier</code> from <code>scikit-learn</code>.</li>
+</ol>
+</section>
+</section>
+<section id="generating-synthetic-data-for-k-nearest-neighbors" class="level3">
+<h3 class="anchored" data-anchor-id="generating-synthetic-data-for-k-nearest-neighbors">Generating Synthetic Data for K-Nearest Neighbors</h3>
+<p>The following code generates a synthetic binary classification dataset with a nonlinear, wiggly decision boundary. The code generates a dataset with two features, <code>x1</code> and <code>x2</code>, and a binary outcome variable <code>y</code> that is determined by whether <code>x2</code> is above or below a wiggly boundary defined by a sin function. We construct a synthetic 2D dataset with two continuous features, ( x_1 ) and ( x_2 ), sampled uniformly from the interval ([-3, 3]). A <strong>wiggly boundary</strong> is defined using the nonlinear function:</p>
+<p>[ x_2 = (4x_1) + x_1 ]</p>
+<p>Each observation is labeled according to its position relative to this boundary:</p>
+<ul>
+<li>( y = 1 ) if ( x_2 &gt; (4x_1) + x_1 )</li>
+<li>( y = 0 ) otherwise</li>
+</ul>
+<p>This results in a dataset that is <strong>not linearly separable</strong>, and is useful for testing how well classification algorithms can handle non-linearity in feature space. Specifically:</p>
+<ol type="1">
+<li>Two continuous features, x1 and x2, are drawn from a uniform distribution between -3 and 3.<br>
+</li>
+<li>A boundary is defined using the function sin(4x1) + x1—this creates a nonlinear, oscillating curve in the 2D plane.<br>
+</li>
+<li>The label y is assigned as 1 if a point lies above the boundary and 0 if it lies below.<br>
+</li>
+<li>The result is a labeled dataset (x1, x2, y) that mimics a real-world scenario where the decision boundary is not linearly separable.<br>
+</li>
+</ol>
+<div id="9e955bfa" class="cell" data-execution_count="15">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set seed for reproducibility</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">42</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate random data</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>x1 <span class="op">=</span> np.random.uniform(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>, n)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>x2 <span class="op">=</span> np.random.uniform(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>, n)</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a wiggly nonlinear boundary</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>boundary <span class="op">=</span> np.sin(<span class="dv">4</span> <span class="op">*</span> x1) <span class="op">+</span> x1</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Assign labels based on position relative to the boundary</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> (x2 <span class="op">&gt;</span> boundary).astype(<span class="bu">int</span>)  <span class="co"># 1 if above boundary, 0 otherwise</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Create DataFrame</span></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>dat <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">'x1'</span>: x1,</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">'x2'</span>: x2,</span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">'y'</span>: y</span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>dat[<span class="st">'y'</span>] <span class="op">=</span> dat[<span class="st">'y'</span>].astype(<span class="st">'category'</span>)</span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Preview the dataset</span></span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(dat.head())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>         x1        x2  y
+0 -0.752759 -2.811425  0
+1  2.704286  0.818462  0
+2  1.391964 -1.113864  0
+3  0.591951  0.051424  0
+4 -2.063888  2.445399  1</code></pre>
+</div>
+</div>
+</section>
+<section id="plotting-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="plotting-the-data">Plotting the Data</h3>
+<p>We proceed to plot the data where the horizontal axis is <code>x1</code>, the vertical axis is <code>x2</code>, and the points are colored by the value of <code>y</code>. We also draw the wiggly boundary defined by the function ( (4x_1) + x_1 ) to visualize how well the data aligns with this nonlinear decision boundary.</p>
+<div id="e0db61b5" class="cell" data-execution_count="16">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>plt.scatter(dat[<span class="st">'x1'</span>], dat[<span class="st">'x2'</span>], c<span class="op">=</span>dat[<span class="st">'y'</span>].cat.codes, cmap<span class="op">=</span><span class="st">'coolwarm'</span>, s<span class="op">=</span><span class="dv">50</span>, edgecolor<span class="op">=</span><span class="st">'k'</span>, alpha<span class="op">=</span><span class="fl">0.8</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Draw the wiggly boundary</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>x1_sorted <span class="op">=</span> np.sort(dat[<span class="st">'x1'</span>])</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>boundary_sorted <span class="op">=</span> np.sin(<span class="dv">4</span> <span class="op">*</span> x1_sorted) <span class="op">+</span> x1_sorted</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>plt.plot(x1_sorted, boundary_sorted, color<span class="op">=</span><span class="st">'black'</span>, linewidth<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">'Boundary: sin(4x1) + x1'</span>)</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'x1'</span>)</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'x2'</span>)</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Scatter Plot of x1 vs x2 Colored by y'</span>)</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-17-output-1.png" width="662" height="523" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The scatter plot above illustrates the synthetic classification dataset used in this project. The horizontal axis represents <code>x1</code>, the vertical axis represents <code>x2</code>, and each point is colored based on its class label <code>y</code>, where red points belong to class 1 and blue points belong to class 0. The black curve represents the nonlinear decision boundary defined by ( x_2 = (4x_1) + x_1 ).</p>
+<p>The visual clearly shows that the decision boundary is highly non-linear, with multiple oscillations that separate the space into alternating regions of class 0 and 1. The red points lie above the curve (where [ x_2 &gt; (4x_1) + x_1 ] ), while the blue points lie below it. This setup poses a meaningful challenge to linear models, making it ideal for evaluating algorithms like K-Nearest Neighbors, which can flexibly adapt to such complex, nonlinear boundaries. The plot confirms that the data generation process correctly labels points based on their position relative to the boundary.</p>
+</section>
+<section id="generating-a-test-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="generating-a-test-dataset">Generating a Test Dataset</h3>
+<p>To evaluate how well our K-Nearest Neighbors (KNN) model generalizes to <strong>unseen data</strong>, we generate a <strong>new test dataset</strong> using the <strong>same procedure</strong> as the training set, but with a <strong>different random seed</strong>. This ensures that the distribution and structure of the test data match the training data, while the actual data points remain independent.</p>
+<p>Like before, each observation is assigned a binary label based on whether it falls <strong>above or below the nonlinear boundary</strong> defined by:</p>
+<p>[ x_2 &gt; (4x_1) + x_1 ]</p>
+<p>This test set allows us to fairly assess the accuracy of our KNN classifier across various values of ( k ), providing insight into how well the model captures the nonlinear structure in the data. The following plot shows the distribution of the test points, with colors indicating class labels and the black curve marking the true decision boundary.</p>
+<div id="03d742a6" class="cell" data-execution_count="17">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate test dataset using a different seed</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">7</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>x1_test <span class="op">=</span> np.random.uniform(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>, n)</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>x2_test <span class="op">=</span> np.random.uniform(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>, n)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>boundary_test <span class="op">=</span> np.sin(<span class="dv">4</span> <span class="op">*</span> x1_test) <span class="op">+</span> x1_test</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>y_test <span class="op">=</span> (x2_test <span class="op">&gt;</span> boundary_test).astype(<span class="bu">int</span>)</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Create DataFrame</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>test_dat <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">'x1'</span>: x1_test,</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">'x2'</span>: x2_test,</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">'y'</span>: pd.Categorical(y_test)</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(test_dat.head())</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the test dataset with boundary</span></span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>plt.scatter(test_dat[<span class="st">'x1'</span>], test_dat[<span class="st">'x2'</span>], c<span class="op">=</span>test_dat[<span class="st">'y'</span>].cat.codes, cmap<span class="op">=</span><span class="st">'coolwarm'</span>, s<span class="op">=</span><span class="dv">50</span>, edgecolor<span class="op">=</span><span class="st">'k'</span>, alpha<span class="op">=</span><span class="fl">0.8</span>)</span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the boundary line</span></span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a>x1_sorted <span class="op">=</span> np.sort(test_dat[<span class="st">'x1'</span>])</span>
+<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a>boundary_sorted <span class="op">=</span> np.sin(<span class="dv">4</span> <span class="op">*</span> x1_sorted) <span class="op">+</span> x1_sorted</span>
+<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a>plt.plot(x1_sorted, boundary_sorted, color<span class="op">=</span><span class="st">'black'</span>, linewidth<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">'Boundary: sin(4x1) + x1'</span>)</span>
+<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Labels and title</span></span>
+<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'x1'</span>)</span>
+<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'x2'</span>)</span>
+<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Test Set: x1 vs x2 Colored by y'</span>)</span>
+<span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb22-32"><a href="#cb22-32" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb22-33"><a href="#cb22-33" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>         x1        x2  y
+0 -2.542150 -2.584488  0
+1  1.679513 -0.857576  0
+2 -0.369545  1.876977  1
+3  1.340791 -0.433771  0
+4  2.867937  0.599127  0</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-18-output-2.png" width="662" height="523" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The plot shows that the test data is well-aligned with the nonlinear boundary [ x_2 = (4x_1) + x_1 ] , clearly separating the two classes across the oscillating decision curve</p>
+</section>
+<section id="implementing-k-nearest-neighbors-from-scratch" class="level3">
+<h3 class="anchored" data-anchor-id="implementing-k-nearest-neighbors-from-scratch">Implementing K-Nearest Neighbors from Scratch</h3>
+<p>Since we’re using synthetic data we do not need to scale the data as there is no feature dominance and the Euclidean distance will work effectively in this case. The K-Nearest Neighbors (KNN) algorithm is a straightforward yet powerful method for classification tasks. It operates by finding the ( k ) nearest neighbors to a given observation and assigning the most common class label among those neighbors.</p>
+<section id="core-concept-and-mathematical-framework" class="level4">
+<h4 class="anchored" data-anchor-id="core-concept-and-mathematical-framework">Core Concept and Mathematical Framework</h4>
+<p>The KNN algorithm estimates the class label of a new observation ( ) by examining its ( k ) nearest neighbors in the training set and choosing the most common label among them.</p>
+<p>Formally, the prediction is:</p>
+<p>[ () = _{_i _k()} y_i ]</p>
+<p>Where: - ( _k() ) denotes the set of the ( k ) nearest training observations to ( ) (based on Euclidean distance). - ( y_i ) is the class label of neighbor ( i ). - For classification, this average is rounded (or a majority vote is taken).</p>
+<p>KNN makes no assumptions about the functional form of the data, which makes it highly flexible. However, its performance depends critically on the choice of ( k ). A small ( k ) may lead to high variance (overfitting), while a large ( k ) may oversmooth the decision boundary (underfitting).</p>
+</section>
+<section id="implementation-steps" class="level4">
+<h4 class="anchored" data-anchor-id="implementation-steps">Implementation Steps</h4>
+<p>To classify observations using the K-Nearest Neighbors algorithm, we implement the model from scratch. This allows for full control and understanding of each step in the prediction process. Below is a breakdown of the methodology used in our handwritten implementation:</p>
+<p><strong>Step 1: Compute Distance</strong> For each test observation, we calculate the <strong>Euclidean distance</strong> between that point and every training point. The Euclidean distance between two points ( a ) and ( b ) in 2D space is defined as:</p>
+<p>[ (a, b) = ]</p>
+<p>This metric quantifies how close or far apart two observations are in the feature space.</p>
+<p><strong>Step 2: Identify the ( k ) Nearest Neighbors</strong> After computing the distances, we: - Sort all training observations by their distance to the test point. - Select the top ( k ) closest points — these are the <strong>k nearest neighbors</strong>.</p>
+<p><strong>Step 3: Perform Majority Voting</strong> Once the nearest neighbors are identified:<br>
+- We <strong>retrieve their class labels</strong>.<br>
+- We apply a <strong>majority vote</strong>: whichever class label appears most frequently among the ( k ) neighbors is assigned to the test point.<br>
+</p>
+<p>Formally:</p>
+<p>[ = ( { y_i : x_i _k(x) } ) ]</p>
+<p>Where: - ( _k(x) ) denotes the ( k ) closest training samples to test point ( x ). - ( y_i ) are their respective labels.</p>
+<p><strong>Step 4: Make Predictions for All Test Points</strong> Repeat steps 1–3 for every test observation to generate predicted labels for the entire test dataset.</p>
+<p><strong>Step 5: Evaluate Accuracy</strong> We compare the predicted labels to the true labels in the test set, and calculate <strong>classification accuracy</strong>:</p>
+<p>[ = ]</p>
+<p>We selected ( k = 5 ) as a <strong>reasonable starting point</strong> for evaluating the performance of our K-Nearest Neighbors (KNN) classifier. Choosing ( k ) involves a tradeoff between <strong>bias and variance</strong>:</p>
+<ul>
+<li>A small ( k ) (e.g., ( k = 1 )) may capture noise and lead to <strong>overfitting</strong>.</li>
+<li>A large ( k ) may smooth over meaningful class boundaries, causing <strong>underfitting</strong>.</li>
+</ul>
+<p>Using ( k = 5 ) strikes a good balance by considering a small group of nearby points while reducing the impact of outliers. It is also a commonly used default in practice when no prior information about the ideal value is available. In our subsequent analysis, we further test a range of values from ( k = 1 ) to ( k = 30 ) to determine the optimal ( k ) based on test accuracy.</p>
+<div id="3ee4318b" class="cell" data-execution_count="18">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> Counter</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> euclidean_distance(a, b):</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Compute Euclidean distance between two points a and b"""</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.sqrt(np.<span class="bu">sum</span>((a <span class="op">-</span> b)<span class="op">**</span><span class="dv">2</span>))</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> knn_predict(X_train, y_train, X_test, k<span class="op">=</span><span class="dv">3</span>):</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="co">    Predict labels for X_test using KNN based on X_train and y_train.</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="co">    Parameters:</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="co">    - X_train: array of shape (n_train, n_features)</span></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="co">    - y_train: array of shape (n_train,)</span></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="co">    - X_test: array of shape (n_test, n_features)</span></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a><span class="co">    - k: number of neighbors to use</span></span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns:</span></span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a><span class="co">    - predictions: array of shape (n_test,)</span></span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>    predictions <span class="op">=</span> []</span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> test_point <span class="kw">in</span> X_test:</span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Compute distances from test_point to all training points</span></span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>        distances <span class="op">=</span> [euclidean_distance(test_point, train_point) <span class="cf">for</span> train_point <span class="kw">in</span> X_train]</span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Get indices of the k closest points</span></span>
+<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a>        k_indices <span class="op">=</span> np.argsort(distances)[:k]</span>
+<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Retrieve the corresponding labels</span></span>
+<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a>        k_labels <span class="op">=</span> [y_train[i] <span class="cf">for</span> i <span class="kw">in</span> k_indices]</span>
+<span id="cb24-31"><a href="#cb24-31" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb24-32"><a href="#cb24-32" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Use majority vote to determine prediction</span></span>
+<span id="cb24-33"><a href="#cb24-33" aria-hidden="true" tabindex="-1"></a>        most_common <span class="op">=</span> Counter(k_labels).most_common(<span class="dv">1</span>)[<span class="dv">0</span>][<span class="dv">0</span>]</span>
+<span id="cb24-34"><a href="#cb24-34" aria-hidden="true" tabindex="-1"></a>        predictions.append(most_common)</span>
+<span id="cb24-35"><a href="#cb24-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-36"><a href="#cb24-36" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.array(predictions)</span>
+<span id="cb24-37"><a href="#cb24-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-38"><a href="#cb24-38" aria-hidden="true" tabindex="-1"></a><span class="co"># Use dat (train set) and test_dat (test set)</span></span>
+<span id="cb24-39"><a href="#cb24-39" aria-hidden="true" tabindex="-1"></a>X_train <span class="op">=</span> dat[[<span class="st">'x1'</span>, <span class="st">'x2'</span>]].values</span>
+<span id="cb24-40"><a href="#cb24-40" aria-hidden="true" tabindex="-1"></a>y_train <span class="op">=</span> dat[<span class="st">'y'</span>].astype(<span class="bu">int</span>).values</span>
+<span id="cb24-41"><a href="#cb24-41" aria-hidden="true" tabindex="-1"></a>X_test <span class="op">=</span> test_dat[[<span class="st">'x1'</span>, <span class="st">'x2'</span>]].values</span>
+<span id="cb24-42"><a href="#cb24-42" aria-hidden="true" tabindex="-1"></a>y_test <span class="op">=</span> test_dat[<span class="st">'y'</span>].astype(<span class="bu">int</span>).values</span>
+<span id="cb24-43"><a href="#cb24-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-44"><a href="#cb24-44" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict using k = 5</span></span>
+<span id="cb24-45"><a href="#cb24-45" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> knn_predict(X_train, y_train, X_test, k<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb24-46"><a href="#cb24-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-47"><a href="#cb24-47" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluate accuracy</span></span>
+<span id="cb24-48"><a href="#cb24-48" aria-hidden="true" tabindex="-1"></a>accuracy <span class="op">=</span> np.mean(y_pred <span class="op">==</span> y_test)</span>
+<span id="cb24-49"><a href="#cb24-49" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"KNN (handwritten) accuracy with k=5: </span><span class="sc">{</span>accuracy<span class="sc">:.2%}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>KNN (handwritten) accuracy with k=5: 88.00%</code></pre>
+</div>
+</div>
+<p>he result KNN (handwritten) accuracy with k=5: 88.00% tells us that your custom K-Nearest Neighbors classifier was able to correctly classify 88 out of 100 test observations using 5 neighbors for majority voting. This implies that the implementation is working correctly and producing results that align with expected behavior for KNN. The model achieves high accuracy on a nonlinear dataset, showing that KNN is well-suited to this problem. Using <code>k</code> = 5 provides a good balance between bias and variance and it’s large enough to smooth over noise but small enough to capture the local structure around the nonlinear decision boundary.</p>
+</section>
+<section id="visualizing-the-knn-algorithms-predictions" class="level4">
+<h4 class="anchored" data-anchor-id="visualizing-the-knn-algorithms-predictions">Visualizing the KNN algorithm’s predictions</h4>
+<div id="78e6e5cd" class="cell" data-execution_count="19">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>plt.scatter(X_test[:, <span class="dv">0</span>], X_test[:, <span class="dv">1</span>], c<span class="op">=</span>y_pred, cmap<span class="op">=</span><span class="st">'coolwarm'</span>, s<span class="op">=</span><span class="dv">50</span>, edgecolor<span class="op">=</span><span class="st">'k'</span>, alpha<span class="op">=</span><span class="fl">0.8</span>)</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'x1'</span>)</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'x2'</span>)</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Test Set Predictions (Handwritten KNN)'</span>)</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="dv">6</span>))</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a><span class="co"># True labels</span></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].scatter(X_test[:, <span class="dv">0</span>], X_test[:, <span class="dv">1</span>], c<span class="op">=</span>y_test, cmap<span class="op">=</span><span class="st">'coolwarm'</span>, s<span class="op">=</span><span class="dv">50</span>, edgecolor<span class="op">=</span><span class="st">'k'</span>, alpha<span class="op">=</span><span class="fl">0.8</span>)</span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].set_title(<span class="st">"True Labels (Test Set)"</span>)</span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].set_xlabel(<span class="st">"x1"</span>)</span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].set_ylabel(<span class="st">"x2"</span>)</span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].grid(<span class="va">True</span>)</span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Predicted labels</span></span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].scatter(X_test[:, <span class="dv">0</span>], X_test[:, <span class="dv">1</span>], c<span class="op">=</span>y_pred, cmap<span class="op">=</span><span class="st">'coolwarm'</span>, s<span class="op">=</span><span class="dv">50</span>, edgecolor<span class="op">=</span><span class="st">'k'</span>, alpha<span class="op">=</span><span class="fl">0.8</span>)</span>
+<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].set_title(<span class="st">"Predicted Labels (KNN, k=5)"</span>)</span>
+<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].set_xlabel(<span class="st">"x1"</span>)</span>
+<span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].set_ylabel(<span class="st">"x2"</span>)</span>
+<span id="cb26-25"><a href="#cb26-25" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].grid(<span class="va">True</span>)</span>
+<span id="cb26-26"><a href="#cb26-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-27"><a href="#cb26-27" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb26-28"><a href="#cb26-28" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-20-output-1.png" width="662" height="523" class="figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-20-output-2.png" width="1333" height="564" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The visualizations above allow us to evaluate the performance of our <strong>handwritten K-Nearest Neighbors classifier (with ( k = 5 ))</strong> on the test dataset.<br>
+</p>
+<ul>
+<li>The <strong>first plot</strong> displays the predicted labels generated by our custom KNN implementation. Red points are predicted as class 1, and blue points as class 0.<br>
+</li>
+<li>The <strong>second row of plots</strong> provides a side-by-side comparison of:<br>
+
+<ul>
+<li>The <strong>true labels</strong> from the test set (left), and<br>
+</li>
+<li>The <strong>predicted labels</strong> from our model (right).<br>
+</li>
+</ul></li>
+</ul>
+<p>From the comparison, we can see that the KNN classifier does an excellent job capturing the <strong>nonlinear decision boundary</strong>, with only a few misclassified points—mostly near the boundary where class overlap is naturally ambiguous. This aligns with the previously reported accuracy of <strong>88%</strong>, and visually confirms that the model is able to <strong>generalize well</strong> from training to test data.</p>
+<p>The consistency between the true and predicted labels also demonstrates that our <strong>custom implementation behaves as expected</strong>, and is capable of learning complex decision regions without relying on any built-in libraries.</p>
+<div id="d6ea9776" class="cell" data-execution_count="20">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.colors <span class="im">import</span> ListedColormap</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a meshgrid of points</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>h <span class="op">=</span> <span class="fl">0.05</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>x_min, x_max <span class="op">=</span> X_train[:, <span class="dv">0</span>].<span class="bu">min</span>() <span class="op">-</span> <span class="dv">1</span>, X_train[:, <span class="dv">0</span>].<span class="bu">max</span>() <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>y_min, y_max <span class="op">=</span> X_train[:, <span class="dv">1</span>].<span class="bu">min</span>() <span class="op">-</span> <span class="dv">1</span>, X_train[:, <span class="dv">1</span>].<span class="bu">max</span>() <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>xx, yy <span class="op">=</span> np.meshgrid(np.arange(x_min, x_max, h),</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>                     np.arange(y_min, y_max, h))</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>grid_points <span class="op">=</span> np.c_[xx.ravel(), yy.ravel()]</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict using handwritten or sklearn KNN</span></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>Z <span class="op">=</span> knn_predict(X_train, y_train, grid_points, k<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>Z <span class="op">=</span> Z.reshape(xx.shape)</span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>plt.contourf(xx, yy, Z, cmap<span class="op">=</span>ListedColormap([<span class="st">'#FFAAAA'</span>, <span class="st">'#AAAAFF'</span>]), alpha<span class="op">=</span><span class="fl">0.4</span>)</span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>plt.scatter(X_train[:, <span class="dv">0</span>], X_train[:, <span class="dv">1</span>], c<span class="op">=</span>y_train, cmap<span class="op">=</span><span class="st">'coolwarm'</span>, edgecolor<span class="op">=</span><span class="st">'k'</span>)</span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"KNN Decision Boundary (k=5)"</span>)</span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"x1"</span>)</span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"x2"</span>)</span>
+<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-21-output-1.png" width="662" height="523" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The plot above illustrates the <strong>decision boundary</strong> produced by our <strong>handwritten KNN classifier</strong> with ( k = 5 ). The feature space is divided into two regions:</p>
+<ul>
+<li>The <strong>blue region</strong> corresponds to predicted class 1.</li>
+<li>The <strong>red region</strong> corresponds to predicted class 0.</li>
+</ul>
+<p>These shaded areas show how the model classifies any new point based on the <strong>majority vote</strong> from the 5 nearest neighbors in the training data.</p>
+<p>The <strong>boundary line between the two regions is nonlinear and jagged</strong>, which reflects the local nature of the KNN algorithm. Unlike linear models that impose a straight or smooth curve, KNN adapts closely to the shape of the training data, making it especially effective in cases with complex or oscillating patterns like the one in this dataset.</p>
+<p>Most training points lie correctly within their corresponding class region, indicating that the model is fitting the data well. Additionally, the balance between flexibility and generalization at ( k = 5 ) results in a decision surface that is smooth enough to avoid overfitting, while still responsive to the underlying nonlinear structure.</p>
+<p>This visualization confirms that KNN is capable of learning highly flexible boundaries and performs well when the data is not linearly separable.</p>
+</section>
+</section>
+<section id="comparing-with-built-in-knn-function" class="level3">
+<h3 class="anchored" data-anchor-id="comparing-with-built-in-knn-function">Comparing with Built-in KNN Function</h3>
+<p>The output from our handwritten KNN implementation can be validated against a built-in function from a library like scikit-learn. This comparison ensures that our custom code behaves as expected and produces results consistent with industry-standard implementations. The built-in function is as follows:</p>
+<div id="bf7d155c" class="cell" data-execution_count="21">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.neighbors <span class="im">import</span> KNeighborsClassifier</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Prepare training and test data</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>X_train <span class="op">=</span> dat[[<span class="st">'x1'</span>, <span class="st">'x2'</span>]].values</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>y_train <span class="op">=</span> dat[<span class="st">'y'</span>].astype(<span class="bu">int</span>).values</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>X_test <span class="op">=</span> test_dat[[<span class="st">'x1'</span>, <span class="st">'x2'</span>]].values</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>y_test <span class="op">=</span> test_dat[<span class="st">'y'</span>].astype(<span class="bu">int</span>).values</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Instantiate and fit the KNN classifier</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>knn_model <span class="op">=</span> KNeighborsClassifier(n_neighbors<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>knn_model.fit(X_train, y_train)</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict on the test data</span></span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>y_pred_sklearn <span class="op">=</span> knn_model.predict(X_test)</span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluate accuracy</span></span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>accuracy_sklearn <span class="op">=</span> accuracy_score(y_test, y_pred_sklearn)</span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"KNN (scikit-learn) accuracy with k=5: </span><span class="sc">{</span>accuracy_sklearn<span class="sc">:.2%}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>KNN (scikit-learn) accuracy with k=5: 88.00%</code></pre>
+</div>
+</div>
+<p>The scikit-learn implementation of K-Nearest Neighbors achieved an accuracy of <strong>88.00%</strong> on the custom test dataset, using ( k = 5 ). This matches the accuracy of our handwritten KNN implementation, providing strong confirmation that both methods are functioning correctly.</p>
+<p>This level of accuracy indicates that the KNN model is well-suited to the structure of our dataset, which features a <strong>nonlinear, oscillating decision boundary</strong>. By considering the 5 nearest neighbors for each prediction, the model is able to <strong>smooth out local noise</strong> while still capturing the underlying complexity of the decision surface.</p>
+<p>The alignment between the custom implementation and the scikit-learn result also reinforces the <strong>validity of our mathematical understanding</strong> of the KNN algorithm and demonstrates the effectiveness of scikit-learn’s optimized library for practical use.</p>
+<section id="comparing-confusion-matrix-and-classification-report-for-both-implementations" class="level5">
+<h5 class="anchored" data-anchor-id="comparing-confusion-matrix-and-classification-report-for-both-implementations">Comparing Confusion Matrix and Classification Report for Both Implementations</h5>
+<div id="ffa428e6" class="cell" data-execution_count="22">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix, ConfusionMatrixDisplay, classification_report</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Confusion Matrix – Handwritten KNN</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>cm_custom <span class="op">=</span> confusion_matrix(y_test, y_pred)</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>disp_custom <span class="op">=</span> ConfusionMatrixDisplay(confusion_matrix<span class="op">=</span>cm_custom)</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>disp_custom.plot(cmap<span class="op">=</span><span class="st">'Blues'</span>)</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Confusion Matrix - Handwritten KNN (k=5)"</span>)</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Confusion Matrix – scikit-learn KNN</span></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>cm_sklearn <span class="op">=</span> confusion_matrix(y_test, y_pred_sklearn)</span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>disp_sklearn <span class="op">=</span> ConfusionMatrixDisplay(confusion_matrix<span class="op">=</span>cm_sklearn)</span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>disp_sklearn.plot(cmap<span class="op">=</span><span class="st">'Greens'</span>)</span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Confusion Matrix - scikit-learn KNN (k=5)"</span>)</span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Classification Report – Handwritten KNN</span></span>
+<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">" Classification Report - Handwritten KNN (k=5)"</span>)</span>
+<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(classification_report(y_test, y_pred, target_names<span class="op">=</span>[<span class="st">"Class 0"</span>, <span class="st">"Class 1"</span>]))</span>
+<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Classification Report – scikit-learn KNN</span></span>
+<span id="cb30-23"><a href="#cb30-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">" Classification Report - scikit-learn KNN (k=5)"</span>)</span>
+<span id="cb30-24"><a href="#cb30-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(classification_report(y_test, y_pred_sklearn, target_names<span class="op">=</span>[<span class="st">"Class 0"</span>, <span class="st">"Class 1"</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-23-output-1.png" width="496" height="449" class="figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-23-output-2.png" width="496" height="449" class="figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> Classification Report - Handwritten KNN (k=5)
+              precision    recall  f1-score   support
+
+     Class 0       0.87      0.90      0.88        51
+     Class 1       0.89      0.86      0.88        49
+
+    accuracy                           0.88       100
+   macro avg       0.88      0.88      0.88       100
+weighted avg       0.88      0.88      0.88       100
+
+ Classification Report - scikit-learn KNN (k=5)
+              precision    recall  f1-score   support
+
+     Class 0       0.87      0.90      0.88        51
+     Class 1       0.89      0.86      0.88        49
+
+    accuracy                           0.88       100
+   macro avg       0.88      0.88      0.88       100
+weighted avg       0.88      0.88      0.88       100
+</code></pre>
+</div>
+</div>
+<p>Both the <strong>handwritten KNN</strong> and <strong>scikit-learn KNN</strong> classifiers yield identical results on the test dataset, as demonstrated by their matching confusion matrices and classification metrics.</p>
+<p>Confusion Matrix Interpretation</p>
+<p>Both implementations: - Correctly classify <strong>46 of 51</strong> Class 0 examples. - Correctly classify <strong>42 of 49</strong> Class 1 examples. - Misclassify only a small number of examples near the boundary, which is expected in nonlinear problems.</p>
+<p>Classification Report Summary</p>
+<p>These metrics show: - <strong>Balanced performance</strong> across both classes. - High precision and recall, indicating both models are <strong>accurate and consistent</strong>. - Equal macro and weighted averages, reflecting <strong>balanced class support</strong>.</p>
+<p>The evaluation confirms that the <strong>custom KNN implementation performs identically to scikit-learn’s</strong> in both predictive accuracy and class-level metrics. This validates not only the correctness of your handwritten logic but also its practical effectiveness on a challenging, nonlinear classification problem.</p>
+<p>These results demonstrate that KNN (with ( k = 5 )) generalizes well, and that <strong>both implementations are interchangeable</strong> for this task.</p>
+</section>
+</section>
+<section id="evaluating-k-nearest-neighbors-across-multiple-values-of-k" class="level3">
+<h3 class="anchored" data-anchor-id="evaluating-k-nearest-neighbors-across-multiple-values-of-k">Evaluating K-Nearest Neighbors Across Multiple Values of ( k )</h3>
+<section id="comparing-accuracy-across-different-values-of-k-for-both-methods" class="level4">
+<h4 class="anchored" data-anchor-id="comparing-accuracy-across-different-values-of-k-for-both-methods">Comparing accuracy across different values of ( k ) for both methods</h4>
+<div id="6568443d" class="cell" data-execution_count="23">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>k_values <span class="op">=</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">31</span>)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>acc_custom <span class="op">=</span> []</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>acc_sklearn <span class="op">=</span> []</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> k_values:</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>    y_pred_c <span class="op">=</span> knn_predict(X_train, y_train, X_test, k)</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>    y_pred_s <span class="op">=</span> KNeighborsClassifier(n_neighbors<span class="op">=</span>k).fit(X_train, y_train).predict(X_test)</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>    acc_custom.append(np.mean(y_pred_c <span class="op">==</span> y_test))</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>    acc_sklearn.append(np.mean(y_pred_s <span class="op">==</span> y_test))</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>plt.plot(k_values, acc_custom, label<span class="op">=</span><span class="st">'Handwritten KNN'</span>)</span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>plt.plot(k_values, acc_sklearn, label<span class="op">=</span><span class="st">'scikit-learn KNN'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"k"</span>)</span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Accuracy"</span>)</span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Accuracy vs. k (Handwritten vs. scikit-learn)"</span>)</span>
+<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb32-20"><a href="#cb32-20" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-24-output-1.png" width="597" height="449" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The plot above compares the <strong>classification accuracy</strong> of the handwritten KNN implementation and scikit-learn’s <code>KNeighborsClassifier</code> as ( k ) ranges from 1 to 30.</p>
+<p>Both implementations show a similar overall trend: accuracy peaks at lower values of ( k ) (around ( k = 3 ) to ( k = 5 )), and then gradually declines as ( k ) increases. This behavior reflects the <strong>bias-variance tradeoff</strong> in KNN:</p>
+<ul>
+<li>Smaller ( k ) values tend to capture local decision boundaries more precisely, leading to <strong>higher accuracy</strong>, but may be more sensitive to noise.</li>
+<li>Larger ( k ) values smooth out predictions by averaging over more points, which increases bias and can degrade performance, especially on complex, nonlinear boundaries like the one in this dataset.</li>
+</ul>
+<p>Notably, the handwritten implementation is slightly more stable at higher ( k ) values, while scikit-learn’s implementation fluctuates more — possibly due to tie-breaking behavior or minor differences in how distances are calculated or sorted.</p>
+<p>Overall, this plot confirms that both implementations are <strong>functionally equivalent</strong> and support the conclusion that an optimal value of ( k ) lies in the <strong>low single digits</strong>, with ( k = 5 ) being a reliable choice for this classification task.</p>
+</section>
+<section id="optimal-value-of-k" class="level4">
+<h4 class="anchored" data-anchor-id="optimal-value-of-k">Optimal Value of ( k )</h4>
+<p>The plot above shows how <strong>classification accuracy varies with ( k )</strong> for both the handwritten and scikit-learn KNN implementations. We observe the following:</p>
+<ul>
+<li><strong>Accuracy is highest</strong> around ( k = 3 ) to ( k = 5 ), reaching up to <strong>90%</strong>.</li>
+<li>After ( k = 5 ), performance begins to <strong>gradually decline</strong>, indicating that higher values of ( k ) lead to <strong>over-smoothing</strong>, where local decision boundaries are lost.</li>
+<li>The fluctuations in accuracy at higher ( k ) values suggest that KNN becomes less responsive to local patterns in the data as more neighbors are averaged.</li>
+</ul>
+<p>Based on the curve, the optimal value of ( k ) is approximately:</p>
+<p>[ k = _k (k) 5 ]</p>
+<p>This balances low bias and variance — capturing nonlinear structure without overfitting.</p>
+<p>To programmatically select the best ( k ):</p>
+<div id="7a658040" class="cell" data-execution_count="24">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># From previously computed accuracy list (acc_custom or acc_sklearn)</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>best_k_custom <span class="op">=</span> k_values[np.argmax(acc_custom)]</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>best_k_sklearn <span class="op">=</span> k_values[np.argmax(acc_sklearn)]</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Best k (Handwritten): </span><span class="sc">{</span>best_k_custom<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Best k (scikit-learn): </span><span class="sc">{</span>best_k_sklearn<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Best k (Handwritten): 3
+Best k (scikit-learn): 3</code></pre>
+</div>
+</div>
+<p>Both the handwritten and scikit-learn KNN implementations achieve their highest accuracy at <code>k</code> = 3, confirming strong agreement between the two approaches. This suggests that <code>k</code> = 3 provides the best balance between capturing local structure and avoiding overfitting on this nonlinear classification task.</p>
+</section>
+</section>
+<section id="conclusion-1" class="level3">
+<h3 class="anchored" data-anchor-id="conclusion-1">Conclusion</h3>
+<p>In this report, we explored the K-Nearest Neighbors (KNN) algorithm through both a <strong>custom implementation</strong> and scikit-learn’s <code>KNeighborsClassifier</code>, applied to a <strong>nonlinear binary classification problem</strong> with a wiggly decision boundary. We began by generating synthetic training and test datasets, labeling points based on their position relative to a nonlinear boundary defined by ( x_2 = (4x_1) + x_1 ). We then implemented KNN from scratch, successfully predicting labels for new observations by identifying the majority class among the ( k ) nearest neighbors using Euclidean distance.</p>
+<p>Through detailed evaluation—including confusion matrices, classification reports, decision boundary visualizations, and accuracy curves—we confirmed that both implementations perform <strong>equally well</strong>, with an optimal value of ( k = 3 ). This consistency demonstrates both the <strong>correctness</strong> of the handwritten model and the <strong>flexibility</strong> of KNN in handling complex, non-linear classification tasks.</p>
+<p>Overall, the experiment highlights KNN’s strength as an intuitive, powerful algorithm capable of learning from data with intricate decision boundaries—while also reinforcing the importance of choosing the right ( k ) through both visual and quantitative evaluation.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

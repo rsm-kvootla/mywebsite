@@ -4,6 +4,7 @@ author: "Nitya Kowsalya Vootla"
 date: 05/27/2025
 image: "mln.jpg"
 callout-appearance: minimal # this hides the blue "i" icon on .callout-notes
+code-fold: true
 ---
 
 ::: {.cell}

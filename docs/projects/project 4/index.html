@@ -269,7 +269,9 @@ u_{ij} = (1 \times Netflix_j) + (0.5 \times Prime_j) + (-0.8*Ads_j) - 0.1\times 
 \]</span></p>
 <p>where the variables are binary indicators and <span class="math inline">\(\varepsilon\)</span> is Type 1 Extreme Value (ie, Gumble) distributed.</p>
 <p>The following code provides the simulation of the conjoint data.</p>
-<div id="0f31b609" class="cell" data-execution_count="1">
+<div id="daf60397" class="cell" data-execution_count="1">
+<details class="code-fold">
+<summary>Click to show/hide this code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -325,6 +327,7 @@ u_{ij} = (1 \times Netflix_j) + (0.5 \times Prime_j) + (-0.8*Ads_j) - 0.1\times 
 <span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>conjoint_data <span class="op">=</span> conjoint_data[[<span class="st">"resp"</span>, <span class="st">"task"</span>, <span class="st">"brand"</span>, <span class="st">"ad"</span>, <span class="st">"price"</span>, <span class="st">"choice"</span>]]</span>
 <span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>conjoint_data.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display" data-execution_count="1">
 <div>
 
@@ -400,7 +403,9 @@ u_{ij} = (1 \times Netflix_j) + (0.5 \times Prime_j) + (-0.8*Ads_j) - 0.1\times 
 <p>The “hard part” of the MNL likelihood function is organizing the data, as we need to keep track of 3 dimensions (consumer <span class="math inline">\(i\)</span>, covariate <span class="math inline">\(k\)</span>, and product <span class="math inline">\(j\)</span>) instead of the typical 2 dimensions for cross-sectional regression models (consumer <span class="math inline">\(i\)</span> and covariate <span class="math inline">\(k\)</span>). The fact that each task for each respondent has the same number of alternatives (3) helps. In addition, we need to convert the categorical variables for brand and ads into binary variables.</p>
 <section id="reshaping-and-prepping-the-data" class="level4">
 <h4 class="anchored" data-anchor-id="reshaping-and-prepping-the-data">Reshaping and Prepping the Data</h4>
-<div id="3e0b62d7" class="cell" data-execution_count="2">
+<div id="559aa615" class="cell" data-execution_count="2">
+<details class="code-fold">
+<summary>Click to show/hide this code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sklearn</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> OneHotEncoder</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -429,6 +434,7 @@ u_{ij} = (1 \times Netflix_j) + (0.5 \times Prime_j) + (-0.8*Ads_j) - 0.1\times 
 <span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>feature_names <span class="op">=</span> encoder.get_feature_names_out(categorical_cols).tolist() <span class="op">+</span> [<span class="st">'price'</span>]</span>
 <span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>X_df <span class="op">=</span> pd.DataFrame(mnl_data[<span class="st">'X'</span>], columns<span class="op">=</span>feature_names)</span>
 <span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X_df.head())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>X shape: (3000, 4)
 y shape: (3000,)
@@ -448,7 +454,9 @@ y shape: (3000,)
 <section id="the-log-likelihood-function" class="level4">
 <h4 class="anchored" data-anchor-id="the-log-likelihood-function">The log-likelihood function</h4>
 <p>To obtain the estimated coefficients of the Multinomial Logit (MNL) model, a log-likelihood function is defined based on individual-level choice data. For each choice task, the utility of each alternative is calculated as a linear function of its features and a parameter vector. These utilities are then normalized using the log-sum-exp trick to compute choice probabilities. The log-likelihood is formed by summing the log probabilities of the observed choices, and the negative of this value is minimized using the BFGS optimization algorithm. The result is a set of parameter estimates that maximize the likelihood of the observed choices, along with the log-likelihood value at the optimum.</p>
-<div id="e8eec6a9" class="cell" data-execution_count="3">
+<div id="6211dbc0" class="cell" data-execution_count="3">
+<details class="code-fold">
+<summary>Click to show/hide this code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> minimize</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.special <span class="im">import</span> logsumexp</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -488,6 +496,7 @@ y shape: (3000,)
 <span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(estimates.to_string(index<span class="op">=</span><span class="va">False</span>))</span>
 <span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Log-likelihood at optimum:"</span>)</span>
 <span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="op">-</span>result.fun)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Estimated Coefficients:
    Parameter  Estimate
@@ -507,7 +516,9 @@ Log-likelihood at optimum:
 <h4 class="anchored" data-anchor-id="extracting-the-mles-and-standard-errors">Extracting the MLEs and Standard Errors</h4>
 <p>Finding the MLEs for the 4 parameters (<span class="math inline">\(\beta_\text{netflix}\)</span>, <span class="math inline">\(\beta_\text{prime}\)</span>, <span class="math inline">\(\beta_\text{ads}\)</span>, <span class="math inline">\(\beta_\text{price}\)</span>), as well as their standard errors (from the Hessian).</p>
 <p>Computing the standard error from the inverse of the Hessian matrix and constructing a 95% confidence interval for each parameter.</p>
-<div id="aed2bd33" class="cell" data-execution_count="4">
+<div id="0871614a" class="cell" data-execution_count="4">
+<details class="code-fold">
+<summary>Click to show/hide this code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> minimize</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.special <span class="im">import</span> logsumexp</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -548,6 +559,7 @@ Log-likelihood at optimum:
 <span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>})</span>
 <span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(summary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Optimization terminated successfully.
          Current function value: 863.578335
@@ -576,7 +588,9 @@ Log-likelihood at optimum:
 <section id="metropolis-hastings-mcmc-sampler" class="level4">
 <h4 class="anchored" data-anchor-id="metropolis-hastings-mcmc-sampler">Metropolis-Hastings MCMC Sampler</h4>
 <p>Creating a metropolis-hasting MCMC sampler of the posterior distribution. Taking 11,000 steps and throwing away the first 1,000, retaining the subsequent 10,000.</p>
-<div id="81210bf0" class="cell" data-execution_count="5">
+<div id="1f3fdeae" class="cell" data-execution_count="5">
+<details class="code-fold">
+<summary>Click to show/hide this code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> metropolis_hastings_mnl(n_iter<span class="op">=</span><span class="dv">11000</span>, burn_in<span class="op">=</span><span class="dv">1000</span>, proposal_sd<span class="op">=</span><span class="fl">0.1</span>):</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    K <span class="op">=</span> mnl_data[<span class="st">'X'</span>].shape[<span class="dv">1</span>]</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    beta_curr <span class="op">=</span> np.zeros(K)</span>
@@ -617,6 +631,7 @@ Log-likelihood at optimum:
 <span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Posterior standard deviations:"</span>)</span>
 <span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(posterior_df.std())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Step 1000, Acceptance Rate: 0.059
 Step 2000, Acceptance Rate: 0.056
@@ -655,7 +670,9 @@ dtype: float64</code></pre>
 <p>Updating the MCMC Sampler Using N(0,5) priors for the betas on the binary variables, and a N(0,1) prior for the price beta.</p>
 <p>Instead of calculating post=lik*prior,we will utilize the log-space and calculate log-post = log-lik + log-prior. Since we have 4 dimensions (4 betas) and our dimensions are continuous, we use a multivariate normal distribution to propose the next location for the algorithm to move to.</p>
 <p>Using an MNV(mu, Sigma) where mu=c(0,0,0,0) and sigma with diagonal values c(0.05, 0.05, 0.05, 0.005) and zeros on the off-diagonal. Since this MVN has no covariances, we can sample each dimension independently (so 4 univariate normals instead of 1 multivariate normal), where the first 3 univariate normals are N(0,0.05) and the last one if N(0,0.005).</p>
-<div id="ad6e745a" class="cell" data-execution_count="6">
+<div id="3ded2d3d" class="cell" data-execution_count="6">
+<details class="code-fold">
+<summary>Click to show/hide this code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Log-prior function for N(0, 5^2) for the first 3, and N(0, 1^2) for the price</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> log_prior(beta):</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># First 3 are binary-related → N(0, 25)</span></span>
@@ -709,6 +726,7 @@ dtype: float64</code></pre>
 <span id="cb10-51"><a href="#cb10-51" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-52"><a href="#cb10-52" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Posterior standard deviations with prior:"</span>)</span>
 <span id="cb10-53"><a href="#cb10-53" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(posterior_df.std())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Step 1000, Acceptance Rate: 0.594
 Step 2000, Acceptance Rate: 0.579
@@ -751,7 +769,9 @@ dtype: float64</code></pre>
 <p>The trace plots of the algorithm and histogram of the posterior distribution for each of the four parameters will help us understand the convergence and distribution of the posterior samples.</p>
 <section id="beta_netflix" class="level5">
 <h5 class="anchored" data-anchor-id="beta_netflix">Beta_Netflix</h5>
-<div id="58d74e8a" class="cell" data-execution_count="7">
+<div id="540f9286" class="cell" data-execution_count="7">
+<details class="code-fold">
+<summary>Click to show/hide this code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -774,6 +794,7 @@ dtype: float64</code></pre>
 <span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
 <span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -786,7 +807,9 @@ dtype: float64</code></pre>
 </section>
 <section id="beta_prime" class="level5">
 <h5 class="anchored" data-anchor-id="beta_prime">Beta_Prime</h5>
-<div id="798f5e44" class="cell" data-execution_count="8">
+<div id="9568f17f" class="cell" data-execution_count="8">
+<details class="code-fold">
+<summary>Click to show/hide this code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">4</span>))</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Trace plot</span></span>
@@ -805,6 +828,7 @@ dtype: float64</code></pre>
 <span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
 <span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -817,7 +841,9 @@ dtype: float64</code></pre>
 </section>
 <section id="beta_ads" class="level5">
 <h5 class="anchored" data-anchor-id="beta_ads">Beta_Ads</h5>
-<div id="ac45ad20" class="cell" data-execution_count="9">
+<div id="31d9484f" class="cell" data-execution_count="9">
+<details class="code-fold">
+<summary>Click to show/hide this code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">4</span>))</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Trace plot</span></span>
@@ -836,6 +862,7 @@ dtype: float64</code></pre>
 <span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
 <span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -848,7 +875,9 @@ dtype: float64</code></pre>
 </section>
 <section id="beta_price" class="level5">
 <h5 class="anchored" data-anchor-id="beta_price">Beta_Price</h5>
-<div id="53c5a00d" class="cell" data-execution_count="10">
+<div id="5f588d81" class="cell" data-execution_count="10">
+<details class="code-fold">
+<summary>Click to show/hide this code</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">4</span>))</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Trace plot</span></span>
@@ -867,6 +896,7 @@ dtype: float64</code></pre>
 <span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
 <span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -880,7 +910,9 @@ dtype: float64</code></pre>
 </section>
 <section id="comparing-the-posterior-means-standard-deviations-and-95-credible-intervals-to-the-results-from-the-maximum-likelihood-approach" class="level4">
 <h4 class="anchored" data-anchor-id="comparing-the-posterior-means-standard-deviations-and-95-credible-intervals-to-the-results-from-the-maximum-likelihood-approach">Comparing the posterior means, standard deviations, and 95% credible intervals to the results from the Maximum Likelihood approach</h4>
-<div id="16469b68" class="cell" data-execution_count="11">
+<div id="b5f19a6a" class="cell" data-execution_count="11">
+<details class="code-fold">
+<summary>Click to show/hide this code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define parameter names</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>param_names <span class="op">=</span> [<span class="st">'beta_netflix'</span>, <span class="st">'beta_prime'</span>, <span class="st">'beta_ads'</span>, <span class="st">'beta_price'</span>]</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -895,6 +927,7 @@ dtype: float64</code></pre>
 <span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the summary table</span></span>
 <span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(posterior_summary.<span class="bu">round</span>(<span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>      Parameter    Mean  Std. Dev.  2.5% CI  97.5% CI
 0  beta_netflix  1.0608     0.1103   0.8443    1.2723
@@ -935,7 +968,9 @@ Updating the population parameters (μ,Σ) conditional on the current draws of a
 <section id="estimating-the-parameters-of-a-multi-level-model-aka-random-parameter-or-hierarchical-model" class="level4">
 <h4 class="anchored" data-anchor-id="estimating-the-parameters-of-a-multi-level-model-aka-random-parameter-or-hierarchical-model">Estimating the parameters of a multi-level model (aka random-parameter or hierarchical) model</h4>
 <p>Assuming wach respondent has multiple choice tasks and extracting each respondent’s design matrix and choice vector, we estimate individual-level coefficients β_i that vary across respondents, and sample the population-level mean (mu) and covariance (Sigma) of those coefficients, using Gibbs sampling, alternating between sampling respondent-level and population-level parameters.</p>
-<div id="b5f6a5b9" class="cell" data-execution_count="12">
+<div id="2d7933dc" class="cell" data-execution_count="12">
+<details class="code-fold">
+<summary>Click to show/hide this code</summary>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> numpy.linalg <span class="im">import</span> inv, cholesky</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> invwishart, multivariate_normal</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1018,6 +1053,7 @@ Updating the population parameters (μ,Σ) conditional on the current draws of a
 <span id="cb18-80"><a href="#cb18-80" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-81"><a href="#cb18-81" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Posterior standard deviations for mu:"</span>)</span>
 <span id="cb18-82"><a href="#cb18-82" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(draws_mu_df.std())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Iteration 100 completed.
 Iteration 200 completed.
