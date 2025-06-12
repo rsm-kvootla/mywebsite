@@ -201,34 +201,37 @@ Each cluster is represented by a centroid, which is the average of the data poin
 
 Given a dataset, represented as 
 
-\[
+$$
 X = \{ \mathbf{x}_1, \mathbf{x}_2, \dots, \mathbf{x}_n \}, \quad \mathbf{x}_i \in \mathbb{R}^d
-\]
+$$
 
-We aim to partition these into \( K \) clusters \( C_1, C_2, \dots, C_K \), minimizing the following objective:
+We aim to partition these into k clusters (C_1, C_2,..., C_K), minimizing the following objective:
 
-\[
-\min_{C_1, \dots, C_K} \sum_{k=1}^K \sum_{\mathbf{x}_i \in C_k} \| \mathbf{x}_i - \boldsymbol{\mu}_k \|^2
-\]
+$$
+\min_{C_1, \dots, C_K} \sum_{k=1}^K \sum_{\mathbf{x}_i \in C_k} \left\| \mathbf{x}_i - \boldsymbol{\mu}_k \right\|^2
+$$
+
 
 Where:
-- \( \boldsymbol{\mu}_k \) is the centroid (mean) of cluster \( C_k \)
-- \( \| \cdot \| \) denotes the Euclidean norm
+- μₖ is the centroid (mean) of cluster Cₖ
+- ‖ · ‖ denotes the Euclidean norm (i.e., the standard distance between two points in space)
+
 
 K-Means follows this simple but powerful routine:
 
-1. **Initialization**: Randomly select K data points as initial centroids \( \boldsymbol{\mu}_1, \dots, \boldsymbol{\mu}_K \).
-2. **Assignment Step**: Assign each data point \( \mathbf{x}_i \) to the nearest centroid, forming K clusters, typically using Euclidean distance.
+1. **Initialization**: Randomly select K data points as initial centroids μ₁ through μ_K.
+2. **Assignment Step**: Assign each data point x_i to the nearest centroid, forming K clusters, typically using Euclidean distance.
 
-\[
-   \text{Cluster}(\mathbf{x}_i) = \arg\min_k \| \mathbf{x}_i - \boldsymbol{\mu}_k \|
-   \]
+$$
+\text{Cluster}(\mathbf{x}_i) = \arg\min_k \left\| \mathbf{x}_i - \boldsymbol{\mu}_k \right\|
+$$
+
 
 3. **Update Step**: Recalculate the centroids by taking the mean of all data points assigned to each cluster. The new centroid represents the center of gravity for the current cluster assignments.
 
-\[
-   \boldsymbol{\mu}_k = \frac{1}{|C_k|} \sum_{\mathbf{x}_i \in C_k} \mathbf{x}_i
-   \]
+$$
+\boldsymbol{\mu}_k = \frac{1}{|C_k|} \sum_{\mathbf{x}_i \in C_k} \mathbf{x}_i
+$$
 
 4. **Convergence Check**: Repeat the assignment and update steps until the centroids no longer change significantly, indicating convergence.
 
@@ -236,40 +239,40 @@ K-Means follows this simple but powerful routine:
 
 1. **Within-Cluster Sum of Squares (WCSS)**: Measures the compactness of clusters. Lower WCSS indicates tighter clusters.
 
-\[
+$$
 \text{WCSS} = \sum_{k=1}^K \sum_{\mathbf{x}_i \in C_k} \| \mathbf{x}_i - \boldsymbol{\mu}_k \|^2
-\]
+$$
 
 Where:
 
-- \( C_k \): The set of points in cluster \( k \)
-- \( x_{ij} \): The value of the \( j \)-th feature for the \( i \)-th observation
-- \( \bar{x}_{kj} \): The mean of the \( j \)-th feature for cluster \( k \)
-- \( J \): The number of features (columns)
+- C_k : The set of points in cluster k
+- ( x_{ij} \): The value of the j-th feature for the i-th observation
+- bar{x}_{kj}: The mean of the j-th feature for cluster k
+- J: The number of features (columns)
 
-Used in **elbow plots** to determine the optimal number of clusters \( K \).
+Used in **elbow plots** to determine the optimal number of clusters k.
 
 2. **Silhouette Score**: Measures how similar a data point is to its own cluster compared to other clusters. Values range from -1 to 1, with higher values indicating better-defined clusters.
 
-For each point \( \mathbf{x}_i \):
+For each point xᵢ:
 
-- \( a_i \): average intra-cluster distance (cohesion)
-- \( b_i \): average nearest-cluster distance (separation)
+- a_i: average intra-cluster distance (cohesion)
+- b_i: average nearest-cluster distance (separation)
 
-\[
+$$
 s_i = \frac{b_i - a_i}{\max(a_i, b_i)}
-\]
+$$
 
 The overall silhouette score is:
 
-\[
+$$
 s = \frac{1}{n} \sum_{i=1}^{n} s_i
-\]
+$$
 
 A score:
-- \( > 0.5 \): strong structure
-- \( \approx 0.2 \): weak structure
-- \( < 0 \): inappropriate clustering
+- > 0.5: strong structure
+- approx 0.2: weak structure
+- < 0 : inappropriate clustering
 
 ##### Key Considerations:
 
@@ -339,15 +342,15 @@ def kmeans_with_tracking(X, k, max_iters=100, seed=42, plot_steps=True):
 #### How Each Step Matches the Math
 
 - `initialize_centroids(X, k)`:
-  - Randomly selects \( \mu_k^{(0)} \) — the initial centroids.
+  - Randomly selects μₖ⁽⁰⁾ — the initial centroids.
 - `assign_clusters(X, centroids)`:
-  - Assigns each point \( \mathbf{x}_i \) to the nearest centroid \( \mu_k \), minimizing \( \| \mathbf{x}_i - \mu_k \| \).
+  - Assigns each point xᵢ is assigned to the nearest centroid μₖ, minimizing the Euclidean distance ‖xᵢ − μₖ‖.
 - `update_centroids(X, labels, k)`:
   - Updates centroids using the mean of points in each cluster:  
-    \( \mu_k = \frac{1}{|C_k|} \sum_{\mathbf{x}_i \in C_k} \mathbf{x}_i \).
+    μₖ = (1 / |Cₖ|) × Σ xᵢ, for all xᵢ in C.
 - `compute_wcss(X, labels, centroids)`:
   - Computes total within-cluster variation (WCSS):  
-    \( \sum_{k=1}^K \sum_{\mathbf{x}_i \in C_k} \| \mathbf{x}_i - \mu_k \|^2 \).
+    Σₖ₌₁ᴷ Σ₍ₓᵢ ∈ Cₖ₎ ‖xᵢ − μₖ‖²
 - `kmeans(X, k)`:
   - Loops the assignment and update steps until convergence is achieved.
 
@@ -392,7 +395,8 @@ This iterative visualization confirms that:\
 
 In summary, this outcome strongly supports the project's hypothesis: K-Means can uncover hidden structure in biological data using simple, interpretable features, and the visual convergence offers an intuitive understanding of how the algorithm refines its clusters over time.
 
-An animated version of the above plot if visualized as a gif would show the centroids moving and the clusters forming over time, providing an engaging way to understand the K-Means algorithm's iterative nature
+###### An animated version of the above plot if visualized as a gif would show the centroids moving and the clusters forming over time, providing an engaging way to understand the K-Means algorithm's iterative nature
+
 ![K-Means Animation](kmeans_animation.gif)
 
 ##### Output: Centroids, WCSS, and Adjusted Rand Index for Custom K-Means from Scratch
@@ -600,23 +604,23 @@ K-Nearest Neighbors (KNN) is a simple, non-parametric classification algorithm t
 
 1. **Data Generation**: Create a training dataset with 100 observations and a nonlinear boundary. Generate a separate test set using a different random seed.
 2. **Implementation**: Write a KNN function from scratch using Euclidean distance. Use it to classify each test point.
-3. **Evaluation**: Vary \( k \) from 1 to 30 and compute the **accuracy** on the test set for each value.
-4. **Visualization**: Plot accuracy vs. \( k \) to identify the optimal value.
+3. **Evaluation**: Vary k from 1 to 30 and compute the **accuracy** on the test set for each value.
+4. **Visualization**: Plot accuracy vs. k to identify the optimal value.
 5. **Validation**: Compare results to Python's built-in `KNeighborsClassifier` from `scikit-learn`.
 
 
 ### Generating Synthetic Data for K-Nearest Neighbors
 
-The following code generates a synthetic binary classification dataset with a nonlinear, wiggly decision boundary. The code generates a dataset with two features, `x1` and `x2`, and a binary outcome variable `y` that is determined by whether `x2` is above or below a wiggly boundary defined by a sin function. We construct a synthetic 2D dataset with two continuous features, \( x_1 \) and \( x_2 \), sampled uniformly from the interval \([-3, 3]\). A **wiggly boundary** is defined using the nonlinear function:
+The following code generates a synthetic binary classification dataset with a nonlinear, wiggly decision boundary. The code generates a dataset with two features, `x1` and `x2`, and a binary outcome variable `y` that is determined by whether `x2` is above or below a wiggly boundary defined by a sin function. We construct a synthetic 2D dataset with two continuous features, x_1 and x_2, sampled uniformly from the interval [-3, 3]. A **wiggly boundary** is defined using the nonlinear function:
 
-\[
+$$
 x_2 = \sin(4x_1) + x_1
-\]
+$$
 
 Each observation is labeled according to its position relative to this boundary:
 
-- \( y = 1 \) if \( x_2 > \sin(4x_1) + x_1 \)
-- \( y = 0 \) otherwise
+- y=1 if x_2 > sin(4x_1) + x_1
+- y=0 otherwise
 
 This results in a dataset that is **not linearly separable**, and is useful for testing how well classification algorithms can handle non-linearity in feature space. Specifically:
 
@@ -657,7 +661,7 @@ print(dat.head())
 
 ### Plotting the Data
 
-We proceed to plot the data where the horizontal axis is `x1`, the vertical axis is `x2`, and the points are colored by the value of `y`. We also draw the wiggly boundary defined by the function \( \sin(4x_1) + x_1 \) to visualize how well the data aligns with this nonlinear decision boundary.
+We proceed to plot the data where the horizontal axis is `x1`, the vertical axis is `x2`, and the points are colored by the value of `y`. We also draw the wiggly boundary defined by the function sin(4x_1) + x_1 to visualize how well the data aligns with this nonlinear decision boundary.
 
 ```{python}
 plt.figure(figsize=(8, 6))
@@ -675,7 +679,7 @@ plt.show()
 
 ```  
 
-The scatter plot above illustrates the synthetic classification dataset used in this project. The horizontal axis represents `x1`, the vertical axis represents `x2`, and each point is colored based on its class label `y`, where red points belong to class 1 and blue points belong to class 0. The black curve represents the nonlinear decision boundary defined by \( x_2 = \sin(4x_1) + x_1 \).
+The scatter plot above illustrates the synthetic classification dataset used in this project. The horizontal axis represents `x1`, the vertical axis represents `x2`, and each point is colored based on its class label `y`, where red points belong to class 1 and blue points belong to class 0. The black curve represents the nonlinear decision boundary defined by x_2 = \sin(4x_1) + x_1.
 
 The visual clearly shows that the decision boundary is highly non-linear, with multiple oscillations that separate the space into alternating regions of class 0 and 1. The red points lie above the curve (where \[
 x_2 > \sin(4x_1) + x_1
@@ -692,7 +696,7 @@ Like before, each observation is assigned a binary label based on whether it fal
 x_2 > \sin(4x_1) + x_1
 \]
 
-This test set allows us to fairly assess the accuracy of our KNN classifier across various values of \( k \), providing insight into how well the model captures the nonlinear structure in the data. The following plot shows the distribution of the test points, with colors indicating class labels and the black curve marking the true decision boundary.
+This test set allows us to fairly assess the accuracy of our KNN classifier across various values of k, providing insight into how well the model captures the nonlinear structure in the data. The following plot shows the distribution of the test points, with colors indicating class labels and the black curve marking the true decision boundary.
 
 
 ```{python}
@@ -733,31 +737,28 @@ plt.show()
 
 ```
 
-The plot shows that the test data is well-aligned with the nonlinear boundary \[
-x_2 = \sin(4x_1) + x_1
-\]
-, clearly separating the two classes across the oscillating decision curve
+The plot shows that the test data is well-aligned with the nonlinear boundary x_2 = \sin(4x_1) + x_1, clearly separating the two classes across the oscillating decision curve
 
 ### Implementing K-Nearest Neighbors from Scratch
 
-Since we're using synthetic data we do not need to scale the data as there is no feature dominance and the Euclidean distance will work effectively in this case. The K-Nearest Neighbors (KNN) algorithm is a straightforward yet powerful method for classification tasks. It operates by finding the \( k \) nearest neighbors to a given observation and assigning the most common class label among those neighbors.
+Since we're using synthetic data we do not need to scale the data as there is no feature dominance and the Euclidean distance will work effectively in this case. The K-Nearest Neighbors (KNN) algorithm is a straightforward yet powerful method for classification tasks. It operates by finding the k nearest neighbors to a given observation and assigning the most common class label among those neighbors.
 
 #### Core Concept and Mathematical Framework
 
-The KNN algorithm estimates the class label of a new observation \( \mathbf{x} \) by examining its \( k \) nearest neighbors in the training set and choosing the most common label among them.
+The KNN algorithm estimates the class label of a new observation `x` by examining its k nearest neighbors in the training set and choosing the most common label among them.
 
 Formally, the prediction is:
 
-\[
+$$
 \hat{Y}(\mathbf{x}) = \frac{1}{k} \sum_{\mathbf{x}_i \in \mathcal{N}_k(\mathbf{x})} y_i
-\]
+$$
 
 Where:
-- \( \mathcal{N}_k(\mathbf{x}) \) denotes the set of the \( k \) nearest training observations to \( \mathbf{x} \) (based on Euclidean distance).
-- \( y_i \) is the class label of neighbor \( i \).
+- Nₖ(x) denotes the set of the k nearest training observations to x, based on Euclidean distance.\
+- yᵢ is the class label of neighbor i.\
 - For classification, this average is rounded (or a majority vote is taken).
 
-KNN makes no assumptions about the functional form of the data, which makes it highly flexible. However, its performance depends critically on the choice of \( k \). A small \( k \) may lead to high variance (overfitting), while a large \( k \) may oversmooth the decision boundary (underfitting).
+KNN makes no assumptions about the functional form of the data, which makes it highly flexible. However, its performance depends critically on the choice of k. A small k may lead to high variance (overfitting), while a large k may oversmooth the decision boundary (underfitting).
 
 
 #### Implementation Steps
@@ -765,33 +766,33 @@ KNN makes no assumptions about the functional form of the data, which makes it h
 To classify observations using the K-Nearest Neighbors algorithm, we implement the model from scratch. This allows for full control and understanding of each step in the prediction process. Below is a breakdown of the methodology used in our handwritten implementation:
 
 **Step 1: Compute Distance**
-For each test observation, we calculate the **Euclidean distance** between that point and every training point. The Euclidean distance between two points \( a \) and \( b \) in 2D space is defined as:
+For each test observation, we calculate the **Euclidean distance** between that point and every training point. The Euclidean distance between two points a and b in 2D space is defined as:
 
-\[
+$$
 \text{distance}(a, b) = \sqrt{(a_1 - b_1)^2 + (a_2 - b_2)^2}
-\]
+$$
 
 This metric quantifies how close or far apart two observations are in the feature space.
 
-**Step 2: Identify the \( k \) Nearest Neighbors**
+**Step 2: Identify the k Nearest Neighbors**
 After computing the distances, we:
 - Sort all training observations by their distance to the test point.
-- Select the top \( k \) closest points — these are the **k nearest neighbors**.
+- Select the top k closest points — these are the **k nearest neighbors**.
 
 **Step 3: Perform Majority Voting**
 Once the nearest neighbors are identified:\
 - We **retrieve their class labels**.\
-- We apply a **majority vote**: whichever class label appears most frequently among the \( k \) neighbors is assigned to the test point.\
+- We apply a **majority vote**: whichever class label appears most frequently among the k neighbors is assigned to the test point.\
 
 Formally:
 
-\[
+$$
 \hat{y} = \text{mode} \left( \{ y_i : x_i \in \mathcal{N}_k(x) \} \right)
-\]
+$$
 
 Where:
-- \( \mathcal{N}_k(x) \) denotes the \( k \) closest training samples to test point \( x \).
-- \( y_i \) are their respective labels.
+- Nₖ(x) denotes the k closest training samples to test point x.
+- y_i are their respective labels.
 
 **Step 4: Make Predictions for All Test Points**
 Repeat steps 1–3 for every test observation to generate predicted labels for the entire test dataset.
@@ -799,16 +800,16 @@ Repeat steps 1–3 for every test observation to generate predicted labels for t
 **Step 5: Evaluate Accuracy**
 We compare the predicted labels to the true labels in the test set, and calculate **classification accuracy**:
 
-\[
+$$
 \text{Accuracy} = \frac{\text{Number of Correct Predictions}}{\text{Total Number of Test Observations}}
-\]
+$$
 
-We selected \( k = 5 \) as a **reasonable starting point** for evaluating the performance of our K-Nearest Neighbors (KNN) classifier. Choosing \( k \) involves a tradeoff between **bias and variance**:
+We selected k = 5 as a **reasonable starting point** for evaluating the performance of our K-Nearest Neighbors (KNN) classifier. Choosing k involves a tradeoff between **bias and variance**:
 
-- A small \( k \) (e.g., \( k = 1 \)) may capture noise and lead to **overfitting**.
-- A large \( k \) may smooth over meaningful class boundaries, causing **underfitting**.
+- A small k (e.g., k=1) may capture noise and lead to **overfitting**.
+- A large k may smooth over meaningful class boundaries, causing **underfitting**.
 
-Using \( k = 5 \) strikes a good balance by considering a small group of nearby points while reducing the impact of outliers. It is also a commonly used default in practice when no prior information about the ideal value is available. In our subsequent analysis, we further test a range of values from \( k = 1 \) to \( k = 30 \) to determine the optimal \( k \) based on test accuracy.
+Using k = 5 strikes a good balance by considering a small group of nearby points while reducing the impact of outliers. It is also a commonly used default in practice when no prior information about the ideal value is available. In our subsequent analysis, we further test a range of values from k=1 to k=30 to determine the optimalk based on test accuracy.
 
 
 ```{python}
@@ -865,7 +866,7 @@ print(f"KNN (handwritten) accuracy with k=5: {accuracy:.2%}")
 
 ```
 
-he result KNN (handwritten) accuracy with k=5: 88.00% tells us that your custom K-Nearest Neighbors classifier was able to correctly classify 88 out of 100 test observations using 5 neighbors for majority voting. This implies that the implementation is working correctly and producing results that align with expected behavior for KNN. The model achieves high accuracy on a nonlinear dataset, showing that KNN is well-suited to this problem. Using `k` = 5 provides a good balance between bias and variance and it's large enough to smooth over noise but small enough to capture the local structure around the nonlinear decision boundary.
+The result KNN (custom) accuracy with k=5: 88.00% tells us that your custom K-Nearest Neighbors classifier was able to correctly classify 88 out of 100 test observations using 5 neighbors for majority voting. This implies that the implementation is working correctly and producing results that align with expected behavior for KNN. The model achieves high accuracy on a nonlinear dataset, showing that KNN is well-suited to this problem. Using k = 5 provides a good balance between bias and variance and it's large enough to smooth over noise but small enough to capture the local structure around the nonlinear decision boundary.
 
 #### Visualizing the KNN algorithm's predictions
 
@@ -901,7 +902,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-The visualizations above allow us to evaluate the performance of our **handwritten K-Nearest Neighbors classifier (with \( k = 5 \))** on the test dataset.\
+The visualizations above allow us to evaluate the performance of our **handwritten K-Nearest Neighbors classifier (with k=5 )** on the test dataset.\
 
 - The **first plot** displays the predicted labels generated by our custom KNN implementation. Red points are predicted as class 1, and blue points as class 0.\
 - The **second row of plots** provides a side-by-side comparison of:\
@@ -941,7 +942,7 @@ plt.show()
 
 ```
 
-The plot above illustrates the **decision boundary** produced by our **handwritten KNN classifier** with \( k = 5 \). The feature space is divided into two regions:
+The plot above illustrates the **decision boundary** produced by our **handwritten KNN classifier** with k = 5. The feature space is divided into two regions:
 
 - The **blue region** corresponds to predicted class 1.
 - The **red region** corresponds to predicted class 0.
@@ -950,7 +951,7 @@ These shaded areas show how the model classifies any new point based on the **ma
 
 The **boundary line between the two regions is nonlinear and jagged**, which reflects the local nature of the KNN algorithm. Unlike linear models that impose a straight or smooth curve, KNN adapts closely to the shape of the training data, making it especially effective in cases with complex or oscillating patterns like the one in this dataset.
 
-Most training points lie correctly within their corresponding class region, indicating that the model is fitting the data well. Additionally, the balance between flexibility and generalization at \( k = 5 \) results in a decision surface that is smooth enough to avoid overfitting, while still responsive to the underlying nonlinear structure.
+Most training points lie correctly within their corresponding class region, indicating that the model is fitting the data well. Additionally, the balance between flexibility and generalization at `k` = 5 results in a decision surface that is smooth enough to avoid overfitting, while still responsive to the underlying nonlinear structure.
 
 This visualization confirms that KNN is capable of learning highly flexible boundaries and performs well when the data is not linearly separable.
 
@@ -983,7 +984,7 @@ print(f"KNN (scikit-learn) accuracy with k=5: {accuracy_sklearn:.2%}")
 
 ```
 
-The scikit-learn implementation of K-Nearest Neighbors achieved an accuracy of **88.00%** on the custom test dataset, using \( k = 5 \). This matches the accuracy of our handwritten KNN implementation, providing strong confirmation that both methods are functioning correctly.
+The scikit-learn implementation of K-Nearest Neighbors achieved an accuracy of **88.00%** on the custom test dataset, using k=5 . This matches the accuracy of our handwritten KNN implementation, providing strong confirmation that both methods are functioning correctly.
 
 This level of accuracy indicates that the KNN model is well-suited to the structure of our dataset, which features a **nonlinear, oscillating decision boundary**. By considering the 5 nearest neighbors for each prediction, the model is able to **smooth out local noise** while still capturing the underlying complexity of the decision surface.
 
@@ -1039,12 +1040,12 @@ These metrics show:
 
 The evaluation confirms that the **custom KNN implementation performs identically to scikit-learn's** in both predictive accuracy and class-level metrics. This validates not only the correctness of your handwritten logic but also its practical effectiveness on a challenging, nonlinear classification problem.
 
-These results demonstrate that KNN (with \( k = 5 \)) generalizes well, and that **both implementations are interchangeable** for this task.
+These results demonstrate that KNN (with k=5) generalizes well, and that **both implementations are interchangeable** for this task.
 
 
-### Evaluating K-Nearest Neighbors Across Multiple Values of \( k \)
+### Evaluating K-Nearest Neighbors Across Multiple Values of k
 
-#### Comparing accuracy across different values of \( k \) for both methods
+#### Comparing accuracy across different values of k for both methods
 
 ```{python}
 k_values = range(1, 31)
@@ -1072,34 +1073,30 @@ plt.show()
 ```
 
 
-The plot above compares the **classification accuracy** of the handwritten KNN implementation and scikit-learn’s `KNeighborsClassifier` as \( k \) ranges from 1 to 30.
+The plot above compares the **classification accuracy** of the handwritten KNN implementation and scikit-learn’s `KNeighborsClassifier` as k ranges from 1 to 30.
 
-Both implementations show a similar overall trend: accuracy peaks at lower values of \( k \) (around \( k = 3 \) to \( k = 5 \)), and then gradually declines as \( k \) increases. This behavior reflects the **bias-variance tradeoff** in KNN:
+Both implementations show a similar overall trend: accuracy peaks at lower values of k (around k = 3 to k = 5), and then gradually declines as k increases. This behavior reflects the **bias-variance tradeoff** in KNN:
 
-- Smaller \( k \) values tend to capture local decision boundaries more precisely, leading to **higher accuracy**, but may be more sensitive to noise.
-- Larger \( k \) values smooth out predictions by averaging over more points, which increases bias and can degrade performance, especially on complex, nonlinear boundaries like the one in this dataset.
+- Smaller k values tend to capture local decision boundaries more precisely, leading to **higher accuracy**, but may be more sensitive to noise.
+- Larger k values smooth out predictions by averaging over more points, which increases bias and can degrade performance, especially on complex, nonlinear boundaries like the one in this dataset.
 
-Notably, the handwritten implementation is slightly more stable at higher \( k \) values, while scikit-learn’s implementation fluctuates more — possibly due to tie-breaking behavior or minor differences in how distances are calculated or sorted.
+Notably, the handwritten implementation is slightly more stable at higher k values, while scikit-learn’s implementation fluctuates more — possibly due to tie-breaking behavior or minor differences in how distances are calculated or sorted.
 
-Overall, this plot confirms that both implementations are **functionally equivalent** and support the conclusion that an optimal value of \( k \) lies in the **low single digits**, with \( k = 5 \) being a reliable choice for this classification task.
+Overall, this plot confirms that both implementations are **functionally equivalent** and support the conclusion that an optimal value of k lies in the **low single digits**, with k = 5 being a reliable choice for this classification task.
 
-#### Optimal Value of \( k \)
+#### Optimal Value of k
 
-The plot above shows how **classification accuracy varies with \( k \)** for both the handwritten and scikit-learn KNN implementations. We observe the following:
+The plot above shows how **classification accuracy varies with k** for both the handwritten and scikit-learn KNN implementations. We observe the following:
 
-- **Accuracy is highest** around \( k = 3 \) to \( k = 5 \), reaching up to **90%**.
-- After \( k = 5 \), performance begins to **gradually decline**, indicating that higher values of \( k \) lead to **over-smoothing**, where local decision boundaries are lost.
-- The fluctuations in accuracy at higher \( k \) values suggest that KNN becomes less responsive to local patterns in the data as more neighbors are averaged.
+- **Accuracy is highest** around k = 3 to k = 5, reaching up to **90%**.
+- After k = 5, performance begins to **gradually decline**, indicating that higher values of k lead to **over-smoothing**, where local decision boundaries are lost.
+- The fluctuations in accuracy at higher k values suggest that KNN becomes less responsive to local patterns in the data as more neighbors are averaged.
 
-Based on the curve, the optimal value of \( k \) is approximately:
-
-\[
-k = \arg\max_k \text{Accuracy}(k) \approx 3 \text{ to } 5
-\]
+Based on the curve, the optimal value of k is approximately beween 3 to 5.
 
 This balances low bias and variance — capturing nonlinear structure without overfitting.
 
-To programmatically select the best \( k \):
+To programmatically select the best k:
 
 ```{python}
 # From previously computed accuracy list (acc_custom or acc_sklearn)
@@ -1115,11 +1112,11 @@ Both the handwritten and scikit-learn KNN implementations achieve their highest 
 
 ### Conclusion
 
-In this report, we explored the K-Nearest Neighbors (KNN) algorithm through both a **custom implementation** and scikit-learn’s `KNeighborsClassifier`, applied to a **nonlinear binary classification problem** with a wiggly decision boundary. We began by generating synthetic training and test datasets, labeling points based on their position relative to a nonlinear boundary defined by \( x_2 = \sin(4x_1) + x_1 \). We then implemented KNN from scratch, successfully predicting labels for new observations by identifying the majority class among the \( k \) nearest neighbors using Euclidean distance.
+In this report, we explored the K-Nearest Neighbors (KNN) algorithm through both a **custom implementation** and scikit-learn’s `KNeighborsClassifier`, applied to a **nonlinear binary classification problem** with a wiggly decision boundary. We began by generating synthetic training and test datasets, labeling points based on their position relative to a nonlinear boundary defined by x_2 = sin(4x_1) + x_1. We then implemented KNN from scratch, successfully predicting labels for new observations by identifying the majority class among the k nearest neighbors using Euclidean distance.
 
-Through detailed evaluation—including confusion matrices, classification reports, decision boundary visualizations, and accuracy curves—we confirmed that both implementations perform **equally well**, with an optimal value of \( k = 3 \). This consistency demonstrates both the **correctness** of the handwritten model and the **flexibility** of KNN in handling complex, non-linear classification tasks.
+Through detailed evaluation—including confusion matrices, classification reports, decision boundary visualizations, and accuracy curves—we confirmed that both implementations perform **equally well**, with an optimal value of k = 3. This consistency demonstrates both the **correctness** of the handwritten model and the **flexibility** of KNN in handling complex, non-linear classification tasks.
 
-Overall, the experiment highlights KNN’s strength as an intuitive, powerful algorithm capable of learning from data with intricate decision boundaries—while also reinforcing the importance of choosing the right \( k \) through both visual and quantitative evaluation.
+Overall, the experiment highlights KNN’s strength as an intuitive, powerful algorithm capable of learning from data with intricate decision boundaries—while also reinforcing the importance of choosing the right k through both visual and quantitative evaluation.
 
 
 
